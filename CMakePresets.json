@@ -90,6 +90,20 @@
     { "name": "x64-windows-sycl-release-f16", "inherits": [ "sycl-base", "release", "sycl_f16" ] },
 
     { "name": "x64-windows-vulkan-debug", "inherits": [ "base", "vulkan", "debug" ] },
-    { "name": "x64-windows-vulkan-release", "inherits": [ "base", "vulkan", "release" ] }
+    { "name": "x64-windows-vulkan-release", "inherits": [ "base", "vulkan", "release" ] },
+
+    {
+        "name": "gfx1101-hip-release",
+        "inherits": [ "base", "release" ],
+        "cacheVariables": {
+            "GGML_HIP": "ON",
+            "GPU_TARGETS": "gfx1101",
+            "CMAKE_HIP_ARCHITECTURES": "gfx1101"
+        }
+    },
+    {
+        "name": "gfx1101-vulkan-release",
+        "inherits": [ "base", "vulkan", "release" ]
+    }
   ]
 }
