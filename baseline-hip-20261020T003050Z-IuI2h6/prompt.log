@@ -1,0 +1,16 @@
+ggml_cuda_init: found 1 ROCm devices (Total VRAM: 16368 MiB):
+  Device 0: AMD Radeon RX 7800 XT, gfx1101 (0x1101), VMM: no, Wave Size: 32, VRAM: 16368 MiB
+llama-bench: benchmark 1/2: starting
+llama-bench: benchmark 1/2: warmup prompt run
+llama-bench: benchmark 1/2: prompt run 1/5
+llama-bench: benchmark 1/2: prompt run 2/5
+llama-bench: benchmark 1/2: prompt run 3/5
+llama-bench: benchmark 1/2: prompt run 4/5
+llama-bench: benchmark 1/2: prompt run 5/5
+llama-bench: benchmark 2/2: starting
+llama-bench: benchmark 2/2: warmup prompt run
+llama-bench: benchmark 2/2: prompt run 1/5
+llama-bench: benchmark 2/2: prompt run 2/5
+llama-bench: benchmark 2/2: prompt run 3/5
+llama-bench: benchmark 2/2: prompt run 4/5
+llama-bench: benchmark 2/2: prompt run 5/5
