@@ -1,0 +1,10 @@
+[1/10] Linking HIP shared library bin/libggml-hip.so.0.27.0
+[2/10] Creating library symlink bin/libggml-hip.so.0 bin/libggml-hip.so
+[3/10] Linking CXX shared library bin/libggml.so.0.27.0
+[4/10] Creating library symlink bin/libggml.so.0 bin/libggml.so
+[5/10] Linking CXX shared library bin/libllama.so.0.7.0
+[6/10] Creating library symlink bin/libllama.so.0 bin/libllama.so
+[7/10] Linking CXX shared library bin/libllama-common.so.0.7.0
+[8/10] Creating library symlink bin/libllama-common.so.0 bin/libllama-common.so
+[9/10] Linking CXX shared library bin/libllama-bench-impl.so
+[10/10] Linking CXX executable bin/llama-bench
