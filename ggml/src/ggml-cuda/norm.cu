@@ -1,4 +1,5 @@
 #include "norm.cuh"
+#include "unary.cuh"
 #include <cstdint>
 
 template <int block_size>
@@ -81,7 +82,7 @@ static __global__ void group_norm_f32(const float * x, float * dst, const int gr
     }
 }
 
-template <int block_size, int vpt, bool do_vec, bool do_multiply = false, bool do_add = false, bool do_scale = false>
+template <int block_size, int vpt, bool do_vec, bool do_multiply = false, bool do_add = false, bool do_scale = false, bool do_silu_gate = false>
 static __global__ void rms_norm_f32(const float * x,
                                     float *       dst,
                                     const int     ncols,
@@ -107,7 +108,8 @@ static __global__ void rms_norm_f32(const float * x,
                                     const uint3   add_nrows_packed     = make_uint3(0, 0, 0),
                                     const uint3   add_nchannels_packed = make_uint3(0, 0, 0),
                                     const uint3   add_nsamples_packed  = make_uint3(0, 0, 0),
-                                    const float   scale_out            = 1.0f) {
+                                    const float   scale_out            = 1.0f,
+                                    const float * gate                 = nullptr) {
     ggml_cuda_pdl_lc();
     const int nrows = gridDim.x;
     const int row   = blockIdx.x;
@@ -115,6 +117,7 @@ static __global__ void rms_norm_f32(const float * x,
 
     static_assert(!do_add || do_multiply, "fusing add is not supported without multiplying");
     static_assert(!do_scale || !do_multiply, "fusing scale is not supported with multiplying");
+    static_assert(!do_silu_gate || (do_multiply && !do_add && !do_scale), "gated normalization requires weights only");
 
     extern __shared__ float s_sum[];
 
@@ -148,6 +151,7 @@ static __global__ void rms_norm_f32(const float * x,
                 const float4 * mul4   = (const float4 *) mulc;
                 const float4 * add4   = (const float4 *) addc;
                 float4 *       dst4   = (float4 *) dstc;
+                [[maybe_unused]] const float * gatec = do_silu_gate ? gate + ((int64_t(sample)*nchannels + channel)*nrows + row)*ncols : nullptr;
 
                 float4 xs[vpt];
                 float  tmp = 0.0f;
@@ -188,6 +192,12 @@ static __global__ void rms_norm_f32(const float * x,
                             r.z *= scale_out;
                             r.w *= scale_out;
                         }
+                        if constexpr (do_silu_gate) {
+                            r.x *= ggml_cuda_op_silu_single(gatec[4*i + 0]);
+                            r.y *= ggml_cuda_op_silu_single(gatec[4*i + 1]);
+                            r.z *= ggml_cuda_op_silu_single(gatec[4*i + 2]);
+                            r.w *= ggml_cuda_op_silu_single(gatec[4*i + 3]);
+                        }
                         dst4[i] = r;
                     }
                 }
@@ -206,7 +216,11 @@ static __global__ void rms_norm_f32(const float * x,
                 const float scale = rsqrtf(mean + eps);
 
                 for (int col = tid; col < ncols; col += block_size) {
-                    if constexpr (do_multiply && do_add) {
+                    if constexpr (do_silu_gate) {
+                        const int mul_col = fastmodulo(col, mul_ncols_packed);
+                        const int64_t gate_idx = ((int64_t(sample)*nchannels + channel)*nrows + row)*ncols + col;
+                        dstc[col] = (scale * xc[col] * mulc[mul_col]) * ggml_cuda_op_silu_single(gate[gate_idx]);
+                    } else if constexpr (do_multiply && do_add) {
                         const int mul_col = fastmodulo(col, mul_ncols_packed);
                         const int add_col = fastmodulo(col, add_ncols_packed);
                         dstc[col]         = scale * xc[col] * mulc[mul_col] + addc[add_col];
@@ -387,15 +401,15 @@ static void group_norm_f32_cuda(
     do { \
         const dim3 block_dims(BLOCK_SIZE, 1, 1); \
         const ggml_cuda_kernel_launch_params launch_params{ blocks_num, block_dims, block_dims.x > WARP_SIZE ? 32 * sizeof(float) : 0, stream }; \
-        ggml_cuda_kernel_launch(rms_norm_f32<BLOCK_SIZE, VPT, VEC, do_multiply, do_add, do_scale>, launch_params, \
+        ggml_cuda_kernel_launch(rms_norm_f32<BLOCK_SIZE, VPT, VEC, do_multiply, do_add, do_scale, do_silu_gate>, launch_params, \
             x, dst, ncols, nchannels, nsamples, stride_row, stride_channel, stride_sample, eps, \
             mul, mul_stride_row, mul_stride_channel, mul_stride_sample, \
             mul_ncols_packed, mul_nrows_packed, mul_nchannels_packed, mul_nsamples_packed, \
             add, add_stride_row, add_stride_channel, add_stride_sample, \
-            add_ncols_packed, add_nrows_packed, add_nchannels_packed, add_nsamples_packed, scale_out); \
+            add_ncols_packed, add_nrows_packed, add_nchannels_packed, add_nsamples_packed, scale_out, gate); \
     } while (0)
 
-template <bool do_multiply, bool do_add, bool do_scale>
+template <bool do_multiply, bool do_add, bool do_scale, bool do_silu_gate = false>
 static void rms_norm_f32_dispatch(
         const dim3     blocks_num,
         const ggml_tensor * x_t,   float * dst,   const int ncols, const int nchannels, const int nsamples,
@@ -404,7 +418,7 @@ static void rms_norm_f32_dispatch(
         const uint3    mul_ncols_packed, const uint3 mul_nrows_packed, const uint3 mul_nchannels_packed, const uint3 mul_nsamples_packed,
         const ggml_tensor * add_t, const int64_t add_stride_row, const int64_t add_stride_channel, const int64_t add_stride_sample,
         const uint3    add_ncols_packed, const uint3 add_nrows_packed, const uint3 add_nchannels_packed, const uint3 add_nsamples_packed,
-        cudaStream_t   stream, const float scale_out = 1.0f) {
+        cudaStream_t   stream, const float scale_out = 1.0f, const float * gate = nullptr) {
     static_assert(!do_add || do_multiply, "fusing add is not supported without multiplying");
     static_assert(!do_scale || !do_multiply, "fusing scale is not supported with multiplying");
 
@@ -691,6 +705,31 @@ void ggml_cuda_op_rms_norm_fused(ggml_backend_cuda_context & ctx, ggml_tensor * 
                           /*add_s00*/ 0, 0, 0,
                           0, 0, 0, 0,
                           eps, stream);
+}
+
+void ggml_cuda_op_rms_norm_silu_gate(ggml_backend_cuda_context & ctx, ggml_tensor * norm,
+                                   ggml_tensor * weighted, ggml_tensor * silu, ggml_tensor * dst) {
+    const ggml_tensor * input = norm->src[0];
+    const ggml_tensor * weight = weighted->src[0] == norm ? weighted->src[1] : weighted->src[0];
+    const ggml_tensor * gate = silu->src[0];
+    const uint3 one = init_fastdiv_values(1);
+    const uint3 zero = make_uint3(0, 0, 0);
+    float eps;
+    memcpy(&eps, norm->op_params, sizeof(eps));
+
+    GGML_ASSERT(input->type == GGML_TYPE_F32 && weight->type == GGML_TYPE_F32 && gate->type == GGML_TYPE_F32);
+    GGML_ASSERT(ggml_is_contiguous_rows(input) && ggml_is_contiguous(weight) && ggml_is_contiguous(gate));
+    GGML_ASSERT(ggml_are_same_shape(input, gate) && ggml_are_same_shape(input, dst));
+    GGML_ASSERT(ggml_is_vector(weight) && weight->ne[0] == input->ne[0]);
+    GGML_ASSERT(eps >= 0.0f);
+
+    const dim3 blocks(input->ne[1], MIN(input->ne[2], UINT16_MAX), MIN(input->ne[3], UINT16_MAX));
+    rms_norm_f32_dispatch<true, false, false, true>(
+        blocks, input, (float *) dst->data, input->ne[0], input->ne[2], input->ne[3],
+        input->nb[1] / sizeof(float), input->nb[2] / sizeof(float), input->nb[3] / sizeof(float), eps,
+        weight, 0, 0, 0, init_fastdiv_values(weight->ne[0]), one, one, one,
+        nullptr, 0, 0, 0, zero, zero, zero, zero,
+        ctx.stream(), 1.0f, (const float *) gate->data);
 }
 
 void ggml_cuda_op_rms_norm_fused_add(ggml_backend_cuda_context & ctx,

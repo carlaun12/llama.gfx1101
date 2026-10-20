@@ -3779,6 +3779,57 @@ struct test_rms_norm : public test_case {
     }
 };
 
+struct test_rms_norm_silu_gate : public test_case {
+    const std::array<int64_t, 4> ne;
+    const bool view_input;
+    const bool view_gate;
+    const bool weight_vector;
+    const bool reuse_norm;
+    const bool swap_operands;
+
+    test_rms_norm_silu_gate(std::array<int64_t, 4> ne, bool view_input = false, bool view_gate = false,
+                           bool weight_vector = true, bool reuse_norm = false, bool swap_operands = false)
+        : ne(ne), view_input(view_input), view_gate(view_gate), weight_vector(weight_vector),
+          reuse_norm(reuse_norm), swap_operands(swap_operands) {}
+
+    std::string op_desc(ggml_tensor *) override { return "RMS_NORM_SILU_GATE"; }
+    bool run_whole_graph() override { return true; }
+
+    std::string vars() override {
+        return VARS_TO_STR6(ne, view_input, view_gate, weight_vector, reuse_norm, swap_operands);
+    }
+
+    ggml_tensor * build_graph(ggml_context * ctx) override {
+        auto * input = ggml_new_tensor(ctx, GGML_TYPE_F32, 4, ne.data());
+        auto * weight = weight_vector ? ggml_new_tensor_1d(ctx, GGML_TYPE_F32, ne[0])
+                                     : ggml_new_tensor(ctx, GGML_TYPE_F32, 4, ne.data());
+        auto gate_ne = ne;
+        gate_ne[0] *= view_gate ? 2 : 1;
+        auto * gate = ggml_new_tensor(ctx, GGML_TYPE_F32, 4, gate_ne.data());
+        if (view_gate) {
+            gate = ggml_view_4d(ctx, gate, ne[0], ne[1], ne[2], ne[3], gate->nb[1], gate->nb[2], gate->nb[3], 0);
+        }
+
+        // Visit external operands before the fusion pattern, as in the model graph.
+        input = ggml_add(ctx, ggml_add(ctx, input, weight), gate);
+        if (view_input) {
+            input = ggml_pad(ctx, input, ne[0], 0, 0, 0);
+            input = ggml_view_4d(ctx, input, ne[0], ne[1], ne[2], ne[3], input->nb[1], input->nb[2], input->nb[3], 0);
+        }
+        auto * norm = ggml_rms_norm(ctx, input, 1e-6f);
+        auto * weighted = swap_operands && !weight_vector ? ggml_mul(ctx, weight, norm) : ggml_mul(ctx, norm, weight);
+        auto * silu = ggml_silu(ctx, gate);
+        auto * out = swap_operands ? ggml_mul(ctx, silu, weighted) : ggml_mul(ctx, weighted, silu);
+        return reuse_norm ? ggml_add(ctx, out, norm) : out;
+    }
+
+    void initialize_tensors(ggml_context * ctx) override {
+        for (auto * tensor = ggml_get_first_tensor(ctx); tensor; tensor = ggml_get_next_tensor(ctx, tensor)) {
+            init_tensor_uniform(tensor, -20.0f, 20.0f);
+        }
+    }
+};
+
 // GGML_OP_RMS_NORM_BACK
 struct test_rms_norm_back : public test_case {
     const ggml_type type;
@@ -10532,6 +10583,18 @@ static std::vector<std::unique_ptr<test_case>> make_test_cases_eval() {
 
     // in-place tests
     test_cases.emplace_back(new test_rms_norm(GGML_TYPE_F32, {64, 5, 4, 3}, false, 1e-6f, true));
+
+    for (int64_t width : { 3, 128, 129, 512 }) {
+        test_cases.emplace_back(new test_rms_norm_silu_gate({ width, 48, 1, 1 }));
+        test_cases.emplace_back(new test_rms_norm_silu_gate({ width, 48, 17, 2 }));
+    }
+    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, true));
+    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, false, true));
+    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, false, false, false));
+    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, false, false, true, true));
+    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, false, false, true, false, true));
+    test_cases.emplace_back(new test_rms_norm_silu_gate({ 4, 1, 65536, 1 }));
+    test_cases.emplace_back(new test_rms_norm_silu_gate({ 4, 1, 1, 65536 }));
     // shapes below exceed the CUDA gridDim.y/gridDim.z limit of 65535 (#27901)
     test_cases.emplace_back(new test_norm        (GGML_TYPE_F32, {4, 1, 65536, 1}, false, 1e-6f));
     test_cases.emplace_back(new test_rms_norm    (GGML_TYPE_F32, {4, 1, 65536, 1}, false, 1e-6f, false));
@@ -11943,6 +12006,20 @@ static std::vector<std::unique_ptr<test_case>> make_test_cases_eval() {
                 }
             }
         }
+    }
+
+    for (int64_t k : { 256, 5120, 17408 }) {
+        for (int64_t n : { 1, 63, 64, 65 }) {
+            for (bool with_gate : { false, true }) {
+                test_cases.emplace_back(new test_mul_mat_vec_fusion(GGML_TYPE_IQ3_XXS, GGML_GLU_OP_SWIGLU,
+                    1, n, k, false, 1, 1, false, !with_gate, with_gate, false, {1, 1}));
+            }
+        }
+    }
+
+    for (bool with_gate : { false, true }) {
+        test_cases.emplace_back(new test_mul_mat_vec_fusion(GGML_TYPE_IQ3_XXS, GGML_GLU_OP_SWIGLU,
+            1, 63, 5120, true, 3, 2, false, !with_gate, with_gate, false, {1, 1}));
     }
 
     for (bool b : {false, true}) {

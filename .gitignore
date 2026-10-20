@@ -153,3 +153,6 @@ a.out.*
 
 AGENTS.local.md
 .pi/SYSTEM.md
+
+# Uncompressed local profiler trace; the gzip archive is versioned.
+/profile-hip-20261020T005155Z-ZzsihC/trace/generation_kernel_trace.csv
