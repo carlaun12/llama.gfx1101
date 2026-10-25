@@ -69,13 +69,13 @@ Esses valores não incluem estados recorrentes GDN, overhead de buffers e eventu
 
 ## Resultados e descobertas
 
-**Estado:** perfil documental. Não foi feito download/parse completo do GGUF, build ROCm, execução, perfilamento ou medição de A/B na placa do usuário.
+**Estado:** perfil documental. Não foi feito download/parse completo do GGUF, build ROCm, execução, perfilamento ou medição de A/B na placa do usuário. Nada disso será solicitado para este projeto de pesquisa.
 
 | Data | Build | Contexto | Quant KV | MTP | Offload | Pico VRAM | pp t/s | tg t/s | Erro/pureza |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Pendente | - | - | - | - | - | Não medido | Não medido | Não medido | Não verificado |
 
-**Método futuro:** comparar implementações **sobre este mesmo GGUF**. Não usar a KLD publicada vs BF16 como limite de erro da otimização de kernel. Medir plain, MTP fixo e MTP adaptativo, `W=1..8` com prefixo >=4096 para garantir cobertura de branches, prefill/decode, VRAM e aceite de tokens. Executável somente pelo usuário; agentes fazem revisão remota.
+**Método exclusivo da pesquisa:** comparar por leitura das fontes os dispatchers plain/MTP, analisar a aritmética e o contrato de estado, estimar bytes e dependências e classificar fontes publicadas como evidência externa. Não pedir execução, logs, testes, builds ou benchmarks. A KLD da ficha pública compara o GGUF com BF16 e não pode ser usada para inferir erro de um kernel.
 
 ## Fontes
 

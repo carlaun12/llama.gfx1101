@@ -15,26 +15,26 @@ Este diretório reúne propostas independentes para avaliar a integração selet
 
 | Prioridade | Linha de trabalho | Critério de avanço |
 | --- | --- | --- |
-| 0 | Baseline de residência real na GPU; `none` contra `draft-mtp`; cobertura e pureza | Relatos do usuário, hashes e logs de execução |
+| 0 | Leitura documental de arquitetura, quantização, MTP e políticas de dispatch | Metadados públicos e código-fonte congelado |
 | 1 | [MMVQ IQ misto RCO](mmvq-iq-mistos-rco.md) | Identificar por peso/shape quais IQ dominam decode e o dispatch que executa |
-| 2 | [GDN chunked FP32](gdn-chunked-gfx1101.md) | Correção de prefill e rollback MTP; medir antes de BF16 |
-| 3 | [MTP adaptativo](mtp-adaptativo.md) e [head reduzido](mtp-vocabulario-reduzido.md) | Aceitação real e orçamento de VRAM do head embutido |
+| 2 | [GDN chunked FP32](gdn-chunked-gfx1101.md) | Estudar recorrência, snapshots e dependências do grafo |
+| 3 | [MTP adaptativo](mtp-adaptativo.md) e [head reduzido](mtp-vocabulario-reduzido.md) | Verificar contratos, custos teóricos e dependências do head embutido |
 | 4 | [Flash Attention e KV nativo](flash-attention-kv-nativo.md) | Relevância em contexto longo e preservação da pureza de verify |
 | 5 | [Fusões GDN/norm/conv](fusoes-gdn-conv-moe.md) | Subgrafo presente e ainda não fundido |
-| 6 | [MMVQ Q4_K VDR4](mmvq-q4k-q6k-vdr.md) e [MMB](mmb-gemm-quantizado.md) | Ganho comprovável sobre os poucos tensores compatíveis |
+| 6 | [MMVQ Q4_K VDR4](mmvq-q4k-q6k-vdr.md) e [MMB](mmb-gemm-quantizado.md) | Aplicabilidade por tipo/shape e análise de custo sem execução |
 | Fora do escopo | [Cache de especialistas MoE](cache-especialistas-moe.md) | Exige escolher outro GGUF MoE |
 
 **<a name="profile"></a>Perfil técnico e custos teóricos de KV:** [MODELO-ALVO.md](MODELO-ALVO.md). [Origem dos metadados e tipos](https://huggingface.co/ajgazin/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-GGUF); [configuração oficial Qwen](https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/config.json).
 
-**Limites:** os agentes não têm acesso ao arquivo local, à máquina do usuário ou a uma GPU em nuvem. Estimativa arquitetural ou qualidade publicada não é benchmark de gfx1101. Os resultados de A/B devem comparar **o mesmo GGUF**; a ficha do publicador compara a quantização com BF16, uma pergunta diferente.
+**Escopo exclusivo:** pesquisa remota por documentos, repositórios públicos, leitura de código e demonstrações matemáticas. Não requisitar execução na máquina do usuário, logs, benchmarks, scripts de teste, builds ou instrumentação. A seção **Resultados** é dedicada aos resultados documentais, conclusões e descobertas, não a medições locais. Benchmarks públicos podem ser citados como evidência externa com hardware, fonte e condições, nunca como medições em gfx1101.
 
 
 ## Regras deste repositório de pesquisa
 
 1. **Uma proposta por arquivo `.md`**, com nome que identifique a otimização.
-2. Cada documento contém: **Sobre a proposta**, **Ganhos estimados**, **Resultados**, **Descobertas e observações**, **Riscos, correção e fallback**, **Plano de validação**, **Próximos passos**, **Referências** e **Histórico**.
+2. Cada documento contém: **Sobre a proposta**, **Ganhos estimados**, **Resultados da pesquisa**, **Descobertas e observações**, **Riscos e fallback**, **Verificação documental**, **Próximos passos**, **Referências** e **Histórico**. Títulos históricos podem permanecer; o conteúdo novo deve seguir esta metodologia.
 3. **Estimativas não são resultados.** Sem benchmark na RX 7800 XT, não atribuir porcentagem de ganho ao gfx1101. Estimativas qualitativas devem declarar hipóteses, limitações e regime de carga.
-4. Resultados somente após coleta efetiva de dados, com commits, GGUF/hash, quantização, flags, GPU, modelo, método e logs associados.
+4. Resultados incluem provas de equivalência, limites matemáticos, diferenças de código comprovadas, mapas de dependência, estimativas condicionais e riscos. Especificar fontes, SHAs e hipóteses. Não preencher campos de ganho observado sem evidência externa verificável, nunca inventar speedup.
 5. Resultados de gfx1100, gfx1151 ou gfx1201 são **evidências externas**, nunca medidas de gfx1101.
 6. Os quatro agentes desta pesquisa podem consultar repositórios e documentação remota, mas **não têm acesso à máquina local nem ambiente de execução de GPU na nuvem**. Não atribuir a eles testes, benchmarks ou builds que não ocorreram.
 7. As propostas nesta branch são documentação e análise; não significam implementação, aprovação, alteração da `master` ou adoção como default.
@@ -63,27 +63,22 @@ As quatro frentes de investigação foram executadas como análises de código e
 | 1. Diferenças e dependências | Identificação dos seletores MMVQ separados, do parâmetro `n_rs_batch` e do contrato de staging FA | MMVQ, GDN e Flash Attention |
 | 2. Kernels gfx1101 | Pareamento obrigatório entre dot Q4_K VDR4, VDR host/device e K-split; política de warps como experiência distinta | MMVQ |
 | 3. Qwen3.5 e recorrência | Condições de GDN chunked FP32, tail sequencial, snapshots e riscos de BF16/WMMA | GDN e MTP |
-| 4. Correção/benchmarks | Contrato de proveniência e critérios de A/A, W=1..8, P>=4096, fallback e benchmark A/B | Protocolo abaixo |
+| 4. Correção por análise | Invariantes matemáticos, ordem de redução, contratos de rollback e alcance real dos guards/dispatchers | Metodologia abaixo |
 
-### Protocolo mínimo de resultados
+### Metodologia de pesquisa documental (a partir de 25/10/2026)
 
-Os agentes **não podem executar** comandos na máquina do usuário. O usuário pode executar depois os testes a partir da sua instalação ou fornecer logs, que devem ser anexados ao respectivo documento.
+**Não realizar nem solicitar testes reais, comandos locais, GPU na nuvem, builds, benchmarks, logs ou scripts de execução.** Comparações de performance disponíveis publicamente permanecem dados de terceiros; não são resultados reproduzidos nesta pesquisa.
 
-Antes de aceitar um resultado, registrar:
+1. Fixar os commits exatos de `carlaun12/llama.gfx1101` e `stew675/llama.cpp` para cada comparação, com URL do arquivo e símbolo relevante.
+2. Extrair formatos e shapes do manifesto público; separar contagem de tensores, bytes teóricos e custo em operações. Não inferir dominância temporal apenas por contagem.
+3. Classificar cada proposta como **correção/equivalência verificável em código**, **viabilidade arquitetural**, **otimização plausível** ou **benefício numérico desconhecido**.
+4. Demonstrar, quando possível, bounds de inteiros, layouts, dependências de estado, contratos de cache e alcance de `#if`/dispatch com base no código. Se uma propriedade depende do compilador HIP, declarar essa dependência.
+5. Comparar caminhos densos `MUL_MAT`, roteados `MUL_MAT_ID` e `FLASH_ATTN_EXT` separadamente. Não transferir limites ou resultados de um dispatcher para outro.
+6. Para logits, MTP e recorrência, identificar por inspeção possíveis diferenças de arredondamento/redução entre `W=1` e `W=2..8` ou entre sequências. Não alegar pureza observada.
+7. Apresentar ganhos somente como **estimativas teóricas condicionais** e, se houver publicação externa relevante, reportar fonte, hardware e carga exatamente, sem extrapolar percentuais para gfx1101.
+8. Ao atualizar um `.md`, utilizar **Resultados** para descobertas confirmadas da pesquisa, separar conjecturas e registrar o histórico. Toda proposta precisa permitir implementação seletiva e fallback, caso seja adotada futuramente.
 
-1. Commit completo da versão A e B, Git dirty state, build flags reais de gfx1101, ROCm/HIP e versão do driver.
-2. Hash de cada GGUF, quantização, arquitetura, contexto real, KV K/V, camadas efetivamente offloaded, batch/ubatch e flags de especulação.
-3. Sequência A/A (mesmo binário duas vezes) para medir ruído e determinismo do instrumento; depois A/B intercalado em múltiplos processos, com aquecimento.
-4. Separar `llama-bench` pp512/pp2048/pp8192, decode tg128/tg512 e contexto previamente utilizado. Não assumir que `-ngl 99` significa residência total.
-5. Confirmar que o kernel novo foi **de fato selecionado**, por logs/instrumentação de dispatcher, não só pelo código compilado.
-6. `test-backend-ops` nas operações tocadas; KLD/perplexidade quando houver mudança em matemática; prova de `W=1..8` com `P>=4096` onde houver band/verify, além do caso P=256 como controle negativo.
-7. Guardar amostras brutas, mediana, dispersão robusta, IC quando houver repetições suficientes, VRAM de pico observado e texto/hash de referência.
-8. Não preencher a coluna de ganhos observados apenas por estimativa, cálculo de largura de banda ou resultados de gfx1100/gfx1151/gfx1201.
-
-O teste de prefill da origem adotou limites de mean KLD <=0,005 e same-top-p >=98% **dentro da família de kernel e com controle A/A estável**. Esses números não devem ser importados cegamente quando a variância intrínseca de um GGUF já ultrapassa o limiar.
-
-**Ferramentas existentes verificadas no destino:** `llama-bench` com `-o jsonl` e `-d` para profundidade; `test-backend-ops`. Um probe W=1..8 equivalente ao da origem não foi identificado como componente compilado do destino na primeira auditoria; será necessário portar/adaptar o instrumento antes de afirmar pureza.
-
+**Rodada documental de 25/10/2026:** a análise de [MMVQ para RCO IQ misto](mmvq-iq-mistos-rco.md) compara `apply_ksigns`, `ggml_cuda_mul_small`, domínios das tabelas `IQ2/IQ3` e o desvio de escopo entre `MUL_MAT` e `MUL_MAT_ID`.
 
 ## Estado da pesquisa
 

@@ -47,6 +47,12 @@ Objetivo: otimizar tokens de saída efetivamente confirmados, não apenas a velo
 Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos posteriormente pelo usuário. Não inserir números hipotéticos nessa tabela.
 
 
+## Resultado adicional de pesquisa: Q6_K e a largura MTP (25/10/2026)
+
+O publicador aloca os **oito tensores Q6_K** no head MTP do `blk.64`. Ao contrário da quantização IQ das matrizes principais, esse caminho exige inspeção separada: o destino [`mmvq.cu`](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/mmvq.cu) escolhe **2 warps para Q6_K com `ncols_dst == 1` e 1 warp para outras larguras** na política RDNA3_0. A [origem](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/mmvq-rdna.cuh) propõe uma configuração diferente para a banda de decode/verify.
+
+**Limite:** a diferença de warps é um fato de código, não demonstra divergência de logits ou uso obrigatório do caminho MMVQ em todas as fases do MTP. Nem toda operação `Q6_K` é decode e as larguras escolhidas pelo dispatcher precisam ser entendidas por leitura do grafo. Priorizar mapeamento de dispatch, contrato de estado e estimativas de custo, nunca testes locais.
+
 ## Descobertas e observações
 
 - O destino implementa MTP básico; não é necessário recriar `qwen35` ou o grafo de draft.

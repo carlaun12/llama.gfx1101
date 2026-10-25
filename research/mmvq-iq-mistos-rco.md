@@ -23,13 +23,70 @@ O destino contém implementação e dispatch dos dot products `vec_dot_iq3_s_q8_
 
 **Evidência já verificada no repositório:** no destino, `vecdotq.cuh` declara VDR=2 para IQ3_S, IQ3_XXS, IQ2_S, IQ2_XS e IQ2_XXS; VDR=4 para IQ4_XS. As configurações não autorizam prever uma melhoria mudando esses números arbitrariamente.
 
-## Resultados
+## Resultados da pesquisa
 
-Nenhum kernel foi recompilado ou medido em gfx1101. Nenhum número de ganho será preenchido até receber medições reais.
+### Resultado documental 1 - delta exato de vecdotq.cuh (25/10/2026)
 
-| Data | Tipo IQ | Tensor/shape | Dispatch A/B | W/contexto | latência A | latência B | Ganho observado | Log e pureza |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Pendente | - | - | - | - | - | - | Não medido | Não verificado |
+Versões comparadas: [destino `vecdotq.cuh` em `31288c9c66e59377f7788d920678a565bb89dd37`](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/vecdotq.cuh) e [origem `vecdotq.cuh` em `e8bd52069ca0`](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/vecdotq.cuh). Esta é comparação estática dos corpos dos operadores, não compilação ou medição.
+
+| Operador | Mudança material na origem | Interpretação |
+| --- | --- | --- |
+| `vec_dot_iq3_s_q8_1` | `__vcmpne4` + `__vsub4` por byte de sinais -> `apply_ksigns`; produto por escala via `ggml_cuda_mul_small` | Candidato forte por simplicidade e presença de 97 tensores IQ3_S |
+| `vec_dot_iq3_xxs_q8_1` | Mesma substituição de sinais e multiplicação pequena do acumulador | Candidato forte para 83 tensores IQ3_XXS |
+| `vec_dot_iq2_s_q8_1` | Mesmo helper de sinais, 2 produtos por escala com `ggml_cuda_mul_small` | Candidato para 72 tensores |
+| `vec_dot_iq2_xs_q8_1` | Mesmo helper de sinais, 2 produtos por escala com `ggml_cuda_mul_small` | Candidato para 32 tensores |
+| `vec_dot_iq2_xxs_q8_1` | Mesmo helper de sinais e produto por escala com `ggml_cuda_mul_small` | Candidato para 30 tensores |
+| `vec_dot_iq4_xs_q8_1` | O lookup HIP já usa `__builtin_amdgcn_perm` no destino; a diferença concreta do corpo do operador é a multiplicação da escala por `ggml_cuda_mul_small` | Não duplicar trabalho com lookup já presente; estudar somente produto pequeno e dispatch |
+
+**Observação:** o helper `ggml_cuda_mul_small` chama `__mul24(a,b)` sob HIP e `a*b` nas demais plataformas. O cabeçalho do destino não implementa esse helper. O HIP documenta `__mul24` para operandos inteiros **com sinal** de 24 bits; isso demonstra a semântica especificada, mas não comprova throughput ou código de máquina em gfx1101.
+
+### Resultado documental 2 - prova de validade do helper de sinais
+
+O novo `apply_ksigns(grid, signs, shift)` gera uma máscara de 1 bit no bit zero de cada byte selecionado, computa `grid XOR (0xFF por byte selecionado)`, depois soma 1 por byte selecionado:
+
+```c
+const uint32_t lsb = (((signs >> shift) & 0x0F) * 0x00204081) & 0x01010101;
+return (grid ^ (lsb * 0xFF)) + lsb;
+```
+
+Para byte não selecionado, o valor é mantido. Para byte selecionado de valor positivo `g` em `[1,127]`, o byte resultante é `(~g + 1) mod 256 = -g mod 256`; como `g != 0`, a adição não carrega para o byte seguinte. É a mesma representação de byte com sinal do caminho `__vcmpne4/__vsub4`, desde que a ordem dos quatro bits de sinal corresponda ao layout do formato, como nos seletores da origem.
+
+**Domínios extraídos das tabelas de constantes publicadas em [`ggml-common.h` do destino](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-common.h):**
+
+| Grade | Entradas | Menor byte | Maior byte | Zero presente? |
+| --- | ---: | ---: | ---: | --- |
+| `iq2xxs_grid` | 256 | 8 | 43 | Não |
+| `iq2xs_grid` | 512 | 8 | 43 | Não |
+| `iq2s_grid` | 1024 | 8 | 43 | Não |
+| `iq3xxs_grid` | 256 | 4 | 62 | Não |
+| `iq3s_grid` | 512 | 1 | 15 | Não |
+
+A verificação foi feita por **leitura das constantes hexadecimais**, sem executar kernel ou código HIP. O domínio é fundamental: se o helper fosse reaproveitado para outra tabela com zeros, a prova deixaria de valer.
+
+### Resultado documental 3 - limites suficientes para `__mul24`
+
+Para os operadores acima, cada `ggml_cuda_dp4a` processa quatro produtos `int8 x int8`. Um bound conservador é `4 * max_abs_grade * 128` por chamada, usando o limite de módulo 128 para cada valor de `Q8_1`. Cada função considerada efetua oito chamadas por grupo completo, com somas separadas em dois acumuladores em `IQ2_S` e `IQ2_XS`.
+
+| Formato | `max_abs_grade` | Bound de `abs(soma)` completa | Maior fator de escala inteiro | Bound do produto |
+| --- | ---: | ---: | ---: | ---: |
+| IQ3_S | 15 | 61.440 | 31 | 1.904.640 |
+| IQ3_XXS | 62 | 253.952 | 15 | 3.809.280 |
+| IQ2_S / IQ2_XS | 43 | 176.128 (dois acumuladores de 88.064) | 15 por acumulador | 1.320.960 por termo |
+| IQ2_XXS | 43 | 176.128 | 31 | 5.459.968 |
+| IQ4_XS | 127 (da tabela `kvalues_iq4nl`) | 520.192 | `abs(ls-32) <= 32` | 16.646.144 |
+
+Todos os **operandos** de cada `__mul24` proposto estão dentro do intervalo de inteiros assinados de 24 bits (`[-2^23, 2^23-1]`) e os **produtos** cabem em `int32`; não se espera truncamento em comparação com `a*b` nesses casos. Isso sustenta equivalência da multiplicação, **não** identidade total de logits em todos os caminhos, nem ganho do compilador. Os bounds são conservadores e pressupõem os layouts de grade e Q8_1 documentados no código examinado.
+
+**Fonte de semântica:** [HIP Math API - `__mul24`](https://rocmdocs.amd.com/projects/HIP/en/develop/reference/math_api.html).
+
+### Resultado documental 4 - separar os dispatchers
+
+O destino [`mmvq.cu`](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/mmvq.cu) contém `get_mmvq_mmid_max_batch_rdna3()`, que limita batch do operador **`MUL_MAT_ID` (especialistas roteados)**, não o matvec denso `MUL_MAT`. Assim, valores como `IQ3_S=4` ou `IQ4_XS=6` nessa função não podem ser usados como prova de seleção de kernel para o modelo Qwen3.8-27B denso.
+
+Em `calc_nwarps()` para `MMVQ_PARAMETERS_RDNA3_0`, os tipos IQ3_S/XXS, IQ2_S/XS/XXS e IQ4_XS caem no retorno padrão de 1 warp; aumentar para 8 indiscriminadamente **não é indicado pela origem**, que explicitamente observa regressões de IQ complexos. Para Q6_K, há regra diferente de 2 warps no destino quando `ncols_dst==1`; na origem há proposta de 8 por banda, mas sem demonstração em gfx1101.
+
+**Conclusão desta rodada:** a primeira proposta de baixo escopo para o GGUF deve ser o **helper de sinais, em cada formato separadamente**, seguido da multiplicação por `__mul24` em casos matematicamente limitados. Não priorizar alteração de VDR, números de warps ou limites `MUL_MAT_ID` no mesmo diff. **Speedup em gfx1101: indeterminado.**
+
 
 ## Descobertas e observações
 
@@ -46,20 +103,20 @@ Nenhum kernel foi recompilado ou medido em gfx1101. Nenhum número de ganho ser�
 - Não modificar `IQ3_S` e `IQ3_XXS` simultaneamente, nem aplicar ajustes globais sem guards/fallback.
 - Testes sem seleção do kernel otimizado não provam nem correção nem ganho.
 
-## Plano de validação
+## Verificação documental
 
-1. Reunir o manifesto de tipos por tensor publicado (`rco_types.tsv`) e relacioná-lo com as chamadas reais, sem afirmar que os arquivos remotos foram executados.
-2. Revisar diferenças semânticas origem/destino em `vecdotq.cuh`, `mmvq.cu` e tabelas de `mmq` por tipo.
-3. Propor um par A/B com mesmo GGUF, compilação HIP `gfx1101`, `test-backend-ops -o MUL_MAT`, teste de operadores de quantização selecionados, pp/tg e perfil de kernels.
-4. Confirmar `W=1..8` e prefixo P>=4096 quando dispatch de verify/mul_mat puder mudar; comparar logits do mesmo GGUF.
-5. Coletar tokens confirmados/s com MTP e sem MTP; comparar intercaladamente, com A/A para estimar ruído.
-6. A coleta local depende do usuário. Nenhum agente assume acesso remoto à GPU.
+1. Comparar `ggml_cuda_dp4a`, `__vcmpne4`, `__vsub4` e a nova expressão de bits, incluindo a ordem das assinaturas nos cinco operadores, por inspeção das fontes congeladas.
+2. Confirmar o domínio de cada tabela e os bounds dos acumuladores em `ggml-common.h` e `vecdotq.cuh`.
+3. Revisar, documentalmente, a expansão de `__mul24` no LLVM AMDGPU e suas possíveis diferenças de custo em RDNA3 sem presumir que a instrução seja mais rápida.
+4. Distinguir `MUL_MAT` e `MUL_MAT_ID` e mapear regras host/device da seleção para `gfx1101`.
+5. Relacionar metadados públicos de tipos por tensor a suas funções no modelo; se o mapa de shapes não estiver acessível, registrar a lacuna.
+6. Não executar/solicitar testes locais, benchmark, compilações ou logs. Critérios práticos históricos estão fora do escopo atual.
 
 ## Próximos passos
 
 - Determinar, usando os metadados públicos, quais tensores com IQ3_S/IQ3_XXS são grandes e frequentes e quais são exceções.
 - Auditar os seletores de `calc_nwarps`, `get_mmvq_mmid_max_batch_rdna3`, `vec_dot_iq3_*` e `get_vdr_mmvq`.
-- Propor uma única alteração de baixo risco e os testes de aceitação para discussão antes de implementar.
+- Produzir um desenho de alteração mínimo por operador com argumentos de equivalência, guards e riscos, exclusivamente documental.
 
 ## Referências
 
@@ -71,3 +128,4 @@ Nenhum kernel foi recompilado ou medido em gfx1101. Nenhum número de ganho ser�
 ## Histórico
 
 - 2026-10-25: proposta aberta após identificação do GGUF-alvo, somente análise remota.
+- 2026-10-25: comparação linha a linha dos seis vec-dot, domínios das cinco grades, prova dos bounds de __mul24 e distinção entre MUL_MAT e MUL_MAT_ID. Sem compilação ou medição.
