@@ -5,6 +5,19 @@
 **Alvo:** `Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf` (`ajgazin`, RCO-IQ3_XXS) em RX 7800 XT, gfx1101, 16 GiB.
 **Modo de trabalho:** quatro agentes externos pesquisam; o assistente **coordena as tarefas, revisa os relatórios e consolida**. O assistente não substitui agentes como pesquisador. Os quatro agentes foram acionados externamente e retornaram resumos da R05; nenhum agente novo foi acionado automaticamente por esta atualização.
 
+## Nova frente — MMVQ IQ em docs/experiments_2/ (25/10/2026)
+
+**Decisão do usuário:** investigar os grupos `IQ3_S`, `IQ3_XXS`, `IQ2_S` e `IQ4_XS` indicados em imagem de um **“perfil de U”**, dando atenção inicial a **IQ2_S**.
+
+- [ ] **Agente 1:** `IQ2_S` — prova de sinais, `vec_dot_iq2_s_q8_1`, dispatch MMVQ, riscos `__mul24`. [Ficha](docs/experiments_2/iq2_s.md).
+- [ ] **Agente 2:** `IQ3_S` — unpack/vec-dot e fatores de custo. [Ficha](docs/experiments_2/iq3_s.md).
+- [ ] **Agente 3:** `IQ3_XXS` — grades, sinais, operadores e custo relativo. [Ficha](docs/experiments_2/iq3_xxs.md).
+- [ ] **Agente 4:** `IQ4_XS` — caminho do head `output.weight` e otimizações AMD já existentes. [Ficha](docs/experiments_2/iq4_xs.md).
+
+**Fonte:** [transcrição e limites do perfil recebido](docs/experiments_2/perfil-mmvq-recebido.md). O retrato afirma MMVQ com 82–84% da soma dos tempos de kernels na janela, e participações internas de 22,5% IQ3_S, 20,8% IQ3_XXS, 18,0% IQ2_S e 12,9% IQ4_XS. **São números externos de proveniência insuficiente, não benchmarks confirmados em gfx1101 ou neste GGUF.**
+
+**Estado:** fichas abertas, aguardando relatórios dos quatro agentes. **Prompts entregues somente no chat**; não publicar prompts no GitHub. O assistente coordena e consolida, sem conduzir a investigação técnica em substituição aos agentes.
+
 ## Situação atual após a Rodada 05
 
 **Relatórios R05:** 4/4 resumos recebidos e revisados; os quatro arquivos `RELATORIO-R05-*.md` completos foram anunciados, **mas não anexados ao chat**. Consolidado em [research/RODADA-05-RESULTADOS.md](research/RODADA-05-RESULTADOS.md).

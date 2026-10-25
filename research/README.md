@@ -130,6 +130,12 @@ Os Agentes 1–4 apresentaram seus resultados de **compatibilidade BPE**, **inte
 
 **[todo.md](../todo.md)** atualizado com quatro relatórios recebidos **em resumo** e as responsabilidades seguintes dos agentes. Os `RELATORIO-R05-*.md` completos anunciados não foram disponibilizados nesta conversa. O assistente mantém papel de coordenação e revisão; novos prompts de agentes são entregues diretamente no chat.
 
+## Nova frente documental — MMVQ do perfil recebido
+
+A partir de imagem fornecida pelo usuário, a pesquisa de MMVQ IQ foi organizada em [`docs/experiments_2/`](../docs/experiments_2/README.md), com fichas por quantização (`IQ2_S`, `IQ3_S`, `IQ3_XXS`, `IQ4_XS`). O perfil externo é transcrito com ressalva de proveniência: **não é medição confirmada da RX 7800 XT ou do GGUF selecionado**.
+
+Os quatro agentes receberão suas tarefas **diretamente no chat**; esta atualização registra apenas a documentação inicial e as responsabilidades, sem novos resultados de pesquisa técnica.
+
 ## Estado da pesquisa
 
 - **Em pesquisa:** doze propostas estão registradas, mas nenhum candidato foi executado em gfx1101.
