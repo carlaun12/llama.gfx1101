@@ -1,8 +1,8 @@
-# Revisão cruzada — relatórios dos agentes GDN, MTP e Flash Attention
+# Revisão cruzada — quatro relatórios: GDN, MTP, Flash Attention e IQ
 
 **Data:** 2026-10-25. **Escopo:** pesquisa documental exclusiva, sem testes em máquina, GPU remota, compilação, scripts, profiler ou solicitação de logs.
 **Alvo único:** `Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf`, RX 7800 XT (`gfx1101`, 16 GiB).
-**Recebido:** três relatórios independentes, sobre (1) GDN FP32, (2) MTP e (3) FA/memória. **Pendente:** relatório do agente de IQ3/IQ2 desta rodada. Não confundir os números dos agentes com medições em gfx1101.
+**Recebido:** quatro relatórios independentes: (1) GDN FP32, (2) MTP, (3) FA/memória e (4) auditoria de kernels IQ2/IQ3. Todos passaram por cruzamento documental; não confundir números dos agentes com medições em gfx1101.
 
 ## Resultado executivo
 
@@ -12,6 +12,8 @@
 | MTP | Uma camada extra `blk.64`; draft próprio, estado `h_nextn`, snapshots GDN do target dimensionados por `n_max` | Fluxo de código do destino e fórmulas de memória | Alta prioridade para orçamento estático de VRAM e LM head real |
 | FA nativo | `TILE` e `MMA_F16` alocam staging de K/V em F16 no destino, mesmo quando o KV persistente é BF16/Q8_0 | Trecho do alocador verificado; benefício temporal é hipótese | Relevância potencial em verify MTP e contexto longo |
 | MMB/MMQ | A otimização de prefill depende do tipo quantizado por tensor, do shape e de recursos RDNA3 | Inferência fundada em política de kernels | Não assumir que ganhos com Q4_K_M se transferem a RCO IQ misto |
+| IQ MMVQ | Cinco famílias IQ2/IQ3 podem substituir tratamento de sinais por `apply_ksigns`; limite conservador de `mul24` já mapeado | Comparação estática confirmada em `vecdotq.cuh`; equivalência condicionada ao domínio não nulo | Melhor primeira proposta localizada para decode/verify, mas speedup desconhecido |
+| IQ MMQ | Cinco helpers adicionais de tile unpack mantêm no destino `__vcmpne4/__vsub4`, enquanto a origem usa `apply_ksigns` | Diferença confirmada nas funções homólogas de `mmq-load-tiles.cuh` | Abrir proposta separada de prefill, sem assumir que port MMVQ resolve MMQ |
 
 ## Correções exigidas pela revisão cruzada
 
@@ -57,6 +59,25 @@
 - Pré-requisitos documentais de port: paridade exata entre launch, seleção do tipo nativo e cálculo de scratch; preservar guard `RDNA3_0`, head-256, GQA 6:1 e política de verify-band.
 - Ganhos públicos em gfx1100 com Qwen3.5-9B head-256 ilustram aplicabilidade da família RDNA3 **somente como referências externas**; não transferir percentuais para este GGUF ou gfx1101.
 
+## IQ: quarto relatório recebido, delta de MMVQ e MMQ
+
+**Entrada:** auditoria de kernels IQ2/IQ3 para gfx1101 enviada em 2026-10-25. **Fonte verificada:**
+[destino `vecdotq.cuh`](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/vecdotq.cuh),
+[origem `vecdotq.cuh`](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/vecdotq.cuh),
+[destino `mmq-load-tiles.cuh`](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/mmq-load-tiles.cuh),
+[origem `mmq-load-tiles.cuh`](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/mmq-load-tiles.cuh).
+
+**Diferenças confirmadas:**
+
+1. Cinco produtos vetoriais IQ2/IQ3 em `vecdotq.cuh` substituem a sequência `__vcmpne4`/`__vsub4` por `apply_ksigns`; `IQ4_XS` é diferente e só oferece o candidato independente de multiplicação de escala.
+2. **Achado novo:** os cinco helpers `ggml_cuda_mmq_load_tiles_iq{2_xxs,2_xs,2_s,3_xxs,3_s}` em `mmq-load-tiles.cuh` repetem o unpack antigo no destino. A origem também os converte para `apply_ksigns`. O cabeçalho MMQ inclui `vecdotq.cuh`, mas os corpos dos seus próprios helpers não mudam apenas porque o vec-dot é otimizado.
+3. `common.cuh` do destino já define `ggml_cuda_dp4a` com `__builtin_amdgcn_sudot4` no HIP/AMD, portanto o relatório não traz uma nova implementação necessária de dot-product; `IQ4_XS` também já tem permute AMD na etapa de consulta.
+4. A demonstração de `apply_ksigns` é local, baseada em bytes positivos e não nulos das cinco grades. Intercambiar bits de sinal, índices de tabela ou incluir outro formato fora desses domínios **invalida a demonstração**.
+5. O helper `ggml_cuda_mul_small()` por `__mul24` está matematicamente delimitado para os seis vec-dot auditados, mas a eficiência da ISA, a pressão de VGPR e a ocupação são desconhecidas. Não substituir divisão inteira por shift com valores negativos nem mudar escala e geometria simultaneamente.
+6. O relatório ordena os tipos principalmente por quantidade de tensores (97 IQ3_S, 83 IQ3_XXS etc.). É um critério útil de presença, **não demonstra o peso relativo de `output.weight` IQ4_XS**, o tráfego nem a participação real de MMVQ versus MMQ. Para otimização focada no GGUF, manter prioridades como hipóteses condicionais.
+
+**Resultado documental:** [MMVQ IQ misto](mmvq-iq-mistos-rco.md) conserva a análise da aritmética dos vetores; uma proposta separada [MMQ unpack IQ](mmq-unpack-iq-rco.md) passa a acompanhar o prefill. Sem patch de inferência, compilação, benchmark ou teste prático.
+
 ## Conclusões e fila documental
 
 | Prioridade nesta rodada | Pesquisa concluída | Próxima leitura de código |
@@ -65,7 +86,8 @@
 | 2 | MTP: custo de snapshots e distinção de LM heads | Seleção efetiva de head e quantização por tensor em `blk.64` |
 | 3 | FA: staging e política hipotética de verify-band | Comparar par launcher/alocador dos formatos Q8_0 e BF16 |
 | 4 | GEMM IQ: aplicabilidade por tipo | Mapear formas do manifesto RCO e tipos admitidos no MMB |
-| Pendente | Relatório IQ3/IQ2 da quarta frente | Cruzar seus argumentos com `mmvq-iq-mistos-rco.md` |
+| 5 | IQ MMVQ: sinais e multiplicação pequena, com limites matemáticos verificados | Desenhar mudanças independentes por formato em `vecdotq.cuh` |
+| 6 | IQ MMQ: unpack de sinais em cinco funções de tiles | Mapear elegibilidade de MMQ e código por formato em `mmq-load-tiles.cuh` |
 
 **Nada foi executado no hardware; resultados são revisão estática, cálculo e crítica de fontes.**
 
@@ -79,3 +101,4 @@
 ## Histórico
 
 - 2026-10-25: recebimento e revisão cruzada de três relatórios de agentes; corrigidas extrapolações de GGUF e divisões entre bytes lógicos e pico de memória.
+- 2026-10-25: integração do quarto relatório de IQ2/IQ3. Confirmada a separação entre `vecdotq.cuh` e `mmq-load-tiles.cuh`; adicionada proposta MMQ específica, totalizando quatro relatórios recebidos.

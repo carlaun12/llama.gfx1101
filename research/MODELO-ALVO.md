@@ -97,6 +97,12 @@ Detalhes em [REVISAO-AGENTES-2026-10-25.md](REVISAO-AGENTES-2026-10-25.md).
 
 
 
+### Quarto relatório de agente — otimizações IQ por caminho
+
+O quarto relatório de 25/10/2026 separou a alteração de `vecdotq.cuh` (MMVQ, decode/verify estreito) dos **cinco** helpers de `mmq-load-tiles.cuh` (MMQ, prefill) que continuam decodificando sinais com `__vcmpne4/__vsub4` no destino. A origem usa `apply_ksigns` em ambas as superfícies. A GPU já possui `__builtin_amdgcn_sudot4` no caminho de dot-product do destino; não se recomenda reescrevê-lo.
+
+Priorizar uma investigação de `IQ3_S` por sua presença no modelo é justificável, **mas não como previsão de ser o maior gargalo**: o `output.weight` IQ4_XS de cerca de 644 MiB e o uso de MMQ/MMVQ por shape também importam. [MMVQ IQ](mmvq-iq-mistos-rco.md) e [MMQ tiles](mmq-unpack-iq-rco.md) são propostas separadas, com benefício indeterminado até que existam evidências públicas específicas.
+
 ## Histórico
 
 - 2026-10-25: GGUF definido pelo usuário como alvo principal; pesquisa documental inicial. Sem benchmark de gfx1101.

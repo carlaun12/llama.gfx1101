@@ -16,7 +16,7 @@ Este diretório reúne propostas independentes para avaliar a integração selet
 | Prioridade | Linha de trabalho | Critério de avanço |
 | --- | --- | --- |
 | 0 | Leitura documental de arquitetura, quantização, MTP e políticas de dispatch | Metadados públicos e código-fonte congelado |
-| 1 | [MMVQ IQ misto RCO](mmvq-iq-mistos-rco.md) | Identificar por peso/shape quais IQ dominam decode e o dispatch que executa |
+| 1 | [MMVQ IQ misto RCO](mmvq-iq-mistos-rco.md) e [MMQ IQ para prefill](mmq-unpack-iq-rco.md) | Separar decode/verify e prefill; mapear elegibilidade por tensor/shape |
 | 2 | [GDN chunked FP32](gdn-chunked-gfx1101.md) | Estudar recorrência, snapshots e dependências do grafo |
 | 3 | [MTP adaptativo](mtp-adaptativo.md) e [head reduzido](mtp-vocabulario-reduzido.md) | Verificar contratos, custos teóricos e dependências do head embutido |
 | 4 | [Flash Attention e KV nativo](flash-attention-kv-nativo.md) | Relevância em contexto longo e preservação da pureza de verify |
@@ -43,6 +43,7 @@ Este diretório reúne propostas independentes para avaliar a integração selet
 
 | Arquivo | Tema | Blocos da origem |
 | --- | --- | --- |
+| [mmq-unpack-iq-rco.md](mmq-unpack-iq-rco.md) | Unpack de sinais de IQ2/IQ3 nos tiles de MMQ/pre-fill | quarta auditoria, caminhos próprios do MMQ |
 | [mmvq-iq-mistos-rco.md](mmvq-iq-mistos-rco.md) | MMVQ, MMQ e vetores IQ do RCO | investigação do alvo |
 | [mmvq-q4k-q6k-vdr.md](mmvq-q4k-q6k-vdr.md) | MMVQ, VDR e decode quantizado | 0007 |
 | [gdn-chunked-gfx1101.md](gdn-chunked-gfx1101.md) | GDN chunked FP32 e BF16/WMMA | 0003 |
@@ -80,11 +81,11 @@ As quatro frentes de investigação foram executadas como análises de código e
 
 **Rodada documental de 25/10/2026:** a análise de [MMVQ para RCO IQ misto](mmvq-iq-mistos-rco.md) compara `apply_ksigns`, `ggml_cuda_mul_small`, domínios das tabelas `IQ2/IQ3` e o desvio de escopo entre `MUL_MAT` e `MUL_MAT_ID`.
 
-## Terceira rodada — revisão dos três relatórios recebidos
+## Terceira rodada — quatro relatórios recebidos e revisados
 
-Em 25/10/2026 foram recebidos **três** relatórios externos: GDN chunked FP32, MTP integrado e Flash Attention/análise arquitetural. O relatório do agente de **IQ3/IQ2** não está entre esses três anexos; ele permanece pendente nesta rodada.
+Em 25/10/2026 foram recebidos **quatro** relatórios externos: GDN chunked FP32, MTP integrado, Flash Attention/análise arquitetural e auditoria aprofundada de IQ3/IQ2. A quarta auditoria confirmou um caminho separado de **unpack no MMQ** em cinco helpers de IQ2/IQ3, além da proposta já documentada de MMVQ.
 
-A revisão cruzada e as divergências de quantização, memória e aplicabilidade foram registradas em [REVISAO-AGENTES-2026-10-25.md](REVISAO-AGENTES-2026-10-25.md). Os achados aceitos foram sintetizados nos documentos [GDN](gdn-chunked-gfx1101.md), [MTP adaptativo](mtp-adaptativo.md), [MTP subset](mtp-vocabulario-reduzido.md), [Flash Attention](flash-attention-kv-nativo.md) e [MMB](mmb-gemm-quantizado.md).
+A revisão cruzada e as divergências de quantização, memória e aplicabilidade foram registradas em [REVISAO-AGENTES-2026-10-25.md](REVISAO-AGENTES-2026-10-25.md). Os achados aceitos foram sintetizados nos documentos [GDN](gdn-chunked-gfx1101.md), [MTP adaptativo](mtp-adaptativo.md), [MTP subset](mtp-vocabulario-reduzido.md), [Flash Attention](flash-attention-kv-nativo.md), [MMB](mmb-gemm-quantizado.md), [MMVQ IQ misto](mmvq-iq-mistos-rco.md) e **[MMQ unpack IQ](mmq-unpack-iq-rco.md)**.
 
 **Escopo mantido:** pesquisa remota somente. Não pedir ao usuário testes, medições, hashes, logs, builds, instrumentação nem GPU. Os capítulos de benchmark nos relatórios dos agentes foram tratados como notas históricas, **não tarefas do projeto**.
 
@@ -92,7 +93,7 @@ A revisão cruzada e as divergências de quantização, memória e aplicabilidad
 
 ## Estado da pesquisa
 
-- **Em pesquisa:** nove propostas estão registradas, mas nenhum candidato foi executado em gfx1101.
+- **Em pesquisa:** dez propostas estão registradas, mas nenhum candidato foi executado em gfx1101.
 - **Referência do destino examinada:** `31288c9c66e59377f7788d920678a565bb89dd37`.
 - **Referência da origem:** `v15-3f03b1772-r137`.
 - **Data de abertura:** 2026-10-25.

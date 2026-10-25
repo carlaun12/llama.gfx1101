@@ -88,6 +88,14 @@ Em `calc_nwarps()` para `MMVQ_PARAMETERS_RDNA3_0`, os tipos IQ3_S/XXS, IQ2_S/XS/
 **Conclusão desta rodada:** a primeira proposta de baixo escopo para o GGUF deve ser o **helper de sinais, em cada formato separadamente**, seguido da multiplicação por `__mul24` em casos matematicamente limitados. Não priorizar alteração de VDR, números de warps ou limites `MUL_MAT_ID` no mesmo diff. **Speedup em gfx1101: indeterminado.**
 
 
+### Resultado documental 5 — integração do quarto agente (2026-10-25)
+
+A auditoria aprofundada do quarto agente corroborou a proposta inicial de `apply_ksigns` e `ggml_cuda_mul_small` em seis vec-dot, além de confirmar que `ggml_cuda_dp4a` no `common.cuh` do destino **já usa `__builtin_amdgcn_sudot4`** no caminho HIP AMD e que IQ4_XS já possui permute para lookup. Logo, não propor port duplicado dessas funções.
+
+**Descoberta independente de prefill:** o destino possui outros **cinco** corpos de unpack com `__vcmpne4/__vsub4` em `mmq-load-tiles.cuh`, e a origem os troca por `apply_ksigns`. Isso **não é efeito automático** de alterar `vecdotq.cuh`. Foi aberta uma proposta específica: [mmq-unpack-iq-rco.md](mmq-unpack-iq-rco.md), com correspondência das cinco funções e critérios estritamente documentais.
+
+A lista inicial IQ3_S > IQ3_XXS > IQ2_S > IQ2_XS > IQ2_XXS vem da **quantidade de tensores**, não de um profiling; `output.weight` IQ4_XS permanece candidato possivelmente relevante devido ao shape. Preservar propostas de MMVQ, MMQ, multiplicação pequena e warps/VDR **em linhas distintas**.
+
 ## Descobertas e observações
 
 - O arquivo RCO-IQ3_XXS contém mistura relevante de `IQ3_S`, `IQ3_XXS`, `IQ2_S` e outros; a prioridade Q4_K anterior foi rebaixada para **este checkpoint**, sem invalidar o estudo genérico.
@@ -129,3 +137,4 @@ Em `calc_nwarps()` para `MMVQ_PARAMETERS_RDNA3_0`, os tipos IQ3_S/XXS, IQ2_S/XS/
 
 - 2026-10-25: proposta aberta após identificação do GGUF-alvo, somente análise remota.
 - 2026-10-25: comparação linha a linha dos seis vec-dot, domínios das cinco grades, prova dos bounds de __mul24 e distinção entre MUL_MAT e MUL_MAT_ID. Sem compilação ou medição.
+- 2026-10-25: quarto relatório incorporado, confirmação do dot4 e da nova superfície de MMQ, que recebeu proposta própria.
