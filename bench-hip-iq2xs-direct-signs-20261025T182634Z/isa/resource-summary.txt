@@ -1,0 +1,9 @@
+mmvq IQ2_XS type17 kernels: 11; variant resource records changed: 6
+  E: VGPR 43..94, SGPR 24..48, max spills VGPR/SGPR 0/0, private max 0
+  F: VGPR 43..95, SGPR 24..48, max spills VGPR/SGPR 0/0, private max 0
+mmq IQ2_XS type17 kernels: 32; variant resource records changed: 3
+  E: VGPR 40..256, SGPR 30..36, max spills VGPR/SGPR 7/0, private max 32
+  F: VGPR 40..256, SGPR 30..36, max spills VGPR/SGPR 7/0, private max 32
+    _ZL9mul_mat_qIL9ggml_type17ELi32ELb0EL9ggml_prec30: VGPR/SGPR 169/31 -> 162/32; spill 0/0 -> 0/0; private 0 -> 0
+    _ZL9mul_mat_qIL9ggml_type17ELi32ELb1EL9ggml_prec30: VGPR/SGPR 171/34 -> 162/34; spill 0/0 -> 0/0; private 0 -> 0
+    _ZL9mul_mat_qIL9ggml_type17ELi48ELb0EL9ggml_prec30: VGPR/SGPR 182/31 -> 170/31; spill 0/0 -> 0/0; private 0 -> 0

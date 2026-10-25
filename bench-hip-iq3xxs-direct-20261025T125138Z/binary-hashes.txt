@@ -1,0 +1,3 @@
+676433a44e3e947b0d37d050109328aa4b8d20f77a515276e50135b92d8e658b  /tmp/iq3xxs-direct-control-20261025T125138Z/libggml-hip.so.0.27.0
+a407b436efedad49e62288ff95562a5e1161b74bacb543834526ab6d0770cea3  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0.27.0
+39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/llama-bench

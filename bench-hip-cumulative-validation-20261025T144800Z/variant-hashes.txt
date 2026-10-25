@@ -1,0 +1,8 @@
+37aa1bbf64367736a65a122ccc49ce2ce8a305eeb4931385156d282c1efbf296  /home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/sources/A.vecdotq.cuh
+a22eebfb491090e3cb5c5d297caacd3bff0055f12fe0318db897d7873f6efceb  /home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/sources/B.vecdotq.cuh
+4c6ddd1e07ebbcc35c165bd16b5f62bb8551046fcf19a5e6b022f9ba03887d83  /home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/sources/C.vecdotq.cuh
+7cc139be17c4185dbafbeff0bb8e91732bcca7c333343ad870bbc4af6c4c03f8  /home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/library/A/libggml-hip.so.0.27.0
+642b0f909860de6d036dc0e75f5740b7d93f183faaaf1c5c04c516a9aab70830  /home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/library/B/libggml-hip.so.0.27.0
+a0b56310f88fa0f6fdbb6a4e3ba188617c2dbbe7f43b4a371094139754e264b8  /home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/library/C/libggml-hip.so.0.27.0
+39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/llama-bench
+aa2ca679ae5bc887057fa6b2cff7df3206dc405e182160eac6a097cb16a33741  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/test-backend-ops

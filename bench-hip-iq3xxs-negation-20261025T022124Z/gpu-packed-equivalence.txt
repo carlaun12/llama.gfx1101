@@ -1,0 +1,7 @@
+IQ3_XXS packed-sign GPU equivalence
+
+Command: ./bench-hip-iq3xxs-negation-20261025T022124Z/gpu-packed-equivalence
+Target: gfx1101 / ROCm HIP
+Result: PASS: 256 table entries, 65536 low/high parity-corrected sign cases, exact packed equality, no zero lanes
+
+The checker includes the repository IQ3_XXS table and HIP byte intrinsics. It preserves the existing seven-bit sign unpack and parity correction, then compares __vsub4 with the 32-bit XOR/add candidate. Every packed 32-bit operand matched exactly on the GPU.

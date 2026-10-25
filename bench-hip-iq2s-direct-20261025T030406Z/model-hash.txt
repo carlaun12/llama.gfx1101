@@ -1,0 +1,1 @@
+e13d3e7400b6c7f980ebd30c0edd6be43eb1865b50be8562a9db042706c7d803  /home/carlos/slop/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf

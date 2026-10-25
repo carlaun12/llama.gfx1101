@@ -1,0 +1,1 @@
+PASS: 249 non-IQ3 matrix-vector variants have unchanged mnemonic sequences and VGPR metadata. This does not compare every instruction operand.

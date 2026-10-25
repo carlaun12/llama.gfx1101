@@ -1,0 +1,1 @@
+llama-bench internal warmup remained enabled: one prompt warmup for pp512 and one generation warmup per tg128 depth case.

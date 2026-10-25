@@ -1,0 +1,3 @@
+depth,samples,busy_samples_ge_95pct,mean_busy_pct,mean_power_busy_W,max_power_W,edge_C_min,edge_C_max,junction_C_min,junction_C_max,memory_C_min,memory_C_max,mean_sclk_busy_MHz,mean_mclk_busy_MHz
+d0,6,4,78.67,189.00,211.00,31.0,40.0,39.0,54.0,56.0,64.0,2441.5,1218.0
+d4096,13,10,83.00,173.50,193.00,33.0,42.0,42.0,62.0,56.0,66.0,2384.9,1218.0

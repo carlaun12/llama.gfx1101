@@ -1,0 +1,16 @@
+2026-10-25T01:38:14+00:00
+bb41340de1868650bffc3ad09d62fb18f2748754
+?? baseline-hip-20261025T012021Z-xZDy5L/
+?? profile-hip-20261025T013813Z-WeeCq4/
+             version: 1.1.0
+        git_revision: 97f5574fe2fdc7bef44fb01545347912ee9f1779
+        library_arch: 
+         system_name: Linux
+    system_processor: x86_64
+      system_version: 7.1.11-arch1-1
+         compiler_id: GNU
+    compiler_version: 16.2.1
+        rocm_version: 7.2.4
+
+Power caps (microwatts):
+/sys/class/drm/card1/device/hwmon/hwmon1/power1_cap: 190000000

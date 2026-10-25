@@ -1,0 +1,1 @@
+Interrupted after 5m50s before warmup. Process wait channel: filemap_read_folio; JSON output 0 bytes; no benchmark samples. User confirmed ForzaHorizon4.exe closed before this final check. Not valid A/B data.

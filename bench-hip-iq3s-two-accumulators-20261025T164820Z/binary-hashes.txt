@@ -1,0 +1,6 @@
+4c6ddd1e07ebbcc35c165bd16b5f62bb8551046fcf19a5e6b022f9ba03887d83  /home/carlos/project/llama.gfx1101/ggml/src/ggml-cuda/vecdotq.cuh
+a0b56310f88fa0f6fdbb6a4e3ba188617c2dbbe7f43b4a371094139754e264b8  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0.27.0
+a0b56310f88fa0f6fdbb6a4e3ba188617c2dbbe7f43b4a371094139754e264b8  /home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/library/C/libggml-hip.so.0.27.0
+ee87339b8a9b3657a7c317a8e33e4e00f1e1c7f63f58e0a5b4e0c069b42671b9  /home/carlos/project/llama.gfx1101/bench-hip-iq3s-two-accumulators-20261025T164820Z/library/D/libggml-hip.so.0.27.0
+39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/llama-bench
+e13d3e7400b6c7f980ebd30c0edd6be43eb1865b50be8562a9db042706c7d803  /home/carlos/slop/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf

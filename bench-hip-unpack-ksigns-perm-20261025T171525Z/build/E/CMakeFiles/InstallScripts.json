@@ -1,0 +1,36 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/ggml/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/ggml/src/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/ggml/src/ggml-cpu/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/ggml/src/ggml-hip/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/src/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/vendor/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/vendor/hash/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/vendor/miniaudio/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/vendor/nlohmann/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/vendor/sheredom/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/vendor/stb/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/vendor/cpp-httplib/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/common/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tests/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/batched-bench/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/gguf-split/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/imatrix/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/llama-bench/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/completion/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/perplexity/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/quantize/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/tokenize/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/tts/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/mtmd/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/cvector-generator/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/export-lora/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/fit-params/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/tools/results/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

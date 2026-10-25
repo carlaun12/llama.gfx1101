@@ -1,0 +1,1 @@
+Control C and candidate D CMake configure commands are identical after replacing only source/build directory paths. Both use Release, ROCm Clang 22, gfx1101, HIP graphs and MMQ MFMA, HIP enabled, and the same native CPU/test settings. Exact commands: configure-D.command.txt; C command: ../bench-hip-cumulative-validation-20261025T144800Z/configure-C.command.txt.

@@ -1,0 +1,12 @@
+IQ2_XXS packed-negation candidate A/B
+A: active control (IQ3_S direct, IQ2_S direct, IQ3_XXS packed negation)
+B: same control plus IQ2_XXS packed-negation simplification
+tg128, d=0 and d=4096; 10 adjacent pairs per depth; 5 AB and 5 BA pair orders.
+Paired gain=(B/A-1)*100; mean paired percentage and Student-t 95% CI, df=9, t*=2.262157.
+d=0: A mean=34.98567 tok/s; B mean=35.22541 tok/s; mean paired gain=+0.687% (95% CI +0.321% to +1.053%); paired SD=0.512%
+  pairs: 01-AB A=35.36178 B=35.40386 gain=+0.119%, 02-BA A=35.14894 B=35.39391 gain=+0.697%, 03-AB A=35.10555 B=35.11622 gain=+0.030%, 04-BA A=34.84960 B=35.27076 gain=+1.209%, 05-AB A=34.99811 B=35.22187 gain=+0.639%, 06-BA A=34.98297 B=35.26210 gain=+0.798%, 07-AB A=34.66812 B=35.24618 gain=+1.667%, 08-BA A=34.87661 B=35.19812 gain=+0.922%, 09-AB A=34.92081 B=35.14782 gain=+0.650%, 10-BA A=34.94420 B=34.99329 gain=+0.140%
+d=4096: A mean=34.31173 tok/s; B mean=34.47115 tok/s; mean paired gain=+0.465% (95% CI +0.135% to +0.795%); paired SD=0.461%
+  pairs: 01-AB A=34.59743 B=34.76298 gain=+0.478%, 02-BA A=34.44313 B=34.70241 gain=+0.753%, 03-AB A=34.39438 B=34.42018 gain=+0.075%, 04-BA A=34.33622 B=34.28636 gain=-0.145%, 05-AB A=34.30817 B=34.51512 gain=+0.603%, 06-BA A=34.09004 B=34.54863 gain=+1.345%, 07-AB A=34.24768 B=34.45037 gain=+0.592%, 08-BA A=34.19324 B=34.48270 gain=+0.847%, 09-AB A=34.23515 B=34.22956 gain=-0.016%, 10-BA A=34.27186 B=34.31320 gain=+0.121%
+equal-weight d=0/d=4096 aggregate: mean paired gain=+0.576% (95% CI +0.305% to +0.847%), computed from 10 pair-level averages to preserve pairing.
+  pair aggregate gains: +0.299%, +0.725%, +0.053%, +0.532%, +0.621%, +1.072%, +1.130%, +0.884%, +0.317%, +0.131%
+valid_json=20/20; depths=20/20 per scenario; run_errors=0

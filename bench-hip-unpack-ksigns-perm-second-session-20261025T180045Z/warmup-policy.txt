@@ -1,0 +1,1 @@
+llama-bench internal warmup retained: generation warmup for each depth and one prompt warmup for pp512. No clocks or power settings are changed.

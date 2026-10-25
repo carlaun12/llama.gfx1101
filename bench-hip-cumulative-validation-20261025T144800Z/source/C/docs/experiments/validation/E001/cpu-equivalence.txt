@@ -1,0 +1,12 @@
+f32 tokens=1 sequences=1 max_error=0 fusion_pattern=PASS
+f32 tokens=1 sequences=2 max_error=0 fusion_pattern=PASS
+f32 tokens=17 sequences=1 max_error=0 fusion_pattern=PASS
+f32 tokens=17 sequences=2 max_error=0 fusion_pattern=PASS
+f32 tokens=512 sequences=1 max_error=0 fusion_pattern=PASS
+f32 tokens=512 sequences=2 max_error=0 fusion_pattern=PASS
+q8_0 tokens=1 sequences=1 max_error=0 fusion_pattern=PASS
+q8_0 tokens=1 sequences=2 max_error=0 fusion_pattern=PASS
+q8_0 tokens=17 sequences=1 max_error=0 fusion_pattern=PASS
+q8_0 tokens=17 sequences=2 max_error=0 fusion_pattern=PASS
+q8_0 tokens=512 sequences=1 max_error=0 fusion_pattern=PASS
+q8_0 tokens=512 sequences=2 max_error=0 fusion_pattern=PASS

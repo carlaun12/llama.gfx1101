@@ -1,0 +1,1 @@
+clang++ -O3 -DNDEBUG -Wl,-rpath,/home/carlos/project/llama.gfx1101/build-hip-baseline/bin:/opt/rocm/lib SHAPE_OBJ [baseline ggml libraries] -Wl,-rpath-link,/opt/rocm/lib -o SHAPE_BIN

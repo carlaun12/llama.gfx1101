@@ -1,0 +1,14 @@
+Captured telemetry samples with C/E run-stage tags: 341.
+Busy means GPU use >=95%; power and clocks below are summarized over busy samples.
+C: tagged=169, busy=139
+  power: mean=189.2; range=86.0-219.0
+  sclk: mean=2319.0; range=2210.0-2484.0
+  edge: mean=53.0; range=38.0-57.0
+  junction: mean=68.6; range=52.0-75.0
+  memory: mean=77.8; range=63.0-83.0
+E: tagged=172, busy=140
+  power: mean=188.4; range=86.0-214.0
+  sclk: mean=2318.4; range=2194.0-2480.0
+  edge: mean=53.3; range=41.0-57.0
+  junction: mean=69.0; range=52.0-75.0
+  memory: mean=78.0; range=66.0-84.0

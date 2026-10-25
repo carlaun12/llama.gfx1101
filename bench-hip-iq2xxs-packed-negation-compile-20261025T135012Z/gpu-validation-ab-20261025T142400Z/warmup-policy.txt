@@ -1,0 +1,1 @@
+llama-bench internal warmup remains enabled for each case; one generation warmup token per invocation and depth case.

@@ -1,0 +1,1 @@
+/home/carlos/project/llama.gfx1101/build-hip-baseline/bin/llama-bench -m /home/carlos/slop/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf -dev ROCm0 -ngl 99 -fa on -ctk f16 -ctv f16 -b 2048 -ub 512 -t 8 -r 5 -o json --progress -p 512\,2048 -n 0 

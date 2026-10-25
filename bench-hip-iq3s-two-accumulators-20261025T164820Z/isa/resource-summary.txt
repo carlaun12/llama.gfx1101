@@ -1,0 +1,7 @@
+AMDGPU object resource metadata from llvm-readobj --notes; target gfx1101, wave32.
+plain
+  control: VGPR=39 SGPR=24 VGPR spills=0 SGPR spills=0 private segment=0 wave=32
+  candidate: VGPR=45 SGPR=24 VGPR spills=0 SGPR spills=0 private segment=0 wave=32
+fused
+  control: VGPR=54 SGPR=48 VGPR spills=0 SGPR spills=0 private segment=0 wave=32
+  candidate: VGPR=59 SGPR=48 VGPR spills=0 SGPR spills=0 private segment=0 wave=32

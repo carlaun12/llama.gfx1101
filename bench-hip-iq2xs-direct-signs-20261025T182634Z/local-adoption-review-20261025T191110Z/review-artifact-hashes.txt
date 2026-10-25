@@ -1,0 +1,4 @@
+2010f074b5c246d3be1c444aed15f84804d89a2ea5fec4708c35d4a757312642  bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/adoption-review.md
+a0cd106562c9448aca3732531ce04d0fe567579a03799088f7c007bcca742939  bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/activate-f-local.sh
+d04388b654cec3422015794b5ca479a19aa8c11ca1871cdd85204307fd5541ac  bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/restore-e-local.sh
+0eb6d33014149a4332fcf303893c77e8c11e369ace76b14f42d05377bbd050a2  bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/final-active-state.txt

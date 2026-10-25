@@ -1,0 +1,4 @@
+/home/carlos/project/llama.gfx1101/ggml/src/ggml-cuda/vecdotq.cuh: OK
+/home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0.27.0: OK
+/home/carlos/project/llama.gfx1101/build-hip-baseline/bin/llama-bench: OK
+/home/carlos/project/llama.gfx1101/build-hip-baseline/bin/test-backend-ops: OK

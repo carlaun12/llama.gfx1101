@@ -1,0 +1,5 @@
+rows=40 expected=40
+depth=0: rows=20 C=10 E=10
+depth=4096: rows=20 C=10 E=10
+sequence=C E E C E C C E C E E C E C C E C E E C
+configuration_errors=0

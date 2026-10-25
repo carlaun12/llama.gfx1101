@@ -1,0 +1,4 @@
+
+build-hip-baseline/ggml/src/ggml-hip/CMakeFiles/ggml-hip.dir/__/ggml-cuda/mmvq.cu.o:	file format elf64-x86-64
+Extracting offload bundle: build-hip-baseline/ggml/src/ggml-hip/CMakeFiles/ggml-hip.dir/__/ggml-cuda/mmvq.cu.o.0.host-x86_64-unknown-linux-gnu-
+Extracting offload bundle: build-hip-baseline/ggml/src/ggml-hip/CMakeFiles/ggml-hip.dir/__/ggml-cuda/mmvq.cu.o.0.hipv4-amdgcn-amd-amdhsa--gfx1101

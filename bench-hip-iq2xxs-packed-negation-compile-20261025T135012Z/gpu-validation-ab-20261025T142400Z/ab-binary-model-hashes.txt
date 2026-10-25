@@ -1,0 +1,4 @@
+39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/llama-bench
+e13d3e7400b6c7f980ebd30c0edd6be43eb1865b50be8562a9db042706c7d803  /home/carlos/slop/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf
+676433a44e3e947b0d37d050109328aa4b8d20f77a515276e50135b92d8e658b  /home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/control-library/libggml-hip.so.0.27.0
+10d986a6d33c2987c0c92498f0ad162ff528da1ff0a6198c786da729facda75b  /home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/candidate-library/libggml-hip.so.0.27.0

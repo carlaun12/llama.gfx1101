@@ -1,0 +1,4 @@
+pp512 paired gain = 100 * (F avg_ts / E avg_ts - 1).
+95% CI = two-sided paired Student-t interval over 10 percentage gains (df=9, t*=2.262157).
+Pair order alternated: five E-F and five F-E.
+E mean=653.4072 tok/s; F mean=655.9041 tok/s; mean paired gain=+0.393% (95% CI -0.360% to +1.145%); paired SD=1.052%

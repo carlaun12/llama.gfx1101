@@ -1,0 +1,14 @@
+seed 17: C/E diagnostic input and value lines identical=True; prior C replay identical=True; lines C/E=50/50
+  failing operations C/E identical=True; count=2
+  DIAG_INPUT_SET seed=17 vars=type=iq3_xxs,glu_op=2,m=1,n=1,k=256,use_id=0,n_mats=1,n_used=1,b=0,with_bias=1,with_gate=0,with_lane_scale=0,batch_dims=[1,1]
+  DIAG_STAGE_VALUE node=out index=0 gpu=-0.184896230698 reference=-0.125562310219 abs_error=0.0593339204788
+  DIAG_INPUT_SET seed=17 vars=type=iq3_xxs,glu_op=2,m=1,n=1,k=5120,use_id=0,n_mats=1,n_used=1,b=0,with_bias=1,with_gate=0,with_lane_scale=0,batch_dims=[1,1]
+  DIAG_STAGE_VALUE node=out index=0 gpu=13.405921936 reference=13.2945804596 abs_error=0.11134147644
+  DIAG_STAGE_VALUE node=out index=0 gpu=-87.6192779541 reference=-87.1275863647 abs_error=0.491691589355
+seed 25025: C/E diagnostic input and value lines identical=True; prior C replay identical=True; lines C/E=49/49
+  failing operations C/E identical=True; count=2
+  DIAG_INPUT_SET seed=25025 vars=type=iq3_xxs,glu_op=2,m=1,n=1,k=256,use_id=0,n_mats=1,n_used=1,b=0,with_bias=1,with_gate=0,with_lane_scale=0,batch_dims=[1,1]
+  DIAG_STAGE_VALUE node=out index=0 gpu=9.02551651001 reference=9.04363250732 abs_error=0.0181159973145
+  DIAG_INPUT_SET seed=25025 vars=type=iq3_xxs,glu_op=2,m=1,n=1,k=5120,use_id=0,n_mats=1,n_used=1,b=0,with_bias=1,with_gate=0,with_lane_scale=0,batch_dims=[1,1]
+  DIAG_STAGE_VALUE node=out index=0 gpu=0.686857461929 reference=0.760685682297 abs_error=0.0738282203674
+  DIAG_STAGE_VALUE node=out index=0 gpu=-52.5317192078 reference=-52.2468032837 abs_error=0.284915924072

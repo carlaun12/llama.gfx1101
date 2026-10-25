@@ -1,0 +1,1 @@
+/opt/rocm/llvm/bin/clang++ -std=gnu++17 -O3 -DGGML_USE_HIP -D__HIP_PLATFORM_AMD__=1 -D__HIP_ROCclr__=1 --offload-arch=gfx1101 -Iggml/include -Iggml/src -Iggml/src/ggml-cuda -x hip bench-hip-iq3s-two-accumulators-20261025T164820Z/accum-equivalence.hip -o bench-hip-iq3s-two-accumulators-20261025T164820Z/accum-equivalence

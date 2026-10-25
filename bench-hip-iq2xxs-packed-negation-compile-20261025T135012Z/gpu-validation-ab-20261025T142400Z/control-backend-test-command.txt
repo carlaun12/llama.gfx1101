@@ -1,0 +1,1 @@
+env LD_LIBRARY_PATH=/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/control-library:/home/carlos/project/llama.gfx1101/build-hip-baseline/bin:/opt/rocm/lib /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/test-backend-ops -b ROCm0 -o MUL_MAT\,MUL_MAT_VEC_FUSION -p iq2_xxs 

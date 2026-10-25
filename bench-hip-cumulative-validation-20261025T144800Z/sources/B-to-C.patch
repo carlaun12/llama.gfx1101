@@ -1,0 +1,17 @@
+--- bench-hip-cumulative-validation-20261025T144800Z/sources/B.vecdotq.cuh	2026-10-25 11:48:34.304320703 -0300
++++ bench-hip-cumulative-validation-20261025T144800Z/sources/C.vecdotq.cuh	2026-10-25 11:48:34.999164725 -0300
+@@ -1124,12 +1124,12 @@
+         const uint32_t signs = unpack_ksigns(aux32 >> (7 * k0 / 2));
+ 
+         const int signs0 = __vcmpne4(signs & 0x08040201, 0);
+-        const int grid0 = __vsub4(grid_pos.x ^ signs0, signs0);
++        const int grid0 = (int) (((uint32_t) grid_pos.x ^ (uint32_t) signs0) + ((uint32_t) signs0 & 0x01010101u));
+         const int u0 = get_int_b4(bq8_1[iqs/2].qs, k0 + 0);
+         sumi = ggml_cuda_dp4a(grid0, u0, sumi);
+ 
+         const int signs1 = __vcmpne4(signs & 0x80402010, 0);
+-        const int grid1 = __vsub4(grid_pos.y ^ signs1, signs1);
++        const int grid1 = (int) (((uint32_t) grid_pos.y ^ (uint32_t) signs1) + ((uint32_t) signs1 & 0x01010101u));
+         const int u1 = get_int_b4(bq8_1[iqs/2].qs, k0 + 1);
+         sumi = ggml_cuda_dp4a(grid1, u1, sumi);
+     }

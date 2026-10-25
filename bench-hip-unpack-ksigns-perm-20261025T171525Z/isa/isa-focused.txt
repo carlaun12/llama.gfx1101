@@ -1,0 +1,57 @@
+IQ2_XXS MMVQ
+  plain: C ins=309 broadcast_mul=4 broadcast_perm=0 dot4=8 loads=21 vgpr=36 sgpr=22 private=0
+  plain: E ins=309 broadcast_mul=0 broadcast_perm=4 dot4=8 loads=21 vgpr=36 sgpr=22 private=0
+  schedule events identical=True; C=load:s_load_b64,load:s_load_b128,load:s_load_b32,load:s_load_b128,load:s_load_b32,load:s_load_b64,load:s_load_b32,load:s_load_b128,load:s_load_b32,load:s_load_b128,load:s_load_b128,load:global_load_b64,load:global_load_d16_b16,popcnt,load:global_load_b64,load:global_load_b128,load:global_load_b64,load:global_load_b128,popcnt,popcnt,popcnt,broadcast,broadcast,broadcast,broadcast,dot4,load:global_load_b64,load:global_load_b64,load:global_load_b32,dot4,dot4,dot4,dot4,dot4,dot4,dot4,load:s_load_b64
+  fused: C ins=768 broadcast_mul=8 broadcast_perm=0 dot4=16 loads=33 vgpr=49 sgpr=46 private=0
+  fused: E ins=765 broadcast_mul=0 broadcast_perm=8 dot4=16 loads=33 vgpr=49 sgpr=46 private=0
+  schedule events identical=True; C=load:s_load_b128,load:s_load_b128,load:s_load_b256,load:s_load_b32,load:s_load_b128,load:s_load_b128,load:s_load_b32,load:s_load_b32,load:s_load_b32,load:s_load_b64,load:s_load_b64,load:s_load_b64,load:s_load_b128,load:global_load_b32,load:global_load_b32,popcnt,popcnt,popcnt,popcnt,broadcast,broadcast,broadcast,broadcast,dot4,dot4,dot4,dot4,dot4,dot4,dot4,dot4,load:global_load_b64,load:global_load_d16_b16,load:global_load_b128,load:global_load_b128,load:global_load_b32,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_d16_hi_b16,popcnt,popcnt,load:global_load_b64,load:global_load_b64,popcnt,load:global_load_b64,popcnt,load:global_load_b64,broadcast,broadcast,broadcast,broadcast,dot4,dot4,dot4,dot4,dot4,dot4,dot4,dot4,load:s_load_b128,load:s_load_b128,load:s_load_b64
+
+IQ2_XS MMVQ
+  plain: C ins=341 broadcast_mul=4 broadcast_perm=0 dot4=8 loads=22 vgpr=43 sgpr=22 private=0
+  plain: E ins=342 broadcast_mul=0 broadcast_perm=4 dot4=8 loads=22 vgpr=43 sgpr=22 private=0
+  schedule events identical=True; C=load:s_load_b64,load:s_load_b128,load:s_load_b32,load:s_load_b128,load:s_load_b32,load:s_load_b64,load:s_load_b32,load:s_load_b128,load:s_load_b32,load:s_load_b128,load:s_load_b128,load:global_load_b64,load:global_load_u8,load:global_load_d16_b16,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_b128,load:global_load_b128,load:global_load_b32,popcnt,popcnt,popcnt,popcnt,broadcast,broadcast,broadcast,broadcast,dot4,dot4,dot4,dot4,dot4,dot4,dot4,dot4,load:s_load_b64
+  fused: C ins=844 broadcast_mul=8 broadcast_perm=0 dot4=16 loads=35 vgpr=58 sgpr=46 private=0
+  fused: E ins=843 broadcast_mul=0 broadcast_perm=8 dot4=16 loads=35 vgpr=58 sgpr=46 private=0
+  schedule events identical=True; C=load:s_load_b128,load:s_load_b128,load:s_load_b256,load:s_load_b32,load:s_load_b128,load:s_load_b128,load:s_load_b32,load:s_load_b32,load:s_load_b32,load:s_load_b64,load:s_load_b64,load:s_load_b64,load:s_load_b128,load:global_load_b32,load:global_load_b32,popcnt,popcnt,popcnt,popcnt,broadcast,broadcast,broadcast,broadcast,dot4,dot4,dot4,dot4,dot4,dot4,dot4,dot4,load:global_load_b64,load:global_load_d16_u8,load:global_load_d16_b16,load:global_load_b128,load:global_load_b128,load:global_load_b32,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_u8,popcnt,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_b64,load:global_load_d16_hi_b16,popcnt,popcnt,popcnt,broadcast,broadcast,broadcast,broadcast,dot4,dot4,dot4,dot4,dot4,dot4,dot4,dot4,load:s_load_b128,load:s_load_b128,load:s_load_b64
+
+IQ3_XXS MMVQ
+  plain: C ins=330 broadcast_mul=4 broadcast_perm=0 dot4=8 loads=26 vgpr=36 sgpr=22 private=0
+  plain: E ins=329 broadcast_mul=0 broadcast_perm=4 dot4=8 loads=26 vgpr=36 sgpr=22 private=0
+  schedule events identical=True; C=load:s_load_b64,load:s_load_b128,load:s_load_b32,load:s_load_b128,load:s_load_b32,load:s_load_b64,load:s_load_b32,load:s_load_b128,load:s_load_b32,load:s_load_b128,load:s_load_b128,load:global_load_b64,load:global_load_b32,load:global_load_b128,load:global_load_b128,load:global_load_d16_hi_b16,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,popcnt,popcnt,popcnt,popcnt,broadcast,broadcast,broadcast,broadcast,dot4,dot4,dot4,dot4,dot4,dot4,dot4,dot4,load:s_load_b64
+  fused: C ins=816 broadcast_mul=8 broadcast_perm=0 dot4=16 loads=43 vgpr=50 sgpr=46 private=0
+  fused: E ins=816 broadcast_mul=0 broadcast_perm=8 dot4=16 loads=43 vgpr=50 sgpr=46 private=0
+  schedule events identical=True; C=load:s_load_b128,load:s_load_b128,load:s_load_b256,load:s_load_b32,load:s_load_b128,load:s_load_b128,load:s_load_b32,load:s_load_b32,load:s_load_b32,load:s_load_b64,load:s_load_b64,load:s_load_b64,load:s_load_b128,load:global_load_b32,load:global_load_b32,popcnt,popcnt,popcnt,popcnt,broadcast,broadcast,broadcast,broadcast,dot4,dot4,dot4,dot4,dot4,dot4,dot4,dot4,load:global_load_b64,load:global_load_b128,load:global_load_b128,load:global_load_b32,load:global_load_b32,load:global_load_d16_hi_b16,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b64,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_b32,load:global_load_d16_b16,popcnt,popcnt,popcnt,popcnt,broadcast,broadcast,broadcast,broadcast,dot4,dot4,dot4,dot4,dot4,dot4,dot4,dot4,load:s_load_b128,load:s_load_b128,load:s_load_b64
+
+mmq-instance-iq2_xxs.cu MMQ (all instantiated kernels with device code)
+  instructions: C=17981 E=17973
+  broadcast_mul: C=176 E=0
+  broadcast_perm: C=0 E=176
+  all_perm: C=0 E=176
+  load_instructions: C=1561 E=1561
+  next_free_vgpr: C=172..256 E=172..256; changed=0
+  next_free_sgpr: C=29..34 E=29..34; changed=0
+  private_segment_fixed_size: C=0..148 E=0..148; changed=0
+  active kernels=11; kernel instruction deltas=[-6, -2, 0]; load counts changed=0
+
+mmq-instance-iq2_xs.cu MMQ (all instantiated kernels with device code)
+  instructions: C=17979 E=17981
+  broadcast_mul: C=176 E=0
+  broadcast_perm: C=0 E=176
+  all_perm: C=0 E=176
+  load_instructions: C=1397 E=1397
+  next_free_vgpr: C=169..256 E=169..256; changed=0
+  next_free_sgpr: C=28..34 E=28..34; changed=0
+  private_segment_fixed_size: C=0..32 E=0..32; changed=0
+  active kernels=11; kernel instruction deltas=[0, 2]; load counts changed=0
+
+mmq-instance-iq3_xxs.cu MMQ (all instantiated kernels with device code)
+  instructions: C=18911 E=18911
+  broadcast_mul: C=176 E=0
+  broadcast_perm: C=0 E=176
+  all_perm: C=0 E=176
+  load_instructions: C=1755 E=1755
+  next_free_vgpr: C=168..256 E=168..256; changed=0
+  next_free_sgpr: C=28..34 E=28..34; changed=0
+  private_segment_fixed_size: C=0..152 E=0..152; changed=0
+  active kernels=11; kernel instruction deltas=[0]; load counts changed=0
+

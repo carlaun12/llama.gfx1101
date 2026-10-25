@@ -1,0 +1,31 @@
+telemetry_samples=277; busy_samples=250 (GPU use >= 95%)
+utilization_percent: min=98, max=100
+power_w: min=87, max=210, samples_above_190W=102/250
+sclk_mhz: min=2210, max=2482
+mclk_mhz: min=1218, max=1218
+fclk_mhz: min=1950, max=2301
+edge_temp_c: min=38, max=61
+junction_temp_c: min=52, max=82
+memory_temp_c: min=62, max=87
+01-A: busy_samples=12, mean_power=190.1W, mean_sclk=2363MHz, max_junction=64C, max_memory=68C
+02-B: busy_samples=12, mean_power=190.8W, mean_sclk=2361MHz, max_junction=68C, max_memory=72C
+03-B: busy_samples=12, mean_power=192.2W, mean_sclk=2353MHz, max_junction=71C, max_memory=74C
+04-A: busy_samples=13, mean_power=188.5W, mean_sclk=2330MHz, max_junction=73C, max_memory=78C
+05-A: busy_samples=13, mean_power=191.5W, mean_sclk=2355MHz, max_junction=74C, max_memory=78C
+06-B: busy_samples=13, mean_power=189.9W, mean_sclk=2337MHz, max_junction=77C, max_memory=80C
+07-B: busy_samples=13, mean_power=190.8W, mean_sclk=2340MHz, max_junction=77C, max_memory=82C
+08-A: busy_samples=12, mean_power=191.8W, mean_sclk=2322MHz, max_junction=77C, max_memory=82C
+09-A: busy_samples=13, mean_power=187.4W, mean_sclk=2318MHz, max_junction=78C, max_memory=84C
+10-B: busy_samples=13, mean_power=180.3W, mean_sclk=2322MHz, max_junction=78C, max_memory=84C
+11-B: busy_samples=12, mean_power=193.1W, mean_sclk=2328MHz, max_junction=80C, max_memory=84C
+12-A: busy_samples=13, mean_power=189.8W, mean_sclk=2323MHz, max_junction=79C, max_memory=84C
+13-A: busy_samples=12, mean_power=188.2W, mean_sclk=2321MHz, max_junction=80C, max_memory=86C
+14-B: busy_samples=14, mean_power=192.3W, mean_sclk=2331MHz, max_junction=81C, max_memory=86C
+15-B: busy_samples=12, mean_power=188.2W, mean_sclk=2296MHz, max_junction=80C, max_memory=86C
+16-A: busy_samples=13, mean_power=181.6W, mean_sclk=2310MHz, max_junction=80C, max_memory=86C
+17-A: busy_samples=11, mean_power=188.0W, mean_sclk=2311MHz, max_junction=82C, max_memory=86C
+18-B: busy_samples=13, mean_power=186.9W, mean_sclk=2307MHz, max_junction=81C, max_memory=86C
+19-B: busy_samples=12, mean_power=191.2W, mean_sclk=2313MHz, max_junction=81C, max_memory=87C
+20-A: busy_samples=12, mean_power=189.2W, mean_sclk=2326MHz, max_junction=81C, max_memory=86C
+A aggregate: busy_samples=124, mean_power=188.59W, mean_sclk=2328.0MHz, mean_fclk=1954.9MHz, mean_junction=72.2C, samples_above_190W=46
+B aggregate: busy_samples=126, mean_power=189.55W, mean_sclk=2328.9MHz, mean_fclk=1955.6MHz, mean_junction=72.5C, samples_above_190W=56

@@ -1,0 +1,17 @@
+Target: RX 7800 XT / gfx1101
+Recorded: 2026-10-25 19:31 UTC
+
+E active source and library hashes:
+vecdotq.cuh 9f0faab54379357d5239191cfe367a3789c39a8c519c82ea45826791ca7fc11c
+mmq-load-tiles.cuh 829528f15e95ff0d665efa1e36f3458730c3b36800231b16cb7c245fc9b0b3c5
+HIP library ea89b81c6ac2c519fbbb8c43f3d986413cfb14f4901098f1817c085431cfbf24
+
+F isolated source and library hashes:
+vecdotq.cuh defbd93d6b8f5d46edd00410c97a6fdaee9087d583c4c8bb75fa40603c762c1c
+mmq-load-tiles.cuh 18771895fb1f5f8bfed621239357d4af9cd4b1b030ea25228ba04e98efda801f
+HIP library 3feb9be9f5e459045b8b73cbdd30e98598f6f5c8a6af45f4805a7215a2d66dce
+
+Dispatch check:
+GGML_TYPE_IQ2_XS is enum value 17. MMVQ limit is 8 columns. Quantized IQ2_XS is rejected by MMF. The RDNA3 IQ2_XS MMQ selector accepts ne11 <= 128. The profiler trace contains 64 dispatches of mul_mat_q<(ggml_type)17, 128, ...>. Kernel stats report 37,581,801 ns total for those calls. This trace includes setup, warmup, and measured prompt work; it confirms dispatch and is not normal performance data.
+
+Trace used the F HIP library from the isolated F build. Preflight telemetry was 1% GPU use with no KFD PIDs. Full command and raw CSV files are beside this file.

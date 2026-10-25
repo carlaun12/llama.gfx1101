@@ -1,0 +1,12 @@
+unpack_ksigns amdgcn_perm: C control vs E candidate
+20 runs; 10 adjacent pairs per depth; order balanced 5 C-E and 5 E-C.
+Metric: llama-bench avg_ts (tokens/s). Pair gain = 100 * (E/C - 1).
+CI: two-sided paired Student t interval over the 10 pair gains, df=9, t*=2.262157.
+depth=0: C mean=34.8479 t/s; E mean=35.0968 t/s; mean paired gain=+0.723% (95% CI -0.100% to +1.545%).
+  pair gains: +0.124%, +0.389%, +0.868%, +1.633%, -1.124%, +0.482%, +0.935%, +0.829%, -0.145%, +3.234%
+depth=4096: C mean=33.9034 t/s; E mean=34.2606 t/s; mean paired gain=+1.057% (95% CI +0.427% to +1.687%).
+  pair gains: +1.389%, +1.462%, -0.565%, +2.922%, +0.393%, +1.050%, +0.908%, +0.777%, +0.952%, +1.280%
+telemetry samples parsed: 279; busy means GPU use >=95%.
+telemetry C: 124/140 busy samples; power mean/max=189.2/207.0 W; SCLK mean/range=2336/2224-2454 MHz; junction range=51-77 C; memory range=62-84 C; samples >190 W=58.
+telemetry E: 124/139 busy samples; power mean/max=190.5/215.0 W; SCLK mean/range=2338/2233-2482 MHz; junction range=55-77 C; memory range=67-84 C; samples >190 W=62.
+run logs with error/failure markers: 0

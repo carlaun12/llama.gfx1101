@@ -1,0 +1,7 @@
+IQ2_S packed-sign GPU equivalence
+
+Command: ./bench-hip-iq2s-negation-20261025T023844Z/gpu-packed-equivalence
+Target: gfx1101 / ROCm HIP
+Result: PASS: 1024 table entries, 32768 low/high sign cases, exact packed equality, no zero lanes
+
+The checker includes the repository IQ2_S table and HIP byte intrinsics. It compares the original sign expansion plus __vsub4 against the masked 32-bit XOR/add candidate. Every packed 32-bit operand matched exactly on the GPU.

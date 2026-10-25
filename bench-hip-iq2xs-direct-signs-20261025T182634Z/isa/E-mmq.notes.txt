@@ -1,0 +1,8 @@
+
+File: bench-hip-unpack-ksigns-perm-20261025T171525Z/build/E/ggml/src/ggml-hip/CMakeFiles/ggml-hip.dir/__/ggml-cuda/template-instances/mmq-instance-iq2_xs.cu.o
+Format: elf64-x86-64
+Arch: x86_64
+AddressSize: 64bit
+LoadName: <Not found>
+NoteSections [
+]

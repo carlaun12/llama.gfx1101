@@ -1,0 +1,3 @@
+9f0faab54379357d5239191cfe367a3789c39a8c519c82ea45826791ca7fc11c  ggml/src/ggml-cuda/vecdotq.cuh
+ea89b81c6ac2c519fbbb8c43f3d986413cfb14f4901098f1817c085431cfbf24  build-hip-baseline/bin/libggml-hip.so.0.27.0
+	libggml-hip.so.0 => /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0 (0x00007f5ba8000000)

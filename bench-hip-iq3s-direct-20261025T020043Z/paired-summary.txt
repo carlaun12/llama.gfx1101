@@ -1,0 +1,3 @@
+paired, A=control, B=IQ3_S direct signs
+depth=0: A=32.46593, B=33.26030, mean paired delta=+2.448% (95% CI +2.267 to +2.628), paired SD=0.252%
+depth=4096: A=31.83590, B=32.64291, mean paired delta=+2.536% (95% CI +2.226 to +2.846), paired SD=0.434%

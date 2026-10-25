@@ -1,0 +1,14 @@
+--- ggml/src/ggml-cuda/vecdotq.cuh	2026-10-25 11:48:34.998119879 -0300
++++ bench-hip-unpack-ksigns-perm-20261025T171525Z/source/E/ggml/src/ggml-cuda/vecdotq.cuh	2026-10-25 14:16:28.774480725 -0300
+@@ -100,7 +100,11 @@
+     const uint32_t p = __popc(v) & 1;
+     const uint32_t s = v ^ p << 7;
+     // broadcast over uint to allow for 0x08040201 / 0x80402010 as selectors
++#if defined(GGML_USE_HIP)
++    return __builtin_amdgcn_perm(0, s, 0);
++#else
+     return s * 0x01010101;
++#endif
+ }
+ 
+ // VDR = vec dot ratio, how many contiguous integers each thread processes when the vec dot kernel is called

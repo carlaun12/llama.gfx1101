@@ -1,0 +1,8 @@
+IQ2_S direct-sign A/B
+A: current three-patch candidate; B: same plus IQ2_S direct sign expansion
+n=10 adjacent pairs; 95% paired t interval (df=9); t*=2.262157
+depth=0: A=34.36839, B=34.93552, mean paired delta=+1.650% (95% CI +1.563 to +1.737), paired SD=0.121%
+  pairs=+1.550%, +1.776%, +1.782%, +1.540%, +1.559%, +1.580%, +1.722%, +1.671%, +1.491%, +1.832%
+depth=4096: A=33.55713, B=34.18368, mean paired delta=+1.868% (95% CI +1.423 to +2.313), paired SD=0.622%
+  pairs=+0.958%, +2.441%, +2.207%, +2.155%, +2.055%, +2.145%, +2.682%, +1.137%, +1.937%, +0.965%
+validated_json=20/20; run_errors=0

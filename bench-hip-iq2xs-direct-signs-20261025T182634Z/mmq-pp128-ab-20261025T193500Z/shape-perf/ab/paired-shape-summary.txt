@@ -1,0 +1,13 @@
+Kernel-shape gain = 100 * (E us/run / F us/run - 1), so positive values mean lower F latency.
+95% CI = two-sided paired Student-t interval over 10 paired percentage gains (df=9, t*=2.262157).
+The backend perf harness is unprofiled, uses randomized quantized weights and activations, and matches GGUF K/M shapes with n=128.
+Pair order is balanced: five E-F and five F-E.
+
+shape_m,shape_k,E_mean_us,F_mean_us,mean_gain_percent,ci95_low_percent,ci95_high_percent,paired_sd_percent
+5120,6144,308.29,302.82,+1.839,+0.027,+3.651,2.534
+5120,17408,855.31,844.53,+1.287,+0.542,+2.031,1.041
+6144,5120,339.91,334.94,+1.522,-0.343,+3.386,2.607
+10240,5120,483.38,475.83,+1.593,+0.792,+2.394,1.119
+17408,5120,790.05,777.89,+1.567,+0.909,+2.226,0.920
+
+Equal-weight five-shape paired gain=+1.562% (95% CI +1.013% to +2.110%); paired SD=0.767%.

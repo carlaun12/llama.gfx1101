@@ -1,0 +1,8 @@
+IQ3_XXS direct-sign A/B
+A: IQ3_S and IQ2_S direct, IQ3_XXS packed negation; B: same plus IQ3_XXS direct sign expansion
+n=10 adjacent pairs; 95% paired t interval (df=9); t*=2.262157
+depth=0: A=32.56938, B=33.11168, mean paired delta=+1.719% (95% CI -1.001 to +4.439), paired SD=3.802%
+  pairs=+0.842%, +1.951%, +1.915%, -5.518%, +0.130%, +0.771%, +2.848%, +9.960%, +3.544%, +0.749%
+depth=4096: A=31.79945, B=32.13538, mean paired delta=+1.023% (95% CI -0.371 to +2.416), paired SD=1.948%
+  pairs=+2.663%, -3.006%, +1.421%, -0.845%, +0.757%, +0.242%, +1.141%, +3.275%, +3.433%, +1.146%
+validated_json=20/20; run_errors=0

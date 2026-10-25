@@ -1,0 +1,5 @@
+IQ2_S integration tests
+
+Command: ./build-hip-baseline/bin/test-backend-ops -b ROCm0 -o MUL_MAT,MUL_MAT_VEC_FUSION -p iq2_s
+Device: AMD Radeon RX 7800 XT, gfx1101
+Result: 51/51 ROCm tests passed.

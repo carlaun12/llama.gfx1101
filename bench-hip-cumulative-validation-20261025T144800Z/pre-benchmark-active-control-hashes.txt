@@ -1,0 +1,2 @@
+676433a44e3e947b0d37d050109328aa4b8d20f77a515276e50135b92d8e658b  build-hip-baseline/bin/libggml-hip.so.0.27.0
+a22eebfb491090e3cb5c5d297caacd3bff0055f12fe0318db897d7873f6efceb  ggml/src/ggml-cuda/vecdotq.cuh

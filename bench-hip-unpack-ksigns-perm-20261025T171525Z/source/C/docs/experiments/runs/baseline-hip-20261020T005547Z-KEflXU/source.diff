@@ -1,0 +1,370 @@
+diff --git a/ggml/src/ggml-cuda/ggml-cuda.cu b/ggml/src/ggml-cuda/ggml-cuda.cu
+index 2eb5e203e..d0e374ff0 100644
+--- a/ggml/src/ggml-cuda/ggml-cuda.cu
++++ b/ggml/src/ggml-cuda/ggml-cuda.cu
+@@ -3257,7 +3257,8 @@ static bool ggml_cuda_check_fusion_memory_ranges(const ggml_cgraph * cgraph,
+                                                  const int           node_count,
+                                                  const int *         out_nodes,
+                                                  const int           out_count,
+-                                                 const bool          is_topk_moe = false) {
++                                                 const bool          is_topk_moe = false,
++                                                 std::initializer_list<const ggml_tensor *> inplace_inputs = {}) {
+     auto nodes_overlap = [&](const ggml_tensor * a, const ggml_tensor * b) {
+         const int64_t a_start = (int64_t) a->data;
+         const int64_t a_end   = a_start + ggml_backend_buft_get_alloc_size(a->buffer->buft, a);
+@@ -3294,6 +3295,12 @@ static bool ggml_cuda_check_fusion_memory_ranges(const ggml_cgraph * cgraph,
+                     continue;
+                 }
+ 
++                // Row-local kernels may reuse an input with exactly the output layout.
++                if (std::find(inplace_inputs.begin(), inplace_inputs.end(), src) != inplace_inputs.end() &&
++                    src->data == dst->data && ggml_are_same_layout(src, dst)) {
++                    continue;
++                }
++
+                 if (nodes_overlap(dst, src)) {
+                     bool found = false;
+ 
+@@ -3550,6 +3557,34 @@ static bool ggml_cuda_can_fuse(const struct ggml_cgraph *                cgraph,
+         }
+     }
+ 
++    const std::initializer_list<ggml_op> rms_norm_silu_gate_ops = { GGML_OP_RMS_NORM, GGML_OP_MUL, GGML_OP_UNARY, GGML_OP_MUL };
++    if (is_equal(rms_norm_silu_gate_ops, ops)) {
++        if (!ggml_can_fuse_subgraph(cgraph, node_idx, ops, { node_idx + 3 })) {
++            return false;
++        }
++        const ggml_tensor * norm = cgraph->nodes[node_idx];
++        const ggml_tensor * weighted = cgraph->nodes[node_idx + 1];
++        const ggml_tensor * silu = cgraph->nodes[node_idx + 2];
++        const ggml_tensor * dst = cgraph->nodes[node_idx + 3];
++        const ggml_tensor * weight = weighted->src[0] == norm ? weighted->src[1] : weighted->src[0];
++        const ggml_tensor * gate = silu->src[0];
++        const bool edges_match = (weighted->src[0] == norm || weighted->src[1] == norm) &&
++            ((dst->src[0] == weighted && dst->src[1] == silu) || (dst->src[1] == weighted && dst->src[0] == silu));
++        if (!edges_match || gate == norm || gate == weighted || weight == norm ||
++            norm->view_src || weighted->view_src || silu->view_src || dst->view_src ||
++            ggml_get_unary_op(silu) != GGML_UNARY_OP_SILU ||
++            norm->src[0]->type != GGML_TYPE_F32 || norm->type != GGML_TYPE_F32 ||
++            weight->type != GGML_TYPE_F32 || weighted->type != GGML_TYPE_F32 ||
++            gate->type != GGML_TYPE_F32 || silu->type != GGML_TYPE_F32 || dst->type != GGML_TYPE_F32 ||
++            !ggml_is_vector(weight) || weight->ne[0] != norm->ne[0] || !ggml_is_contiguous(weight) ||
++            !ggml_is_contiguous_rows(norm->src[0]) || !ggml_is_contiguous(gate) || !ggml_is_contiguous(dst) ||
++            !ggml_are_same_shape(norm, weighted) || !ggml_are_same_shape(norm, gate) || !ggml_are_same_shape(norm, dst)) {
++            return false;
++        }
++        const int outputs[] = { node_idx + 3 };
++        return ggml_cuda_check_fusion_memory_ranges(cgraph, node_idx, 4, outputs, 1, false, { norm->src[0], gate });
++    }
++
+     // scale_out*sigmoid(scale_in*post) as the hc_post weights (qwen4exp hc_combine)
+     std::initializer_list<enum ggml_op> hc_post_gate_ops = { GGML_OP_SCALE, GGML_OP_UNARY, GGML_OP_SCALE, GGML_OP_DSV4_HC_POST };
+ 
+@@ -4496,6 +4531,11 @@ static int ggml_cuda_try_fuse(ggml_backend_cuda_context * cuda_ctx, ggml_cgraph
+         return 2;
+     }
+ 
++    if (ggml_cuda_can_fuse(cgraph, i, { GGML_OP_RMS_NORM, GGML_OP_MUL, GGML_OP_UNARY, GGML_OP_MUL }, { GGML_UNARY_OP_SILU })) {
++        ggml_cuda_op_rms_norm_silu_gate(*cuda_ctx, node, cgraph->nodes[i + 1], cgraph->nodes[i + 2], cgraph->nodes[i + 3]);
++        return 3;
++    }
++
+     if (ggml_cuda_can_fuse(cgraph, i, { GGML_OP_RMS_NORM, GGML_OP_MUL, GGML_OP_ADD }, {})) {
+         ggml_cuda_op_rms_norm_fused_add(*cuda_ctx, node, cgraph->nodes[i + 1], cgraph->nodes[i + 2]);
+         return 2;
+diff --git a/ggml/src/ggml-cuda/mmvq.cu b/ggml/src/ggml-cuda/mmvq.cu
+index 930f1adc4..a6d0c1679 100644
+--- a/ggml/src/ggml-cuda/mmvq.cu
++++ b/ggml/src/ggml-cuda/mmvq.cu
+@@ -99,6 +99,7 @@ enum mmvq_parameter_table_id {
+     MMVQ_PARAMETERS_GCN,
+     MMVQ_PARAMETERS_RDNA2,
+     MMVQ_PARAMETERS_RDNA3_0,
++    MMVQ_PARAMETERS_GFX1101,
+     MMVQ_PARAMETERS_RDNA4,
+     MMVQ_PARAMETERS_GB10
+ };
+@@ -106,6 +107,8 @@ enum mmvq_parameter_table_id {
+ static constexpr __device__ mmvq_parameter_table_id get_device_table_id() {
+ #if defined(RDNA4)
+     return MMVQ_PARAMETERS_RDNA4;
++#elif defined(__gfx1101__)
++    return MMVQ_PARAMETERS_GFX1101;
+ #elif defined(RDNA3_0)
+     return MMVQ_PARAMETERS_RDNA3_0;
+ #elif defined(RDNA2) || defined(RDNA3_5)
+@@ -122,6 +125,9 @@ static constexpr __device__ mmvq_parameter_table_id get_device_table_id() {
+ }
+ 
+ static __host__ mmvq_parameter_table_id get_device_table_id(int cc) {
++    if (cc == GGML_CUDA_CC_OFFSET_AMD + 0x1101) {
++        return MMVQ_PARAMETERS_GFX1101;
++    }
+     if (GGML_CUDA_CC_IS_RDNA4(cc)) {
+         return MMVQ_PARAMETERS_RDNA4;
+     }
+@@ -506,7 +512,10 @@ static constexpr __host__ __device__ int calc_nwarps(ggml_type type, int ncols_d
+         }
+         return 1;
+     }
+-    if (table_id == MMVQ_PARAMETERS_RDNA3_0) {
++    if (table_id == MMVQ_PARAMETERS_GFX1101 && ncols_dst == 1 && type == GGML_TYPE_IQ3_XXS) {
++        return 2;
++    }
++    if (table_id == MMVQ_PARAMETERS_RDNA3_0 || table_id == MMVQ_PARAMETERS_GFX1101) {
+         // RDNA3 (W7900): stricter whitelist than RDNA4.
+         // Q2_K / Q5_K / IQ4_XS regress in full quant sweeps.
+         if (ncols_dst == 1) {
+diff --git a/ggml/src/ggml-cuda/norm.cu b/ggml/src/ggml-cuda/norm.cu
+index 3f0ea6f2a..77edd47c1 100644
+--- a/ggml/src/ggml-cuda/norm.cu
++++ b/ggml/src/ggml-cuda/norm.cu
+@@ -1,4 +1,5 @@
+ #include "norm.cuh"
++#include "unary.cuh"
+ #include <cstdint>
+ 
+ template <int block_size>
+@@ -81,7 +82,7 @@ static __global__ void group_norm_f32(const float * x, float * dst, const int gr
+     }
+ }
+ 
+-template <int block_size, int vpt, bool do_vec, bool do_multiply = false, bool do_add = false, bool do_scale = false>
++template <int block_size, int vpt, bool do_vec, bool do_multiply = false, bool do_add = false, bool do_scale = false, bool do_silu_gate = false>
+ static __global__ void rms_norm_f32(const float * x,
+                                     float *       dst,
+                                     const int     ncols,
+@@ -107,7 +108,8 @@ static __global__ void rms_norm_f32(const float * x,
+                                     const uint3   add_nrows_packed     = make_uint3(0, 0, 0),
+                                     const uint3   add_nchannels_packed = make_uint3(0, 0, 0),
+                                     const uint3   add_nsamples_packed  = make_uint3(0, 0, 0),
+-                                    const float   scale_out            = 1.0f) {
++                                    const float   scale_out            = 1.0f,
++                                    const float * gate                 = nullptr) {
+     ggml_cuda_pdl_lc();
+     const int nrows = gridDim.x;
+     const int row   = blockIdx.x;
+@@ -115,6 +117,7 @@ static __global__ void rms_norm_f32(const float * x,
+ 
+     static_assert(!do_add || do_multiply, "fusing add is not supported without multiplying");
+     static_assert(!do_scale || !do_multiply, "fusing scale is not supported with multiplying");
++    static_assert(!do_silu_gate || (do_multiply && !do_add && !do_scale), "gated normalization requires weights only");
+ 
+     extern __shared__ float s_sum[];
+ 
+@@ -148,6 +151,7 @@ static __global__ void rms_norm_f32(const float * x,
+                 const float4 * mul4   = (const float4 *) mulc;
+                 const float4 * add4   = (const float4 *) addc;
+                 float4 *       dst4   = (float4 *) dstc;
++                [[maybe_unused]] const float * gatec = do_silu_gate ? gate + ((int64_t(sample)*nchannels + channel)*nrows + row)*ncols : nullptr;
+ 
+                 float4 xs[vpt];
+                 float  tmp = 0.0f;
+@@ -188,6 +192,12 @@ static __global__ void rms_norm_f32(const float * x,
+                             r.z *= scale_out;
+                             r.w *= scale_out;
+                         }
++                        if constexpr (do_silu_gate) {
++                            r.x *= ggml_cuda_op_silu_single(gatec[4*i + 0]);
++                            r.y *= ggml_cuda_op_silu_single(gatec[4*i + 1]);
++                            r.z *= ggml_cuda_op_silu_single(gatec[4*i + 2]);
++                            r.w *= ggml_cuda_op_silu_single(gatec[4*i + 3]);
++                        }
+                         dst4[i] = r;
+                     }
+                 }
+@@ -206,7 +216,11 @@ static __global__ void rms_norm_f32(const float * x,
+                 const float scale = rsqrtf(mean + eps);
+ 
+                 for (int col = tid; col < ncols; col += block_size) {
+-                    if constexpr (do_multiply && do_add) {
++                    if constexpr (do_silu_gate) {
++                        const int mul_col = fastmodulo(col, mul_ncols_packed);
++                        const int64_t gate_idx = ((int64_t(sample)*nchannels + channel)*nrows + row)*ncols + col;
++                        dstc[col] = (scale * xc[col] * mulc[mul_col]) * ggml_cuda_op_silu_single(gate[gate_idx]);
++                    } else if constexpr (do_multiply && do_add) {
+                         const int mul_col = fastmodulo(col, mul_ncols_packed);
+                         const int add_col = fastmodulo(col, add_ncols_packed);
+                         dstc[col]         = scale * xc[col] * mulc[mul_col] + addc[add_col];
+@@ -387,15 +401,15 @@ static void group_norm_f32_cuda(
+     do { \
+         const dim3 block_dims(BLOCK_SIZE, 1, 1); \
+         const ggml_cuda_kernel_launch_params launch_params{ blocks_num, block_dims, block_dims.x > WARP_SIZE ? 32 * sizeof(float) : 0, stream }; \
+-        ggml_cuda_kernel_launch(rms_norm_f32<BLOCK_SIZE, VPT, VEC, do_multiply, do_add, do_scale>, launch_params, \
++        ggml_cuda_kernel_launch(rms_norm_f32<BLOCK_SIZE, VPT, VEC, do_multiply, do_add, do_scale, do_silu_gate>, launch_params, \
+             x, dst, ncols, nchannels, nsamples, stride_row, stride_channel, stride_sample, eps, \
+             mul, mul_stride_row, mul_stride_channel, mul_stride_sample, \
+             mul_ncols_packed, mul_nrows_packed, mul_nchannels_packed, mul_nsamples_packed, \
+             add, add_stride_row, add_stride_channel, add_stride_sample, \
+-            add_ncols_packed, add_nrows_packed, add_nchannels_packed, add_nsamples_packed, scale_out); \
++            add_ncols_packed, add_nrows_packed, add_nchannels_packed, add_nsamples_packed, scale_out, gate); \
+     } while (0)
+ 
+-template <bool do_multiply, bool do_add, bool do_scale>
++template <bool do_multiply, bool do_add, bool do_scale, bool do_silu_gate = false>
+ static void rms_norm_f32_dispatch(
+         const dim3     blocks_num,
+         const ggml_tensor * x_t,   float * dst,   const int ncols, const int nchannels, const int nsamples,
+@@ -404,7 +418,7 @@ static void rms_norm_f32_dispatch(
+         const uint3    mul_ncols_packed, const uint3 mul_nrows_packed, const uint3 mul_nchannels_packed, const uint3 mul_nsamples_packed,
+         const ggml_tensor * add_t, const int64_t add_stride_row, const int64_t add_stride_channel, const int64_t add_stride_sample,
+         const uint3    add_ncols_packed, const uint3 add_nrows_packed, const uint3 add_nchannels_packed, const uint3 add_nsamples_packed,
+-        cudaStream_t   stream, const float scale_out = 1.0f) {
++        cudaStream_t   stream, const float scale_out = 1.0f, const float * gate = nullptr) {
+     static_assert(!do_add || do_multiply, "fusing add is not supported without multiplying");
+     static_assert(!do_scale || !do_multiply, "fusing scale is not supported with multiplying");
+ 
+@@ -693,6 +707,31 @@ void ggml_cuda_op_rms_norm_fused(ggml_backend_cuda_context & ctx, ggml_tensor *
+                           eps, stream);
+ }
+ 
++void ggml_cuda_op_rms_norm_silu_gate(ggml_backend_cuda_context & ctx, ggml_tensor * norm,
++                                   ggml_tensor * weighted, ggml_tensor * silu, ggml_tensor * dst) {
++    const ggml_tensor * input = norm->src[0];
++    const ggml_tensor * weight = weighted->src[0] == norm ? weighted->src[1] : weighted->src[0];
++    const ggml_tensor * gate = silu->src[0];
++    const uint3 one = init_fastdiv_values(1);
++    const uint3 zero = make_uint3(0, 0, 0);
++    float eps;
++    memcpy(&eps, norm->op_params, sizeof(eps));
++
++    GGML_ASSERT(input->type == GGML_TYPE_F32 && weight->type == GGML_TYPE_F32 && gate->type == GGML_TYPE_F32);
++    GGML_ASSERT(ggml_is_contiguous_rows(input) && ggml_is_contiguous(weight) && ggml_is_contiguous(gate));
++    GGML_ASSERT(ggml_are_same_shape(input, gate) && ggml_are_same_shape(input, dst));
++    GGML_ASSERT(ggml_is_vector(weight) && weight->ne[0] == input->ne[0]);
++    GGML_ASSERT(eps >= 0.0f);
++
++    const dim3 blocks(input->ne[1], MIN(input->ne[2], UINT16_MAX), MIN(input->ne[3], UINT16_MAX));
++    rms_norm_f32_dispatch<true, false, false, true>(
++        blocks, input, (float *) dst->data, input->ne[0], input->ne[2], input->ne[3],
++        input->nb[1] / sizeof(float), input->nb[2] / sizeof(float), input->nb[3] / sizeof(float), eps,
++        weight, 0, 0, 0, init_fastdiv_values(weight->ne[0]), one, one, one,
++        nullptr, 0, 0, 0, zero, zero, zero, zero,
++        ctx.stream(), 1.0f, (const float *) gate->data);
++}
++
+ void ggml_cuda_op_rms_norm_fused_add(ggml_backend_cuda_context & ctx,
+                                      ggml_tensor *               dst,
+                                      ggml_tensor *               mul_tensor,
+diff --git a/ggml/src/ggml-cuda/norm.cuh b/ggml/src/ggml-cuda/norm.cuh
+index 95618df5f..64cd6371e 100644
+--- a/ggml/src/ggml-cuda/norm.cuh
++++ b/ggml/src/ggml-cuda/norm.cuh
+@@ -8,6 +8,9 @@ void ggml_cuda_op_rms_norm(ggml_backend_cuda_context & ctx, ggml_tensor * dst);
+ 
+ void ggml_cuda_op_rms_norm_fused(ggml_backend_cuda_context & ctx, ggml_tensor * dst, ggml_tensor * mul_tensor);
+ 
++void ggml_cuda_op_rms_norm_silu_gate(ggml_backend_cuda_context & ctx, ggml_tensor * norm,
++                                   ggml_tensor * weighted, ggml_tensor * silu, ggml_tensor * dst);
++
+ void ggml_cuda_op_rms_norm_scale_fused(ggml_backend_cuda_context & ctx, ggml_tensor * dst, ggml_tensor * scale_tensor);
+ 
+ void ggml_cuda_op_rms_norm_fused_add(ggml_backend_cuda_context & ctx,
+diff --git a/src/models/qwen35.cpp b/src/models/qwen35.cpp
+index 958aea84a..517a1aaab 100644
+--- a/src/models/qwen35.cpp
++++ b/src/models/qwen35.cpp
+@@ -257,6 +257,8 @@ ggml_tensor * llama_model_qwen35::graph::build_norm_gated(
+         ggml_tensor * weights,
+         ggml_tensor * gate,
+         int           layer) {
++    // Build the gate first to keep the normalization and gating nodes adjacent.
++    ggml_build_forward_expand(gf, gate);
+     ggml_tensor * normalized = build_norm(input, weights, nullptr, LLM_NORM_RMS, layer);
+     ggml_tensor * gated_silu = ggml_silu(ctx0, gate);
+ 
+diff --git a/tests/test-backend-ops.cpp b/tests/test-backend-ops.cpp
+index 8fc90e037..3d503413d 100644
+--- a/tests/test-backend-ops.cpp
++++ b/tests/test-backend-ops.cpp
+@@ -3779,6 +3779,57 @@ struct test_rms_norm : public test_case {
+     }
+ };
+ 
++struct test_rms_norm_silu_gate : public test_case {
++    const std::array<int64_t, 4> ne;
++    const bool view_input;
++    const bool view_gate;
++    const bool weight_vector;
++    const bool reuse_norm;
++    const bool swap_operands;
++
++    test_rms_norm_silu_gate(std::array<int64_t, 4> ne, bool view_input = false, bool view_gate = false,
++                           bool weight_vector = true, bool reuse_norm = false, bool swap_operands = false)
++        : ne(ne), view_input(view_input), view_gate(view_gate), weight_vector(weight_vector),
++          reuse_norm(reuse_norm), swap_operands(swap_operands) {}
++
++    std::string op_desc(ggml_tensor *) override { return "RMS_NORM_SILU_GATE"; }
++    bool run_whole_graph() override { return true; }
++
++    std::string vars() override {
++        return VARS_TO_STR6(ne, view_input, view_gate, weight_vector, reuse_norm, swap_operands);
++    }
++
++    ggml_tensor * build_graph(ggml_context * ctx) override {
++        auto * input = ggml_new_tensor(ctx, GGML_TYPE_F32, 4, ne.data());
++        auto * weight = weight_vector ? ggml_new_tensor_1d(ctx, GGML_TYPE_F32, ne[0])
++                                     : ggml_new_tensor(ctx, GGML_TYPE_F32, 4, ne.data());
++        auto gate_ne = ne;
++        gate_ne[0] *= view_gate ? 2 : 1;
++        auto * gate = ggml_new_tensor(ctx, GGML_TYPE_F32, 4, gate_ne.data());
++        if (view_gate) {
++            gate = ggml_view_4d(ctx, gate, ne[0], ne[1], ne[2], ne[3], gate->nb[1], gate->nb[2], gate->nb[3], 0);
++        }
++
++        // Visit external operands before the fusion pattern, as in the model graph.
++        input = ggml_add(ctx, ggml_add(ctx, input, weight), gate);
++        if (view_input) {
++            input = ggml_pad(ctx, input, ne[0], 0, 0, 0);
++            input = ggml_view_4d(ctx, input, ne[0], ne[1], ne[2], ne[3], input->nb[1], input->nb[2], input->nb[3], 0);
++        }
++        auto * norm = ggml_rms_norm(ctx, input, 1e-6f);
++        auto * weighted = swap_operands && !weight_vector ? ggml_mul(ctx, weight, norm) : ggml_mul(ctx, norm, weight);
++        auto * silu = ggml_silu(ctx, gate);
++        auto * out = swap_operands ? ggml_mul(ctx, silu, weighted) : ggml_mul(ctx, weighted, silu);
++        return reuse_norm ? ggml_add(ctx, out, norm) : out;
++    }
++
++    void initialize_tensors(ggml_context * ctx) override {
++        for (auto * tensor = ggml_get_first_tensor(ctx); tensor; tensor = ggml_get_next_tensor(ctx, tensor)) {
++            init_tensor_uniform(tensor, -20.0f, 20.0f);
++        }
++    }
++};
++
+ // GGML_OP_RMS_NORM_BACK
+ struct test_rms_norm_back : public test_case {
+     const ggml_type type;
+@@ -10532,6 +10583,18 @@ static std::vector<std::unique_ptr<test_case>> make_test_cases_eval() {
+ 
+     // in-place tests
+     test_cases.emplace_back(new test_rms_norm(GGML_TYPE_F32, {64, 5, 4, 3}, false, 1e-6f, true));
++
++    for (int64_t width : { 3, 128, 129, 512 }) {
++        test_cases.emplace_back(new test_rms_norm_silu_gate({ width, 48, 1, 1 }));
++        test_cases.emplace_back(new test_rms_norm_silu_gate({ width, 48, 17, 2 }));
++    }
++    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, true));
++    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, false, true));
++    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, false, false, false));
++    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, false, false, true, true));
++    test_cases.emplace_back(new test_rms_norm_silu_gate({ 128, 48, 17, 2 }, false, false, true, false, true));
++    test_cases.emplace_back(new test_rms_norm_silu_gate({ 4, 1, 65536, 1 }));
++    test_cases.emplace_back(new test_rms_norm_silu_gate({ 4, 1, 1, 65536 }));
+     // shapes below exceed the CUDA gridDim.y/gridDim.z limit of 65535 (#27901)
+     test_cases.emplace_back(new test_norm        (GGML_TYPE_F32, {4, 1, 65536, 1}, false, 1e-6f));
+     test_cases.emplace_back(new test_rms_norm    (GGML_TYPE_F32, {4, 1, 65536, 1}, false, 1e-6f, false));
+@@ -11945,6 +12008,13 @@ static std::vector<std::unique_ptr<test_case>> make_test_cases_eval() {
+         }
+     }
+ 
++    for (int64_t k : { 256, 5120, 17408 }) {
++        for (bool with_gate : { false, true }) {
++            test_cases.emplace_back(new test_mul_mat_vec_fusion(GGML_TYPE_IQ3_XXS, GGML_GLU_OP_SWIGLU,
++                1, 64, k, false, 1, 1, false, !with_gate, with_gate, false, {1, 1}));
++        }
++    }
++
+     for (bool b : {false, true}) {
+         test_cases.emplace_back(new test_mul_mat_vec_fusion(GGML_TYPE_IQ2_S, GGML_GLU_OP_SWIGLU_CLAMP, 1, 32, 256,
+             true, 16, 8, b, false, true, false));

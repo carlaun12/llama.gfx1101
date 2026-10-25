@@ -1,0 +1,20 @@
+mmvq.cu: affected kernels C/E=39/39; resource records differing=0
+  spill counts (VGPR/SGPR) C/E range=(0, 0, 0, 0) / (0, 0, 0, 0)
+  private-segment bytes C/E range=(0, 0) / (0, 0)
+  VGPR count C/E range=(36, 97) / (36, 97)
+  SGPR count C/E range=(21, 48) / (21, 48)
+mmq-instance-iq2_xxs.cu: affected kernels C/E=64/64; resource records differing=0
+  spill counts (VGPR/SGPR) C/E range=(0, 36, 0, 0) / (0, 36, 0, 0)
+  private-segment bytes C/E range=(0, 148) / (0, 148)
+  VGPR count C/E range=(11, 256) / (11, 256)
+  SGPR count C/E range=(31, 84) / (31, 84)
+mmq-instance-iq2_xs.cu: affected kernels C/E=64/64; resource records differing=0
+  spill counts (VGPR/SGPR) C/E range=(0, 7, 0, 0) / (0, 7, 0, 0)
+  private-segment bytes C/E range=(0, 32) / (0, 32)
+  VGPR count C/E range=(11, 256) / (11, 256)
+  SGPR count C/E range=(30, 84) / (30, 84)
+mmq-instance-iq3_xxs.cu: affected kernels C/E=64/64; resource records differing=0
+  spill counts (VGPR/SGPR) C/E range=(0, 37, 0, 0) / (0, 37, 0, 0)
+  private-segment bytes C/E range=(0, 152) / (0, 152)
+  VGPR count C/E range=(11, 256) / (11, 256)
+  SGPR count C/E range=(30, 84) / (30, 84)

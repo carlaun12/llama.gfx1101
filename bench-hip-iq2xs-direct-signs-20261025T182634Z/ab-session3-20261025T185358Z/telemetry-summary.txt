@@ -1,0 +1,13 @@
+total one-second samples: 286
+E: tagged=144, busy>=95%=122
+  busy power W: mean=189.3, min=84.0, max=211.0
+  busy SCLK MHz: mean=2342.2, min=2230.0, max=2486.0
+  busy edge C: mean=52.7, min=32.0, max=57.0
+  busy junction C: mean=68.6, min=42.0, max=76.0
+  busy memory C: mean=76.8, min=56.0, max=84.0
+F: tagged=142, busy>=95%=126
+  busy power W: mean=188.8, min=171.0, max=201.0
+  busy SCLK MHz: mean=2344.1, min=2229.0, max=2431.0
+  busy edge C: mean=52.9, min=41.0, max=57.0
+  busy junction C: mean=68.9, min=53.0, max=77.0
+  busy memory C: mean=77.2, min=65.0, max=83.0

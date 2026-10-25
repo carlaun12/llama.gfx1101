@@ -1,0 +1,13 @@
+{
+  "equivalence": "PASS: 1600000 bit-exact dot products; integer bound before final division: 3936256",
+  "cpu_backend_tests": "55/55 passed",
+  "gpu_validation": "pending",
+  "before": {
+    "dot4_instructions": 8,
+    "probe_vgprs": 35
+  },
+  "after": {
+    "dot4_instructions": 8,
+    "probe_vgprs": 35
+  }
+}

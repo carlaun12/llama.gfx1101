@@ -1,0 +1,54 @@
+2026-10-25T16:32:07+00:00
+source_sha256=4c6ddd1e07ebbcc35c165bd16b5f62bb8551046fcf19a5e6b022f9ba03887d83
+library_sha256=a0b56310f88fa0f6fdbb6a4e3ba188617c2dbbe7f43b4a371094139754e264b8
+bench_sha256=39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25
+model_sha256=e13d3e7400b6c7f980ebd30c0edd6be43eb1865b50be8562a9db042706c7d803
+loader=/home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0
+
+--- device ---
+ggml_cuda_init: found 1 ROCm devices (Total VRAM: 16368 MiB):
+  Device 0: AMD Radeon RX 7800 XT, gfx1101 (0x1101), VMM: no, Wave Size: 32, VRAM: 16368 MiB
+Available devices:
+  ROCm0: AMD Radeon RX 7800 XT (16368 MiB, 16176 MiB free)
+
+--- rocprof ---
+             version: 1.1.0
+        git_revision: 97f5574fe2fdc7bef44fb01545347912ee9f1779
+        library_arch: 
+         system_name: Linux
+    system_processor: x86_64
+      system_version: 7.1.11-arch1-1
+         compiler_id: GNU
+    compiler_version: 16.2.1
+        rocm_version: 7.2.4
+
+--- runtime args ---
+-dev ROCm0 -ngl 99 -fa on -ctk f16 -ctv f16 -b 2048 -ub 512 -t 8 -r 1 -o json --progress -p 0 -n 128 -d 0 and 4096
+
+--- GPU state before trace ---
+WARNING: AMD GPU device(s) is/are in a low-power state. Check power control/runtime_status
+
+
+
+============================ ROCm System Management Interface ============================
+====================================== Temperature =======================================
+GPU[0]		: Temperature (Sensor edge) (C): 31.0
+GPU[0]		: Temperature (Sensor junction) (C): 39.0
+GPU[0]		: Temperature (Sensor memory) (C): 56.0
+==========================================================================================
+=============================== Current clock frequencies ================================
+GPU[0]		: dcefclk clock level: 1: (277Mhz)
+GPU[0]		: fclk clock level: 1: (1000Mhz)
+GPU[0]		: mclk clock level: 1: (456Mhz)
+GPU[0]		: sclk clock level: S: (0Mhz)
+GPU[0]		: socclk clock level: 1: (600Mhz)
+GPU[0]		: pcie clock level: 2 (16.0GT/s x16)
+==========================================================================================
+=================================== Power Consumption ====================================
+GPU[0]		: Average Graphics Package Power (W): 42.0
+==========================================================================================
+=================================== % time GPU is busy ===================================
+GPU[0]		: GPU use (%): 0
+==========================================================================================
+================================== End of ROCm SMI Log ===================================
+/sys/class/drm/card1/device/hwmon/hwmon1/power1_cap=190000000

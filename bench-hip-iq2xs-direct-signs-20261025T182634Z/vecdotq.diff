@@ -1,0 +1,27 @@
+--- bench-hip-iq2xs-direct-signs-20261025T182634Z/source/E/ggml/src/ggml-cuda/vecdotq.cuh	2026-10-25 14:16:28.774480725 -0300
++++ bench-hip-iq2xs-direct-signs-20261025T182634Z/source/F/ggml/src/ggml-cuda/vecdotq.cuh	2026-10-25 15:26:58.400713002 -0300
+@@ -1164,12 +1164,24 @@
+         const uint2 grid_pos = ((const uint2*)iq2xs_grid)[q2[l0/2] & 0x1FF];
+         const uint32_t signs = unpack_ksigns(q2[l0/2] >> 9);
+ 
++#if defined(GGML_USE_HIP)
++        const uint32_t m0 = (((signs & 0x08040201u) + 0x7f7f7f7fu) >> 7) & 0x01010101u;
++        const uint32_t mask0 = (m0 << 8) - m0;
++        const int grid_l = (int) (((uint32_t) grid_pos.x ^ mask0) + m0);
++#else
+         const int signs0 = __vcmpne4(signs & 0x08040201, 0);
+         const int grid_l = __vsub4(grid_pos.x ^ signs0, signs0);
++#endif
+         const int u0 = get_int_b4(bq8_1[iqs/2].qs, l0 + 0);
+ 
++#if defined(GGML_USE_HIP)
++        const uint32_t m1 = (((signs & 0x80402010u) + 0x7f7f7f7fu) >> 7) & 0x01010101u;
++        const uint32_t mask1 = (m1 << 8) - m1;
++        const int grid_h = (int) (((uint32_t) grid_pos.y ^ mask1) + m1);
++#else
+         const int signs1 = __vcmpne4(signs & 0x80402010, 0);
+         const int grid_h = __vsub4(grid_pos.y ^ signs1, signs1);
++#endif
+         const int u1 = get_int_b4(bq8_1[iqs/2].qs, l0 + 1);
+ 
+         if (l0 < 4) {

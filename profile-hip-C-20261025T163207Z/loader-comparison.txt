@@ -1,0 +1,6 @@
+Previous A/B C loader: LD_LIBRARY_PATH began with the isolated library/C directory.
+This profile: LD_LIBRARY_PATH was unset; loader resolved the active build-hip-baseline library.
+Isolated C library SHA-256: a0b56310f88fa0f6fdbb6a4e3ba188617c2dbbe7f43b4a371094139754e264b8
+Active C library SHA-256: a0b56310f88fa0f6fdbb6a4e3ba188617c2dbbe7f43b4a371094139754e264b8
+Dependencies differing after realpath normalization:
+libggml-hip.so.0: previous=/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/library/C/libggml-hip.so.0.27.0 current=/home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0.27.0

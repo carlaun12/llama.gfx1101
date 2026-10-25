@@ -1,0 +1,9 @@
+IQ3_S packed-sign GPU equivalence
+
+Command: ./bench-hip-iq3s-direct-20261025T020043Z/gpu-packed-equivalence
+Target: gfx1101 / ROCm HIP
+Result: PASS: 512 table entries, 16384 low/high sign cases, exact packed equality, no zero lanes
+
+The checker includes the repository's IQ3_S table and HIP byte intrinsics. It compares the original sign expansion plus __vsub4 against direct sign expansion plus 32-bit XOR/add. Each 32-bit operand matched exactly on the GPU. No floating-point tolerance is used.
+
+This check covers the packed operands. Integration coverage is in gpu-tests.log: the IQ3_S MUL_MAT and MUL_MAT_VEC_FUSION backend tests passed 49/49 cases on ROCm0.

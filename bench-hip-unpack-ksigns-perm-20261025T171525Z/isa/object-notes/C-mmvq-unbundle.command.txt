@@ -1,0 +1,1 @@
+/opt/rocm/llvm/bin/clang-offload-bundler --type=o --unbundle --targets=hipv4-amdgcn-amd-amdhsa--gfx1101 --input=/home/carlos/project/llama.gfx1101/build-hip-baseline/ggml/src/ggml-hip/CMakeFiles/ggml-hip.dir/__/ggml-cuda/mmvq.cu.o --output=/home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/isa/object-notes/C-mmvq.hsaco

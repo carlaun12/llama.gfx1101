@@ -1,0 +1,4 @@
+Control: IQ3_S direct, IQ2_S direct, IQ3_XXS packed-negation (current source).
+Candidate: identical except IQ3_XXS direct sign extraction and XOR/add.
+A/B: tg128 at d=0 and d=4096; other model/runtime options held fixed.
+The original-baseline comparison is deferred.

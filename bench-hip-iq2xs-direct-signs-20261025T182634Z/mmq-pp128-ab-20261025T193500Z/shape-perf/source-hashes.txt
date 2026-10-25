@@ -1,0 +1,2 @@
+29db9ef0fd4e677478c931ef5ad3ed71cb7846b4ebcc01db42fcc163d60138fa  bench-hip-unpack-ksigns-perm-20261025T171525Z/model-shape/test-backend-ops-model-shape-perm.cpp
+be143c3f6fb245406aede5b0ab611f26f9e795aa916a53fc7481c9a374e1b473  bench-hip-iq2xs-direct-signs-20261025T182634Z/mmq-pp128-ab-20261025T193500Z/shape-perf/test-backend-ops-mmq-perf.cpp

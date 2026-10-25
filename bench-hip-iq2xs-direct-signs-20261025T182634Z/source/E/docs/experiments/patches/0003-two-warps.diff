@@ -1,0 +1,43 @@
+diff --git a/ggml/src/ggml-cuda/mmvq.cu b/ggml/src/ggml-cuda/mmvq.cu
+index 930f1adc4..a6d0c1679 100644
+--- a/ggml/src/ggml-cuda/mmvq.cu
++++ b/ggml/src/ggml-cuda/mmvq.cu
+@@ -99,6 +99,7 @@ enum mmvq_parameter_table_id {
+     MMVQ_PARAMETERS_GCN,
+     MMVQ_PARAMETERS_RDNA2,
+     MMVQ_PARAMETERS_RDNA3_0,
++    MMVQ_PARAMETERS_GFX1101,
+     MMVQ_PARAMETERS_RDNA4,
+     MMVQ_PARAMETERS_GB10
+ };
+@@ -106,6 +107,8 @@ enum mmvq_parameter_table_id {
+ static constexpr __device__ mmvq_parameter_table_id get_device_table_id() {
+ #if defined(RDNA4)
+     return MMVQ_PARAMETERS_RDNA4;
++#elif defined(__gfx1101__)
++    return MMVQ_PARAMETERS_GFX1101;
+ #elif defined(RDNA3_0)
+     return MMVQ_PARAMETERS_RDNA3_0;
+ #elif defined(RDNA2) || defined(RDNA3_5)
+@@ -122,6 +125,9 @@ static constexpr __device__ mmvq_parameter_table_id get_device_table_id() {
+ }
+ 
+ static __host__ mmvq_parameter_table_id get_device_table_id(int cc) {
++    if (cc == GGML_CUDA_CC_OFFSET_AMD + 0x1101) {
++        return MMVQ_PARAMETERS_GFX1101;
++    }
+     if (GGML_CUDA_CC_IS_RDNA4(cc)) {
+         return MMVQ_PARAMETERS_RDNA4;
+     }
+@@ -506,7 +512,10 @@ static constexpr __host__ __device__ int calc_nwarps(ggml_type type, int ncols_d
+         }
+         return 1;
+     }
+-    if (table_id == MMVQ_PARAMETERS_RDNA3_0) {
++    if (table_id == MMVQ_PARAMETERS_GFX1101 && ncols_dst == 1 && type == GGML_TYPE_IQ3_XXS) {
++        return 2;
++    }
++    if (table_id == MMVQ_PARAMETERS_RDNA3_0 || table_id == MMVQ_PARAMETERS_GFX1101) {
+         // RDNA3 (W7900): stricter whitelist than RDNA4.
+         // Q2_K / Q5_K / IQ4_XS regress in full quant sweeps.
+         if (ncols_dst == 1) {

@@ -1,0 +1,18 @@
+Second C/E session: 10 adjacent pairs each for tg128 d=0, tg128 d=4096, and pp512.
+Order alternated by pair: odd CE, even EC. Gain = 100 * (E/C - 1) using avg_ts.
+Intervals: two-sided paired Student t, 95%, n=10, df=9, t*=2.262157.
+All JSON rows were checked against the expected model, offload, batch, cache, thread, and flash-attention settings.
+JSON case coverage: 60/60 rows; exact cases per run were verified.
+
+| Workload | C mean tok/s | E mean tok/s | Paired gain | 95% CI |
+| --- | ---: | ---: | ---: | ---: |
+| tg128 d=0 | 34.03540 | 34.26080 | +0.662% | [+0.398%, +0.927%] |
+| tg128 d=4096 | 33.02261 | 33.34604 | +0.984% | [+0.189%, +1.778%] |
+| pp512 | 620.45796 | 619.24981 | -0.193% | [-0.803%, +0.417%] |
+| tg128 equal-weight d=0/4096 | - | - | +0.823% | [+0.445%, +1.201%] |
+
+Per-pair gains:
+- tg128 d=0: +0.655%, +0.424%, +0.927%, +0.910%, +0.646%, +1.185%, +0.928%, +0.732%, +0.310%, -0.094%
+- tg128 d=4096: +1.836%, +0.594%, +1.171%, +0.849%, -0.408%, +0.866%, -0.235%, +0.692%, +3.561%, +0.909%
+- pp512: +0.343%, -0.784%, +0.125%, -0.281%, +0.072%, -2.409%, +0.357%, +0.204%, +0.309%, +0.133%
+- tg128 equal-weight d=0/4096: +1.246%, +0.509%, +1.049%, +0.880%, +0.119%, +1.026%, +0.347%, +0.712%, +1.936%, +0.407%

@@ -1,0 +1,4 @@
+a22eebfb491090e3cb5c5d297caacd3bff0055f12fe0318db897d7873f6efceb  /home/carlos/project/llama.gfx1101/ggml/src/ggml-cuda/vecdotq.cuh
+4c6ddd1e07ebbcc35c165bd16b5f62bb8551046fcf19a5e6b022f9ba03887d83  /home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/candidate/ggml-cuda/vecdotq.cuh
+676433a44e3e947b0d37d050109328aa4b8d20f77a515276e50135b92d8e658b  /home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/control-library/libggml-hip.so.0.27.0
+10d986a6d33c2987c0c92498f0ad162ff528da1ff0a6198c786da729facda75b  /home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/candidate-library/libggml-hip.so.0.27.0

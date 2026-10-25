@@ -1,0 +1,26 @@
+ggml_cuda_init: failed to initialize ROCm: no ROCm-capable device is detected
+Testing 1 devices
+
+Backend 1/1: CPU
+  Device description: AMD Ryzen 7 5700X 8-Core Processor
+  Device memory: 32006 MB (32006 MB free)
+
+  RMS_NORM_SILU_GATE(ne=[3,48,1,1],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[3,48,17,2],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[128,48,1,1],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[128,48,17,2],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[129,48,1,1],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[129,48,17,2],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[512,48,1,1],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[512,48,17,2],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[128,48,17,2],view_input=1,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[128,48,17,2],view_input=0,view_gate=1,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[128,48,17,2],view_input=0,view_gate=0,weight_vector=0,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[128,48,17,2],view_input=0,view_gate=0,weight_vector=1,reuse_norm=1,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[128,48,17,2],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=1): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[4,1,65536,1],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  RMS_NORM_SILU_GATE(ne=[4,1,1,65536],view_input=0,view_gate=0,weight_vector=1,reuse_norm=0,swap_operands=0): [1;32mOK[0m
+  15/15 tests passed
+  Backend CPU: [1;32mOK[0m
+1/1 backends passed
+[1;32mOK[0m

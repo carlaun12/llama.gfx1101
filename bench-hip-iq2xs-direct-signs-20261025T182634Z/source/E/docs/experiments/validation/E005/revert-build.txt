@@ -1,0 +1,11 @@
+[1/11] Building HIP object ggml/src/ggml-hip/CMakeFiles/ggml-hip.dir/__/ggml-cuda/mmvq.cu.o
+[2/11] Linking HIP shared library bin/libggml-hip.so.0.27.0
+[3/11] Creating library symlink bin/libggml-hip.so.0 bin/libggml-hip.so
+[4/11] Linking CXX shared library bin/libggml.so.0.27.0
+[5/11] Creating library symlink bin/libggml.so.0 bin/libggml.so
+[6/11] Linking CXX shared library bin/libllama.so.0.7.0
+[7/11] Creating library symlink bin/libllama.so.0 bin/libllama.so
+[8/11] Linking CXX shared library bin/libllama-common.so.0.7.0
+[9/11] Creating library symlink bin/libllama-common.so.0 bin/libllama-common.so
+[10/11] Linking CXX shared library bin/libllama-bench-impl.so
+[11/11] Linking CXX executable bin/llama-bench

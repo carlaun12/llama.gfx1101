@@ -1,0 +1,9 @@
+IQ3_XXS packed-negation A/B
+
+Control A: IQ3_S direct-sign candidate only.
+Candidate B: the same IQ3_S build plus IQ3_XXS packed negation. The IQ3_XXS sign unpack and parity correction are unchanged.
+The source delta is in iq3xxs-delta.diff.
+
+The `run-ab.sh` sequence alternates 20 fresh llama-bench runs in five ABBA/BAAB blocks. Each run uses `-p 0 -n 128 -d 0,4096`, `-ngl 99`, flash attention, f16 KV cache, batch 2048, microbatch 512, and 8 threads. The recorded maximum graphics package power is 190 W.
+
+The comparison uses the same model, commit, benchmark binary, and settings for A and B. Run JSON, stderr logs, loader paths, binary hashes, model hash, cap, and start time are archived in this directory.

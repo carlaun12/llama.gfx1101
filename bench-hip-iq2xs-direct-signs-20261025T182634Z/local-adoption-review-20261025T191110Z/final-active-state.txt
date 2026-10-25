@@ -1,0 +1,46 @@
+Recorded: 2026-10-25T19:18:04Z
+Active source and library hashes:
+9f0faab54379357d5239191cfe367a3789c39a8c519c82ea45826791ca7fc11c  ggml/src/ggml-cuda/vecdotq.cuh
+829528f15e95ff0d665efa1e36f3458730c3b36800231b16cb7c245fc9b0b3c5  ggml/src/ggml-cuda/mmq-load-tiles.cuh
+ea89b81c6ac2c519fbbb8c43f3d986413cfb14f4901098f1817c085431cfbf24  build-hip-baseline/bin/libggml-hip.so.0.27.0
+39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25  build-hip-baseline/bin/llama-bench
+
+Default loader resolution (LD_LIBRARY_PATH unset):
+	libggml-hip.so.0 => /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0 (0x00007fe3b5600000)
+
+Running llama-bench processes:
+none
+
+GPU idle snapshot:
+
+
+============================ ROCm System Management Interface ============================
+====================================== Temperature =======================================
+GPU[0]		: Temperature (Sensor edge) (C): 31.0
+GPU[0]		: Temperature (Sensor junction) (C): 38.0
+GPU[0]		: Temperature (Sensor memory) (C): 54.0
+==========================================================================================
+=============================== Current clock frequencies ================================
+GPU[0]		: dcefclk clock level: 1: (277Mhz)
+GPU[0]		: fclk clock level: 1: (1000Mhz)
+GPU[0]		: mclk clock level: 1: (456Mhz)
+GPU[0]		: sclk clock level: S: (46Mhz)
+GPU[0]		: socclk clock level: 1: (600Mhz)
+GPU[0]		: pcie clock level: 2 (16.0GT/s x16)
+==========================================================================================
+=================================== Power Consumption ====================================
+GPU[0]		: Average Graphics Package Power (W): 31.0
+==========================================================================================
+=================================== % time GPU is busy ===================================
+GPU[0]		: GPU use (%): 2
+==========================================================================================
+===================================== KFD Processes ======================================
+No KFD PIDs currently running
+==========================================================================================
+================================== End of ROCm SMI Log ===================================
+
+Canonical loaded-library target:
+/home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0.27.0
+
+Canonical loader target hash:
+ea89b81c6ac2c519fbbb8c43f3d986413cfb14f4901098f1817c085431cfbf24  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0.27.0

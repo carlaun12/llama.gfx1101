@@ -100,7 +100,11 @@ static __device__ __forceinline__ uint32_t unpack_ksigns(const uint8_t v) {
     const uint32_t p = __popc(v) & 1;
     const uint32_t s = v ^ p << 7;
     // broadcast over uint to allow for 0x08040201 / 0x80402010 as selectors
+#if defined(GGML_USE_HIP)
+    return __builtin_amdgcn_perm(0, s, 0);
+#else
     return s * 0x01010101;
+#endif
 }
 
 // VDR = vec dot ratio, how many contiguous integers each thread processes when the vec dot kernel is called
@@ -1124,12 +1128,12 @@ static __device__ __forceinline__ float vec_dot_iq2_xxs_q8_1(
         const uint32_t signs = unpack_ksigns(aux32 >> (7 * k0 / 2));
 
         const int signs0 = __vcmpne4(signs & 0x08040201, 0);
-        const int grid0 = __vsub4(grid_pos.x ^ signs0, signs0);
+        const int grid0 = (int) (((uint32_t) grid_pos.x ^ (uint32_t) signs0) + ((uint32_t) signs0 & 0x01010101u));
         const int u0 = get_int_b4(bq8_1[iqs/2].qs, k0 + 0);
         sumi = ggml_cuda_dp4a(grid0, u0, sumi);
 
         const int signs1 = __vcmpne4(signs & 0x80402010, 0);
-        const int grid1 = __vsub4(grid_pos.y ^ signs1, signs1);
+        const int grid1 = (int) (((uint32_t) grid_pos.y ^ (uint32_t) signs1) + ((uint32_t) signs1 & 0x01010101u));
         const int u1 = get_int_b4(bq8_1[iqs/2].qs, k0 + 1);
         sumi = ggml_cuda_dp4a(grid1, u1, sumi);
     }
@@ -1160,12 +1164,24 @@ static __device__ __forceinline__ float vec_dot_iq2_xs_q8_1(
         const uint2 grid_pos = ((const uint2*)iq2xs_grid)[q2[l0/2] & 0x1FF];
         const uint32_t signs = unpack_ksigns(q2[l0/2] >> 9);
 
+#if defined(GGML_USE_HIP)
+        const uint32_t m0 = (((signs & 0x08040201u) + 0x7f7f7f7fu) >> 7) & 0x01010101u;
+        const uint32_t mask0 = (m0 << 8) - m0;
+        const int grid_l = (int) (((uint32_t) grid_pos.x ^ mask0) + m0);
+#else
         const int signs0 = __vcmpne4(signs & 0x08040201, 0);
         const int grid_l = __vsub4(grid_pos.x ^ signs0, signs0);
+#endif
         const int u0 = get_int_b4(bq8_1[iqs/2].qs, l0 + 0);
 
+#if defined(GGML_USE_HIP)
+        const uint32_t m1 = (((signs & 0x80402010u) + 0x7f7f7f7fu) >> 7) & 0x01010101u;
+        const uint32_t mask1 = (m1 << 8) - m1;
+        const int grid_h = (int) (((uint32_t) grid_pos.y ^ mask1) + m1);
+#else
         const int signs1 = __vcmpne4(signs & 0x80402010, 0);
         const int grid_h = __vsub4(grid_pos.y ^ signs1, signs1);
+#endif
         const int u1 = get_int_b4(bq8_1[iqs/2].qs, l0 + 1);
 
         if (l0 < 4) {
@@ -1206,11 +1222,14 @@ static __device__ __forceinline__ float vec_dot_iq2_s_q8_1(
     for (int l0 = 0; l0 < 8; l0 += 2) {
         const int * grid_pos = (const int *)(iq2s_grid + (qs[l0/2] | ((qh << (8-l0)) & 0x300)));
 
-        const int signs0 = __vcmpne4(((signs_packed_8[l0/2] & 0x03) << 7) | ((signs_packed_8[l0/2] & 0x0C) << 21), 0x00000000);
-        const int signs1 = __vcmpne4(((signs_packed_8[l0/2] & 0x30) << 3) | ((signs_packed_8[l0/2] & 0xC0) << 17), 0x00000000);
+        const uint32_t s = signs_packed_8[l0/2];
+        const uint32_t bits0 = ((s & 0x0Fu) * 0x00204081u) & 0x01010101u;
+        const uint32_t bits1 = ((s >> 4) * 0x00204081u) & 0x01010101u;
+        const uint32_t mask0 = bits0 * 255u;
+        const uint32_t mask1 = bits1 * 255u;
 
-        const int grid_l = __vsub4(grid_pos[0] ^ signs0, signs0);
-        const int grid_h = __vsub4(grid_pos[1] ^ signs1, signs1);
+        const int grid_l = (int) (((uint32_t) grid_pos[0] ^ mask0) + bits0);
+        const int grid_h = (int) (((uint32_t) grid_pos[1] ^ mask1) + bits1);
 
         const int u0 = get_int_b4(bq8_1[iqs/2].qs, l0 + 0);
         const int u1 = get_int_b4(bq8_1[iqs/2].qs, l0 + 1);
@@ -1248,12 +1267,12 @@ static __device__ __forceinline__ float vec_dot_iq3_xxs_q8_1(
         const uint32_t signs = unpack_ksigns(aux32 >> (7*l0/2));
 
         const int signs0 = __vcmpne4(signs & 0x08040201, 0);
-        const int grid_l = __vsub4(grid_pos.x ^ signs0, signs0);
+        const int grid_l = (int) (((uint32_t) grid_pos.x ^ (uint32_t) signs0) + ((uint32_t) signs0 & 0x01010101u));
 
         const int u0 = get_int_b4(bq8_1[iqs/2].qs, l0 + 0);
 
         const int signs1 = __vcmpne4(signs & 0x80402010, 0);
-        const int grid_h = __vsub4(grid_pos.y ^ signs1, signs1);
+        const int grid_h = (int) (((uint32_t) grid_pos.y ^ (uint32_t) signs1) + ((uint32_t) signs1 & 0x01010101u));
 
         const int u1 = get_int_b4(bq8_1[iqs/2].qs, l0 + 1);
 
@@ -1291,11 +1310,13 @@ static __device__ __forceinline__ float vec_dot_iq3_s_q8_1(
             iq3s_grid[qs[l0 + 0] | ((qh << (8 - l0)) & 0x100)],
             iq3s_grid[qs[l0 + 1] | ((qh << (7 - l0)) & 0x100)]);
 
-        const int signs0 = __vcmpne4(((signs_packed_8[l0/2] & 0x03) << 7) | ((signs_packed_8[l0/2] & 0x0C) << 21), 0x00000000);
-        const int signs1 = __vcmpne4(((signs_packed_8[l0/2] & 0x30) << 3) | ((signs_packed_8[l0/2] & 0xC0) << 17), 0x00000000);
+        const uint32_t bits0 = ((signs_packed_8[l0/2] & 15u) * 0x00204081u) & 0x01010101u;
+        const uint32_t signs0 = bits0 * 255u;
+        const uint32_t bits1 = ((signs_packed_8[l0/2] >> 4) * 0x00204081u) & 0x01010101u;
+        const uint32_t signs1 = bits1 * 255u;
 
-        const int grid_l = __vsub4(grid_pos.x ^ signs0, signs0);
-        const int grid_h = __vsub4(grid_pos.y ^ signs1, signs1);
+        const int grid_l = (int) (((uint32_t) grid_pos.x ^ signs0) + bits0);
+        const int grid_h = (int) (((uint32_t) grid_pos.y ^ signs1) + bits1);
 
         const int u0 = get_int_b4(bq8_1[iqs/2].qs, l0 + 0);
         const int u1 = get_int_b4(bq8_1[iqs/2].qs, l0 + 1);

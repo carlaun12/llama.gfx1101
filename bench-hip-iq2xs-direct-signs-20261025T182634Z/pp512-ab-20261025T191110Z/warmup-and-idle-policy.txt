@@ -1,0 +1,1 @@
+llama-bench prompt warmup retained; MTP disabled by default. GPU-idle check requires no KFD PIDs and <=5% GPU use before each sample.

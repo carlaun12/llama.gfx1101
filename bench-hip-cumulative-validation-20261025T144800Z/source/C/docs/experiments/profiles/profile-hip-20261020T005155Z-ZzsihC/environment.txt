@@ -1,0 +1,23 @@
+2026-10-20T00:51:55+00:00
+c7411aa4c385e8e8a13e9affa889c6ded8901625
+ M ggml/src/ggml-cuda/ggml-cuda.cu
+ M ggml/src/ggml-cuda/norm.cu
+ M ggml/src/ggml-cuda/norm.cuh
+ M src/models/qwen35.cpp
+ M tests/test-backend-ops.cpp
+?? baseline-hip-20261020T004601Z-LQyC4l/
+?? profile-hip-20261020T005155Z-ZzsihC/
+?? scripts/profile-hip-generation.sh
+?? scripts/summarize-hip-profile.py
+             version: 1.1.0
+        git_revision: 97f5574fe2fdc7bef44fb01545347912ee9f1779
+        library_arch: 
+         system_name: Linux
+    system_processor: x86_64
+      system_version: 7.1.11-arch1-1
+         compiler_id: GNU
+    compiler_version: 16.2.1
+        rocm_version: 7.2.4
+
+Power caps (microwatts):
+/sys/class/drm/card1/device/hwmon/hwmon1/power1_cap: 190000000

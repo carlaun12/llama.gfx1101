@@ -1,0 +1,27 @@
+IQ3_XXS direct signs versus packed negation
+
+Control A kept IQ3_S direct and IQ2_S direct, with IQ3_XXS packed negation. Candidate B changed only IQ3_XXS to direct sign extraction and XOR/add.
+
+Validation:
+- GPU packed equivalence passed for all 65,536 codebook/sign/half combinations.
+- ROCm IQ3_XXS backend tests passed: 75/75.
+- ISA static instruction sites: plain 330 -> 299; fused 816 -> 757.
+- Code object wavefront size is 32. VGPR counts: plain 36 -> 40; fused 50 -> 52. No spills; private segment size is 0.
+- A and B loader checks resolve to separate control and candidate HIP libraries.
+
+Paired tg128 A/B, 10 adjacent pairs:
+- d=0: A 32.56938, B 33.11168 tok/s; paired gain +1.719%, 95% CI [-1.001%, +4.439%].
+- d=4096: A 31.79945, B 32.13538 tok/s; paired gain +1.023%, 95% CI [-0.371%, +2.416%].
+- Both confidence intervals include zero. The direct variant is not a demonstrated throughput winner in this run.
+- 20/20 final JSON runs are valid; no per-run errors. The first attempt was interrupted during sample 18-B; samples 18-B, 19-B, and 20-A were then rerun.
+
+Power:
+- rocm-smi reported a 190 W maximum graphics package power before and after the A/B.
+- Reapplying the limit with sudo could not prompt for a password in the noninteractive command.
+- Busy-sample telemetry reported graphics package power up to 215 W. Thus the configured 190 W cap is visible, but operation staying at or below 190 W is not confirmed.
+- 116 of 267 busy telemetry samples were above 190 W.
+- See telemetry-summary.txt and the raw power/telemetry logs.
+
+Decision: retain IQ3_XXS packed negation in the active source because this A/B did not establish a throughput win. IQ3_S and IQ2_S direct changes remain active. The active HIP library was restored to control A; the direct B library is saved under /tmp and its hash is recorded in candidate-library.sha256.
+
+The comparison against the original baseline remains pending.

@@ -1,0 +1,1 @@
+hipcc --offload-arch=gfx1101 -O2 bench-hip-unpack-ksigns-perm-20261025T171525Z/unpack-ksigns-check.hip -o bench-hip-unpack-ksigns-perm-20261025T171525Z/unpack-ksigns-check 

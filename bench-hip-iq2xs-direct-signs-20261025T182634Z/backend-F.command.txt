@@ -1,0 +1,1 @@
+env LLAMA_TEST_RANDOM_SEED=4321 LD_LIBRARY_PATH=/home/carlos/project/llama.gfx1101/bench-hip-iq2xs-direct-signs-20261025T182634Z/build/F/bin:/home/carlos/project/llama.gfx1101/build-hip-baseline/bin:/opt/rocm/lib /home/carlos/project/llama.gfx1101/bench-hip-iq2xs-direct-signs-20261025T182634Z/build/F/bin/test-backend-ops -b ROCm0 -o MUL_MAT,MUL_MAT_VEC_FUSION -p iq2_xs

@@ -1,0 +1,2 @@
+C source: ggml/src/ggml-cuda/vecdotq.cuh
+C library: build-hip-baseline/bin/libggml-hip.so.0.27.0

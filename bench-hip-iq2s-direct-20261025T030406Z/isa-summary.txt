@@ -1,0 +1,6 @@
+plain
+  control: {'private_segment_fixed_size': 0, 'wavefront_size32': 1, 'next_free_vgpr': 43, 'next_free_sgpr': 22, 'instructions': 333, 'ops': {'v_mul_lo_u32': 10, 'v_bcnt_u32_b32': 0, 'v_and_b32_e32': 36, 'v_xor_b32_e32': 5, 'v_add_nc_u32_e32': 13, 'v_sub_nc_u32_e32': 0, 'v_dot4_i32_iu8': 8}}
+  candidate: {'private_segment_fixed_size': 0, 'wavefront_size32': 1, 'next_free_vgpr': 43, 'next_free_sgpr': 22, 'instructions': 277, 'ops': {'v_mul_lo_u32': 10, 'v_bcnt_u32_b32': 0, 'v_and_b32_e32': 13, 'v_xor_b32_e32': 5, 'v_add_nc_u32_e32': 5, 'v_sub_nc_u32_e32': 0, 'v_dot4_i32_iu8': 8}}
+fused
+  control: {'private_segment_fixed_size': 0, 'wavefront_size32': 1, 'next_free_vgpr': 57, 'next_free_sgpr': 46, 'instructions': 832, 'ops': {'v_mul_lo_u32': 20, 'v_bcnt_u32_b32': 0, 'v_and_b32_e32': 68, 'v_xor_b32_e32': 5, 'v_add_nc_u32_e32': 24, 'v_sub_nc_u32_e32': 0, 'v_dot4_i32_iu8': 16}}
+  candidate: {'private_segment_fixed_size': 0, 'wavefront_size32': 1, 'next_free_vgpr': 55, 'next_free_sgpr': 46, 'instructions': 721, 'ops': {'v_mul_lo_u32': 20, 'v_bcnt_u32_b32': 0, 'v_and_b32_e32': 22, 'v_xor_b32_e32': 5, 'v_add_nc_u32_e32': 8, 'v_sub_nc_u32_e32': 0, 'v_dot4_i32_iu8': 16}}

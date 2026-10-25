@@ -1,0 +1,4 @@
+Normalized control/candidate HIP compile command comparison
+/mmvq.cu: identical
+/template-instances/mmq-instance-iq2_xxs.cu: identical
+CMake: Release, clang 22, HIP gfx1101, GGML_HIP_GRAPHS=ON, GGML_HIP_MMQ_MFMA=ON, GGML_HIP_NO_VMM=ON, GGML_NATIVE=ON

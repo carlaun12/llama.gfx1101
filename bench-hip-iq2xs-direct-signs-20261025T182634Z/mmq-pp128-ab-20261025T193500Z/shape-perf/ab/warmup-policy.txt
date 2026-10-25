@@ -1,0 +1,1 @@
+Each backend perf case warms once and runs for at least 1 second. This harness uses GGUF IQ2_XS dimensions with n=128; it does not load model weights or use MTP.

@@ -1,0 +1,18 @@
+Normalized CMake values (cache type labels omitted):
+CMAKE_BUILD_TYPE: C=Release E=Release
+CMAKE_C_COMPILER: C=/opt/rocm/llvm/bin/clang E=/opt/rocm/llvm/bin/clang
+CMAKE_CXX_COMPILER: C=/opt/rocm/llvm/bin/clang++ E=/opt/rocm/llvm/bin/clang++
+CMAKE_HIP_COMPILER: C=/opt/rocm/llvm/bin/clang++ E=/opt/rocm/llvm/bin/clang++
+CMAKE_PREFIX_PATH: C=/opt/rocm E=/opt/rocm
+GGML_CUDA: C=OFF E=OFF
+GGML_HIP: C=ON E=ON
+GPU_TARGETS: C=gfx1101 E=gfx1101
+GGML_NATIVE: C=ON E=ON
+GGML_HIP_GRAPHS: C=ON E=ON
+GGML_HIP_MMQ_MFMA: C=ON E=ON
+GGML_HIP_NO_VMM: C=ON E=ON
+LLAMA_BUILD_TESTS: C=ON E=ON
+LLAMA_BUILD_EXAMPLES: C=OFF E=OFF
+LLAMA_BUILD_SERVER: C=OFF E=OFF
+LLAMA_BUILD_APP: C=OFF E=OFF
+values_match=True

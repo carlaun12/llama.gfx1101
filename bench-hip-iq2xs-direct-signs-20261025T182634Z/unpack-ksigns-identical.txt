@@ -1,0 +1,2 @@
+E and F unpack_ksigns definition is byte-identical: true
+SHA-256: 924e7f1f3382bec3ef79a23481371581603140662e76bae26ead5832c0ce1d9d

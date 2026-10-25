@@ -1,0 +1,10 @@
+model_sha256=e13d3e7400b6c7f980ebd30c0edd6be43eb1865b50be8562a9db042706c7d803
+source_sha256=4c6ddd1e07ebbcc35c165bd16b5f62bb8551046fcf19a5e6b022f9ba03887d83
+hip_library_sha256=a0b56310f88fa0f6fdbb6a4e3ba188617c2dbbe7f43b4a371094139754e264b8
+llama_bench_sha256=39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25
+
+--- loader ---
+	libggml-hip.so.0 => /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0 (0x00007f3d17600000)
+
+--- power cap ---
+190000000

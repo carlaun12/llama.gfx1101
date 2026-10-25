@@ -1,0 +1,352 @@
+{
+  "trace_files": [
+    "/home/carlos/project/llama.gfx1101/profile-hip-C-20261025T163207Z/d0/trace/generation_kernel_trace.csv"
+  ],
+  "total_kernel_ns": 3166449044,
+  "kernels": [
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)21, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ3_S",
+      "calls": 8256,
+      "total_ns": 331777426,
+      "percent_kernel_time": 10.477901945988176,
+      "average_us": 40.18621923449612
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)18, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ3_XXS",
+      "calls": 7482,
+      "total_ns": 329190479,
+      "percent_kernel_time": 10.396203268256352,
+      "average_us": 43.997658246458165
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)23, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ4_XS",
+      "calls": 3612,
+      "total_ns": 280306628,
+      "percent_kernel_time": 8.852396615418265,
+      "average_us": 77.60427131782946
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)22, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ2_S",
+      "calls": 5805,
+      "total_ns": 268523147,
+      "percent_kernel_time": 8.480261114854056,
+      "average_us": 46.25721739879414
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)21, 1, true, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ3_S",
+      "calls": 3741,
+      "total_ns": 257547155,
+      "percent_kernel_time": 8.13362701945315,
+      "average_us": 68.84446805666934
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)18, 1, true, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ3_XXS",
+      "calls": 2709,
+      "total_ns": 221274262,
+      "percent_kernel_time": 6.988088515723483,
+      "average_us": 81.68115983757843
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)22, 1, true, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ2_S",
+      "calls": 2709,
+      "total_ns": 200876247,
+      "percent_kernel_time": 6.34389640283755,
+      "average_us": 74.15143853820598
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)17, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ2_XS",
+      "calls": 2838,
+      "total_ns": 151054556,
+      "percent_kernel_time": 4.770471714560773,
+      "average_us": 53.225706835799855
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)10, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "Q2_K",
+      "calls": 3354,
+      "total_ns": 144704670,
+      "percent_kernel_time": 4.569935217312153,
+      "average_us": 43.14390876565295
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)16, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ2_XXS",
+      "calls": 2580,
+      "total_ns": 134523692,
+      "percent_kernel_time": 4.248408552631046,
+      "average_us": 52.140965891472874
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)17, 1, true, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ2_XS",
+      "calls": 1161,
+      "total_ns": 77119545,
+      "percent_kernel_time": 2.4355214288425477,
+      "average_us": 66.42510335917312
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)12, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "Q4_K",
+      "calls": 2193,
+      "total_ns": 71781913,
+      "percent_kernel_time": 2.266953044326331,
+      "average_us": 32.732290469676244
+    },
+    {
+      "kernel": "quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, HIP_vector_type<unsigned int, 3u>)",
+      "quantization": null,
+      "calls": 49536,
+      "total_ns": 71355771,
+      "percent_kernel_time": 2.2534950036606367,
+      "average_us": 1.4404831031976744
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)16, 1, true, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ2_XXS",
+      "calls": 903,
+      "total_ns": 67574371,
+      "percent_kernel_time": 2.1340741651296886,
+      "average_us": 74.83319047619047
+    },
+    {
+      "kernel": "void k_get_rows_float_vec<float>(float const*, int const*, float*, long, long, HIP_vector_type<unsigned int, 3u>, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long)",
+      "quantization": null,
+      "calls": 6192,
+      "total_ns": 54998434,
+      "percent_kernel_time": 1.7369120183447992,
+      "average_us": 8.882176033591731
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)23, 1, true, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ4_XS",
+      "calls": 645,
+      "total_ns": 54866916,
+      "percent_kernel_time": 1.732758532905038,
+      "average_us": 85.06498604651162
+    },
+    {
+      "kernel": "void rms_norm_f32<1024, 4, true, true, false, false, false>(float const*, float*, int, int, int, long, long, long, float, float const*, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, float const*, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, float, float const*)",
+      "quantization": null,
+      "calls": 16641,
+      "total_ns": 52418670,
+      "percent_kernel_time": 1.6554401877815281,
+      "average_us": 3.1499711555795926
+    },
+    {
+      "kernel": "void gated_delta_net_cuda<128, false, false, 4>(float const*, float const*, float const*, float const*, float const*, float const*, float*, float*, long, long, long, long, long, long, long, long, long, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, float, long, int)",
+      "quantization": null,
+      "calls": 6192,
+      "total_ns": 47186720,
+      "percent_kernel_time": 1.4902093589477639,
+      "average_us": 7.620594315245478
+    },
+    {
+      "kernel": "void mul_mat_vec_f<__hip_bfloat16, float, 1, 256, true, false>(__hip_bfloat16 const*, float const*, int const*, ggml_cuda_mm_fusion_args_device, float*, int, HIP_vector_type<unsigned int, 3u>, int, int, int, HIP_vector_type<unsigned int, 3u>, int, int, int, HIP_vector_type<unsigned int, 3u>, int, int, int, int)",
+      "quantization": null,
+      "calls": 6192,
+      "total_ns": 32891695,
+      "percent_kernel_time": 1.0387564916708636,
+      "average_us": 5.311966246770026
+    },
+    {
+      "kernel": "void mul_mat_vec_f<__hip_bfloat16, float, 1, 256, false, false>(__hip_bfloat16 const*, float const*, int const*, ggml_cuda_mm_fusion_args_device, float*, int, HIP_vector_type<unsigned int, 3u>, int, int, int, HIP_vector_type<unsigned int, 3u>, int, int, int, HIP_vector_type<unsigned int, 3u>, int, int, int, int)",
+      "quantization": null,
+      "calls": 6192,
+      "total_ns": 29117352,
+      "percent_kernel_time": 0.9195585210876364,
+      "average_us": 4.702414728682171
+    },
+    {
+      "kernel": "void cpy_scalar<&(void cpy_1_scalar<float, float>(char const*, char*))>(char const*, char*, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long)",
+      "quantization": null,
+      "calls": 8256,
+      "total_ns": 26980435,
+      "percent_kernel_time": 0.8520722937615035,
+      "average_us": 3.2679790455426354
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)12, 1, true, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "Q4_K",
+      "calls": 258,
+      "total_ns": 24256924,
+      "percent_kernel_time": 0.7660607722699232,
+      "average_us": 94.01908527131783
+    },
+    {
+      "kernel": "void rms_norm_f32<32, 1, true, false, false, true, false>(float const*, float*, int, int, int, long, long, long, float, float const*, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, float const*, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, float, float const*)",
+      "quantization": null,
+      "calls": 12384,
+      "total_ns": 20857067,
+      "percent_kernel_time": 0.6586894881356569,
+      "average_us": 1.6841946866925064
+    },
+    {
+      "kernel": "void flash_attn_tile<256, 256, 1, 2, false>(char const*, char const*, char const*, char const*, char const*, int const*, float*, HIP_vector_type<float, 2u>*, float, float, float, float, unsigned int, float, int, HIP_vector_type<unsigned int, 3u>, int, int, int, int, int, int, int, int, int, int, int, long, int, int, long, int, int, int, int, int, long)",
+      "quantization": null,
+      "calls": 2064,
+      "total_ns": 20571061,
+      "percent_kernel_time": 0.6496570989821998,
+      "average_us": 9.966599321705425
+    },
+    {
+      "kernel": "void rope_multi<true, false, float>(float const*, float*, int, int, int, int, int, int, int, int, int, int, int, int const*, float, float, float, rope_corr_dims, float, float const*, mrope_sections, bool, bool)",
+      "quantization": null,
+      "calls": 4128,
+      "total_ns": 18299336,
+      "percent_kernel_time": 0.5779134843390203,
+      "average_us": 4.432978682170543
+    },
+    {
+      "kernel": "void rms_norm_f32<32, 1, true, true, false, false, true>(float const*, float*, int, int, int, long, long, long, float, float const*, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, float const*, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, float, float const*)",
+      "quantization": null,
+      "calls": 6192,
+      "total_ns": 16991634,
+      "percent_kernel_time": 0.5366147935396872,
+      "average_us": 2.7441269379844964
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)29, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ1_M",
+      "calls": 516,
+      "total_ns": 16952173,
+      "percent_kernel_time": 0.5353685710534997,
+      "average_us": 32.8530484496124
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)19, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "IQ1_S",
+      "calls": 516,
+      "total_ns": 15040899,
+      "percent_kernel_time": 0.4750084018721383,
+      "average_us": 29.149029069767444
+    },
+    {
+      "kernel": "void mul_mat_vec_q<(ggml_type)10, 1, true, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int)",
+      "quantization": "Q2_K",
+      "calls": 258,
+      "total_ns": 14538076,
+      "percent_kernel_time": 0.4591286895188704,
+      "average_us": 56.34913178294573
+    },
+    {
+      "kernel": "void k_get_rows_float<float, float>(float const*, int const*, float*, long, long, HIP_vector_type<unsigned int, 3u>, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long)",
+      "quantization": null,
+      "calls": 6450,
+      "total_ns": 13643623,
+      "percent_kernel_time": 0.43088086403452003,
+      "average_us": 2.115290387596899
+    },
+    {
+      "kernel": "void concat_cont<unsigned int, 0>(unsigned int const*, unsigned int const*, unsigned int*, long, long, long, long, long, long)",
+      "quantization": null,
+      "calls": 6192,
+      "total_ns": 13379232,
+      "percent_kernel_time": 0.42253110074049244,
+      "average_us": 2.1607286821705425
+    },
+    {
+      "kernel": "void k_bin_bcast<&(op_add(float, float)), float, float, float, float const*>(float const*, float const*, float*, unsigned int, unsigned int, unsigned int, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, float const*)",
+      "quantization": null,
+      "calls": 6321,
+      "total_ns": 12241063,
+      "percent_kernel_time": 0.38658645157089094,
+      "average_us": 1.9365706375573486
+    },
+    {
+      "kernel": "void unary_gated_op_kernel<&(op_softplus(float)), float>(float const*, float const*, float*, long, long, long, long)",
+      "quantization": null,
+      "calls": 6192,
+      "total_ns": 12152289,
+      "percent_kernel_time": 0.38378286942677864,
+      "average_us": 1.962578972868217
+    },
+    {
+      "kernel": "void ssm_conv_f32<true, 128ul, 4ul>(float const*, float const*, float const*, int, int, int, int, float*, int, int, int, long)",
+      "quantization": null,
+      "calls": 6192,
+      "total_ns": 11703416,
+      "percent_kernel_time": 0.3696069583742842,
+      "average_us": 1.8900865633074937
+    },
+    {
+      "kernel": "void unary_gated_op_kernel<&(op_silu(float)), float>(float const*, float const*, float*, long, long, long, long)",
+      "quantization": null,
+      "calls": 6063,
+      "total_ns": 11380374,
+      "percent_kernel_time": 0.3594049309451007,
+      "average_us": 1.8770202869866404
+    },
+    {
+      "kernel": "void rms_norm_f32<128, 1, true, true, false, false, false>(float const*, float*, int, int, int, long, long, long, float, float const*, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, float const*, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, float, float const*)",
+      "quantization": null,
+      "calls": 4128,
+      "total_ns": 9019531,
+      "percent_kernel_time": 0.28484687025331457,
+      "average_us": 2.1849639050387597
+    },
+    {
+      "kernel": "void unary_op_kernel<&(op_sigmoid(float)), float>(float const*, float*, int)",
+      "quantization": null,
+      "calls": 6192,
+      "total_ns": 7569356,
+      "percent_kernel_time": 0.23904872286964238,
+      "average_us": 1.222441214470284
+    },
+    {
+      "kernel": "void flash_attn_combine_results<256>(float const*, HIP_vector_type<float, 2u> const*, float*, int)",
+      "quantization": null,
+      "calls": 2064,
+      "total_ns": 6939151,
+      "percent_kernel_time": 0.21914614457948625,
+      "average_us": 3.3619917635658916
+    },
+    {
+      "kernel": "void k_set_rows<float, long, __half>(float const*, long const*, __half*, long, long, long, long, long, long, long, long, long, long, long, long, long, long, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>, HIP_vector_type<unsigned int, 3u>)",
+      "quantization": null,
+      "calls": 4128,
+      "total_ns": 6298712,
+      "percent_kernel_time": 0.19892036513062547,
+      "average_us": 1.5258507751937984
+    },
+    {
+      "kernel": "void unary_gated_op_kernel<&(op_sigmoid(float)), float>(float const*, float const*, float*, long, long, long, long)",
+      "quantization": null,
+      "calls": 2064,
+      "total_ns": 4249749,
+      "percent_kernel_time": 0.13421182343207794,
+      "average_us": 2.0589869186046514
+    },
+    {
+      "kernel": "__amd_rocclr_copyBuffer",
+      "quantization": null,
+      "calls": 1079,
+      "total_ns": 3123769,
+      "percent_kernel_time": 0.09865211650631571,
+      "average_us": 2.8950593141797962
+    },
+    {
+      "kernel": "void scale_f32<float>(float const*, float*, float, float, long)",
+      "quantization": null,
+      "calls": 192,
+      "total_ns": 971204,
+      "percent_kernel_time": 0.030671707850164286,
+      "average_us": 5.058354166666667
+    },
+    {
+      "kernel": "__amd_rocclr_fillBufferAligned",
+      "quantization": null,
+      "calls": 2,
+      "total_ns": 200321,
+      "percent_kernel_time": 0.006326361081969143,
+      "average_us": 100.1605
+    }
+  ]
+}

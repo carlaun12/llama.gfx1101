@@ -1,0 +1,6 @@
+E 9f0faab54379357d5239191cfe367a3789c39a8c519c82ea45826791ca7fc11c /home/carlos/project/llama.gfx1101/bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/snapshots/E/vecdotq.cuh
+E 829528f15e95ff0d665efa1e36f3458730c3b36800231b16cb7c245fc9b0b3c5 /home/carlos/project/llama.gfx1101/bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/snapshots/E/mmq-load-tiles.cuh
+E ea89b81c6ac2c519fbbb8c43f3d986413cfb14f4901098f1817c085431cfbf24 /home/carlos/project/llama.gfx1101/bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/snapshots/E/libggml-hip.so.0.27.0
+F defbd93d6b8f5d46edd00410c97a6fdaee9087d583c4c8bb75fa40603c762c1c /home/carlos/project/llama.gfx1101/bench-hip-iq2xs-direct-signs-20261025T182634Z/source/F/ggml/src/ggml-cuda/vecdotq.cuh
+F 18771895fb1f5f8bfed621239357d4af9cd4b1b030ea25228ba04e98efda801f /home/carlos/project/llama.gfx1101/bench-hip-iq2xs-direct-signs-20261025T182634Z/source/F/ggml/src/ggml-cuda/mmq-load-tiles.cuh
+F 3feb9be9f5e459045b8b73cbdd30e98598f6f5c8a6af45f4805a7215a2d66dce /home/carlos/project/llama.gfx1101/bench-hip-iq2xs-direct-signs-20261025T182634Z/build/F/bin/libggml-hip.so.0.27.0

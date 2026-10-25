@@ -1,0 +1,28 @@
+--- C/vecdotq.cuh
++++ C+IQ3S-2acc/vecdotq.cuh
+@@ -1287,7 +1287,8 @@
+     const int       signs_packed_32 = get_int_b2(bq3->signs, iqs/2);
+     const uint8_t * signs_packed_8  = (const uint8_t *) &signs_packed_32;
+ 
+-    int sumi = 0;
++    int sumi0 = 0;
++    int sumi1 = 0;
+ #pragma unroll
+     for (int l0 = 0; l0 < 8; l0 += 2) {
+         const int2 grid_pos = make_int2(
+@@ -1305,10 +1306,11 @@
+         const int u0 = get_int_b4(bq8_1[iqs/2].qs, l0 + 0);
+         const int u1 = get_int_b4(bq8_1[iqs/2].qs, l0 + 1);
+ 
+-        sumi = ggml_cuda_dp4a(grid_l, u0, sumi);
+-        sumi = ggml_cuda_dp4a(grid_h, u1, sumi);
+-    }
+-
++        sumi0 = ggml_cuda_dp4a(grid_l, u0, sumi0);
++        sumi1 = ggml_cuda_dp4a(grid_h, u1, sumi1);
++    }
++
++    int sumi = sumi0 + sumi1;
+     sumi *= 1 + 2*((bq3->scales[iqs/4] >> ((iqs << 1) & 0x04)) & 0x0F);
+ 
+     const float d = __half2float(bq3->d) * __low2float(bq8_1[iqs/2].ds);

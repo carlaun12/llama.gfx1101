@@ -1,0 +1,2 @@
+19fc617f7ee1efa3482bdd954d53d2a1f8e2ab19330b70c5402226051df1decc  bench-hip-cumulative-validation-20261025T144800Z/deterministic-test/bin/test-backend-ops
+869e16ffd50a709f2b315bff83e79719e356fc8fdc51f5155f4f206207bcf1bd  bench-hip-cumulative-validation-20261025T144800Z/deterministic-test/test-backend-ops.cpp

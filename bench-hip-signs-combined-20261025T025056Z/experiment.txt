@@ -1,0 +1,6 @@
+Combined packed-sign A/B
+
+Control A: original HIP library, with no IQ3_S, IQ3_XXS, or IQ2_S packed-sign changes.
+Candidate B: IQ3_S direct signs, IQ3_XXS packed negation, and IQ2_S packed negation.
+
+The `run-ab.sh` sequence alternates 20 fresh llama-bench runs in five ABBA/BAAB blocks. Each run uses `-p 0 -n 128 -d 0,4096`, `-ngl 99`, flash attention, f16 KV cache, batch 2048, microbatch 512, and 8 threads. The recorded maximum graphics package power is 190 W.

@@ -1,0 +1,5 @@
+c1488c8df192dc6fa092d24bf892ae268431d6debd5ba01b740a71c344e1ba1c  bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/activation-20261025T200629Z/smoke-command.txt
+7908b5be5994a9015312ba2dacdc7a5c180a20e416ba9ece0597068635b45623  bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/activation-20261025T200629Z/smoke.log
+f650c0c9d35dbd4e35e3077d495504b050aae1cbdafceeee4156dd989e554b4f  bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/activation-20261025T200629Z/loaded-library-map.txt
+9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa  bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/activation-20261025T200629Z/exit-status.txt
+a9e4077204486115be507d07470a1d197f2d2d40d8337ecf95be85fdf1754dc4  bench-hip-iq2xs-direct-signs-20261025T182634Z/local-adoption-review-20261025T191110Z/activation-20261025T200629Z/activation-summary.md

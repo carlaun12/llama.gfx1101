@@ -1,0 +1,4 @@
+a22eebfb491090e3cb5c5d297caacd3bff0055f12fe0318db897d7873f6efceb  /home/carlos/project/llama.gfx1101/ggml/src/ggml-cuda/vecdotq.cuh
+676433a44e3e947b0d37d050109328aa4b8d20f77a515276e50135b92d8e658b  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0.27.0
+39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/llama-bench
+aa2ca679ae5bc887057fa6b2cff7df3206dc405e182160eac6a097cb16a33741  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/test-backend-ops

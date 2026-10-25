@@ -1,0 +1,1 @@
+PASS: 393216 codebook/packed-sign/half combinations; host arithmetic only

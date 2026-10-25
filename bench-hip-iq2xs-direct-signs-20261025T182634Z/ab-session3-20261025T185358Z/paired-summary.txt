@@ -1,0 +1,7 @@
+Paired gain = 100 * (F avg_ts / E avg_ts - 1).
+95% CI = two-sided paired Student-t interval over 10 percentage gains (df=9, t*=2.262157).
+Each pair consists of adjacent runs in the balanced AB/BA sequence.
+
+tg128 d=0: E=35.6081 tok/s; F=35.8866 tok/s; mean paired gain=+0.782% (95% CI +0.640% to +0.924%); paired SD=0.198%
+tg128 d=4096: E=34.8813 tok/s; F=35.1859 tok/s; mean paired gain=+0.873% (95% CI +0.690% to +1.056%); paired SD=0.256%
+Equal-weight decode aggregate (d=0,d=4096): +0.827% (95% CI +0.691% to +0.964%), paired SD=0.191%

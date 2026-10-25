@@ -1,0 +1,7 @@
+paired, A=IQ3_S direct signs, B=IQ3_S direct signs + IQ3_XXS packed negation
+n=10 pairs; 95% paired t interval (df=9)
+depth=0: A=33.35452, B=33.94359, mean paired delta=+1.766% (95% CI +1.387 to +2.146), paired SD=0.530%
+  pairs=+2.204%, +1.523%, +1.763%, +1.559%, +2.468%, +1.993%, +1.053%, +2.033%, +0.826%, +2.243%
+depth=4096: A=32.72920, B=33.20327, mean paired delta=+1.450% (95% CI +1.054 to +1.847), paired SD=0.554%
+  pairs=+1.219%, +1.431%, +0.372%, +1.411%, +1.927%, +1.035%, +2.384%, +1.803%, +1.188%, +1.731%
+validated_json=20/20; run_errors=0

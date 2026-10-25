@@ -1,0 +1,25 @@
+2026-10-25T20:14:40+00:00
+F vecdot source: defbd93d6b8f5d46edd00410c97a6fdaee9087d583c4c8bb75fa40603c762c1c  ggml/src/ggml-cuda/vecdotq.cuh
+F MMQ source: 18771895fb1f5f8bfed621239357d4af9cd4b1b030ea25228ba04e98efda801f  ggml/src/ggml-cuda/mmq-load-tiles.cuh
+F HIP library: 3feb9be9f5e459045b8b73cbdd30e98598f6f5c8a6af45f4805a7215a2d66dce  build-hip-baseline/bin/libggml-hip.so.0.27.0
+llama-bench: 39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25  /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/llama-bench
+model: e13d3e7400b6c7f980ebd30c0edd6be43eb1865b50be8562a9db042706c7d803  /home/carlos/slop/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf
+loader: 	libggml-hip.so.0 => /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0 (0x00007fc3cf200000)
+MTP: llama-bench default load_mtp=false; no draft/MTP option passed
+GGML_HIP_GRAPHS: GGML_HIP_GRAPHS:BOOL=ON
+GGML_CUDA_GRAPH_OPT: unset
+power cap (uW): 190000000
+
+Preflight GPU:
+WARNING: AMD GPU device(s) is/are in a low-power state. Check power control/runtime_status
+
+
+
+============================ ROCm System Management Interface ============================
+===================================== KFD Processes ======================================
+No KFD PIDs currently running
+==========================================================================================
+================================== End of ROCm SMI Log ===================================
+WARNING: AMD GPU device(s) is/are in a low-power state. Check power control/runtime_status
+
+{"card0": {"Temperature (Sensor edge) (C)": "31.0", "Temperature (Sensor junction) (C)": "38.0", "Temperature (Sensor memory) (C)": "56.0", "dcefclk clock speed:": "(277Mhz)", "dcefclk clock level:": "1", "fclk clock speed:": "(1000Mhz)", "fclk clock level:": "1", "mclk clock speed:": "(456Mhz)", "mclk clock level:": "1", "sclk clock speed:": "(180Mhz)", "sclk clock level:": "S", "socclk clock speed:": "(600Mhz)", "socclk clock level:": "1", "pcie clock level": "2 (16.0GT/s x16)", "Average Graphics Package Power (W)": "20.0", "GPU use (%)": "7"}}

@@ -1,0 +1,7 @@
+metadata qwen35.block_count: [65]
+metadata qwen35.nextn_predict_layers: [1]
+NextN/MTP tensors:
+blk.64.nextn.eh_proj.weight	shape=(10240, 5120)	type=Q6_K
+blk.64.nextn.enorm.weight	shape=(5120,)	type=F32
+blk.64.nextn.hnorm.weight	shape=(5120,)	type=F32
+blk.64.nextn.shared_head_norm.weight	shape=(5120,)	type=F32

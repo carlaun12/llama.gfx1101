@@ -1,0 +1,10 @@
+IQ3_XXS direct-sign validation
+
+GPU packed equivalence:
+- 256 IQ3_XXS table entries x 128 raw sign bytes x 2 grid halves = 65,536 cases.
+- Compared the original unpacked masks plus packed XOR/add path against the direct path. All masks and packed grid operands matched; no zero-magnitude lanes.
+- Result: PASS on AMD Radeon RX 7800 XT, gfx1101.
+
+ROCm backend tests:
+- Command: ./build-hip-baseline/bin/test-backend-ops -b ROCm0 -o MUL_MAT,MUL_MAT_VEC_FUSION -p iq3_xxs
+- Result: 75/75 tests passed.

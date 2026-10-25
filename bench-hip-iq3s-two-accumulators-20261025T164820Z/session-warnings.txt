@@ -1,0 +1,1 @@
+The A/B orchestration output emitted: WARNING: AMD GPU device(s) is/are in a low-power state. Check power control/runtime_status. It appeared at the session start and after the final run. Per-run llama-bench stderr logs contain no such warning and no error markers. Telemetry records 95%+ busy samples at 2.2-2.5 GHz SCLK.

@@ -1,0 +1,7 @@
+IQ3_XXS integration tests
+
+Command: ./build-hip-baseline/bin/test-backend-ops -b ROCm0 -o MUL_MAT,MUL_MAT_VEC_FUSION -p iq3_xxs
+Device: AMD Radeon RX 7800 XT, gfx1101
+Result: 75/75 ROCm tests passed.
+
+Host arithmetic check: check-packed-negation.py passed 12,288 cases across the IQ3_XXS and IQ3_S codebooks. This is supplementary to the GPU check and is not GPU execution.

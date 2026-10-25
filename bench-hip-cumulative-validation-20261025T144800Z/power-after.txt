@@ -1,0 +1,39 @@
+WARNING: AMD GPU device(s) is/are in a low-power state. Check power control/runtime_status
+
+
+
+============================ ROCm System Management Interface ============================
+====================================== Temperature =======================================
+GPU[0]		: Temperature (Sensor edge) (C): 45.0
+GPU[0]		: Temperature (Sensor junction) (C): 54.0
+GPU[0]		: Temperature (Sensor memory) (C): 70.0
+==========================================================================================
+=============================== Current clock frequencies ================================
+GPU[0]		: dcefclk clock level: 1: (277Mhz)
+GPU[0]		: fclk clock level: 1: (1000Mhz)
+GPU[0]		: mclk clock level: 1: (456Mhz)
+GPU[0]		: sclk clock level: S: (163Mhz)
+GPU[0]		: socclk clock level: 1: (600Mhz)
+GPU[0]		: pcie clock level: 2 (16.0GT/s x16)
+==========================================================================================
+======================================= Power Cap ========================================
+GPU[0]		: Max Graphics Package Power (W): 190.0
+==========================================================================================
+=================================== Power Consumption ====================================
+GPU[0]		: Average Graphics Package Power (W): 30.0
+==========================================================================================
+=================================== % time GPU is busy ===================================
+GPU[0]		: GPU use (%): 13
+==========================================================================================
+====================================== Product Info ======================================
+GPU[0]		: Card Series: 		AMD Radeon RX 7800 XT
+GPU[0]		: Card Model: 		0x747e
+GPU[0]		: Card Vendor: 		Advanced Micro Devices, Inc. [AMD/ATI]
+GPU[0]		: Card SKU: 		EXT104128
+GPU[0]		: Subsystem ID: 	0x7801
+GPU[0]		: Device Rev: 		0xc8
+GPU[0]		: Node ID: 		1
+GPU[0]		: GUID: 		33804
+GPU[0]		: GFX Version: 		gfx1101
+==========================================================================================
+================================== End of ROCm SMI Log ===================================

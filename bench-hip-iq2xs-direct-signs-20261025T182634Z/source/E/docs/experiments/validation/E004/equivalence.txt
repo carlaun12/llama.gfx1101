@@ -1,0 +1,1 @@
+PASS: 1600000 bit-exact dot products; integer bound before final division: 3936256

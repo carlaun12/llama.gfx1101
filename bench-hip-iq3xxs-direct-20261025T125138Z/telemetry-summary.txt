@@ -1,0 +1,6 @@
+busy_samples=267 (GPU use >= 95%)
+samples_above_reported_190W_cap=116/267
+graphics_package_power_w: min=63, max=215
+sclk_mhz: min=2157, max=2494
+junction_temp_c: min=48, max=79
+memory_temp_c: min=59, max=86

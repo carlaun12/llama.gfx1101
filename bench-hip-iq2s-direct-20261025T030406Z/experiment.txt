@@ -1,0 +1,26 @@
+IQ2_S direct sign expansion
+
+Control A: IQ3_S direct signs, IQ3_XXS packed negation, IQ2_S packed negation.
+Candidate B: same as A, with IQ2_S direct sign expansion replacing its packed-negation path.
+No IQ3_XXS source change was made in this experiment.
+
+Compiler and resource inspection:
+- IQ2_S plain function: 333 -> 277 static instruction sites; next_free_vgpr 43 -> 43.
+- IQ2_S fused function: 832 -> 721 static instruction sites; next_free_vgpr 57 -> 55.
+- Code-object metadata: wavefront_size=32 for both, vgpr_spill_count=0, sgpr_spill_count=0, private_segment_fixed_size=0.
+- Using a 24-VGPR allocation step for wave32, plain remains in the 48-VGPR bucket and fused remains in the 72-VGPR bucket.
+- v_dot4 sites remain 8 plain / 16 fused. v_mul_lo sites remain 10 plain / 20 fused.
+
+Correctness:
+- GPU packed check: 1024 IQ2_S table entries x 256 sign bytes x 2 grid halves; exact masks and packed operands, no zero lanes.
+- test-backend-ops: 51/51 ROCm IQ2_S tests passed.
+
+Benchmark:
+- 20 fresh llama-bench runs, 10 adjacent A/B pairs, `-p 0 -n 128 -d 0,4096`.
+- Model and runtime settings match the preceding IQ2_S benchmark; see run-ab.sh and per-run JSON/log files.
+- d=0: A=34.36839, B=34.93552 tok/s; mean paired gain +1.650%, 95% CI [+1.563%, +1.737%].
+- d=4096: A=33.55713, B=34.18368 tok/s; mean paired gain +1.868%, 95% CI [+1.423%, +2.313%].
+- All 10 pairs were positive for both depths; 20/20 JSON files valid; no run errors.
+- `rocm-smi --showmaxpower` reported 190 W before and after the run. Telemetry from `--showpower` ranged 83-208 W while GPU use was at least 95%; this conflicts with the reported cap and is retained as a measurement caveat.
+
+Candidate passes the paired-throughput criterion against the current three-patch control. The final candidate has not yet been measured against the original baseline in this session.

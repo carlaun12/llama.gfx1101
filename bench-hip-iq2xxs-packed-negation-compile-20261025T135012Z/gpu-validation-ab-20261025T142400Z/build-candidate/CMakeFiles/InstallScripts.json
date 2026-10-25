@@ -1,0 +1,36 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/ggml/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/ggml/src/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/ggml/src/ggml-cpu/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/ggml/src/ggml-hip/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/src/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/vendor/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/vendor/hash/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/vendor/miniaudio/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/vendor/nlohmann/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/vendor/sheredom/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/vendor/stb/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/vendor/cpp-httplib/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/common/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tests/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/batched-bench/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/gguf-split/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/imatrix/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/llama-bench/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/completion/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/perplexity/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/quantize/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/tokenize/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/tts/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/mtmd/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/cvector-generator/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/export-lora/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/fit-params/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/gpu-validation-ab-20261025T142400Z/build-candidate/tools/results/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

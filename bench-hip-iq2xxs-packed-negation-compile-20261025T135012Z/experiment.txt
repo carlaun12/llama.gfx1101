@@ -1,0 +1,4 @@
+IQ2_XXS packed-negation compiler inspection.
+Control is a snapshot of the active source tree. Candidate changes only the two IQ2_XXS grid sign applications from __vsub4 to XOR plus the low sign bit.
+IQ2_S direct, IQ3_S direct and IQ3_XXS packed-negation remain as in control.
+No direct sign expansion, active source edit, build-directory output, GPU test or benchmark is included.

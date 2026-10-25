@@ -1,0 +1,6 @@
+17 A exit=1
+17 B exit=1
+17 C exit=1
+25025 A exit=0
+25025 B exit=0
+25025 C exit=0

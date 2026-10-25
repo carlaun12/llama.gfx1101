@@ -1,0 +1,36 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/ggml/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/ggml/src/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/ggml/src/ggml-cpu/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/ggml/src/ggml-hip/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/src/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/vendor/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/vendor/hash/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/vendor/miniaudio/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/vendor/nlohmann/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/vendor/sheredom/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/vendor/stb/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/vendor/cpp-httplib/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/common/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tests/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/batched-bench/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/gguf-split/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/imatrix/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/llama-bench/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/completion/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/perplexity/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/quantize/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/tokenize/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/tts/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/mtmd/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/cvector-generator/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/export-lora/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/fit-params/cmake_install.cmake",
+		"/home/carlos/project/llama.gfx1101/bench-hip-cumulative-validation-20261025T144800Z/build/B/tools/results/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

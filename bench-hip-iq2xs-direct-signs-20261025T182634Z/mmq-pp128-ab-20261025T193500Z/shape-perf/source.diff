@@ -1,0 +1,16 @@
+--- bench-hip-unpack-ksigns-perm-20261025T171525Z/model-shape/test-backend-ops-model-shape-perm.cpp	2026-10-25 14:23:54.101162308 -0300
++++ bench-hip-iq2xs-direct-signs-20261025T182634Z/mmq-pp128-ab-20261025T193500Z/shape-perf/test-backend-ops-mmq-perf.cpp	2026-10-25 16:35:41.724192318 -0300
+@@ -12213,6 +12213,13 @@
+ static std::vector<std::unique_ptr<test_case>> make_test_cases_perf() {
+     std::vector<std::unique_ptr<test_case>> test_cases;
+ 
++    // IQ2_XS matrix shapes present in the target GGUF, measured with a 128-row MMQ batch.
++    for (auto [k, m] : std::array<std::pair<int64_t, int64_t>, 5>{
++            std::pair<int64_t, int64_t>{5120, 6144}, {5120, 10240}, {5120, 17408},
++            {6144, 5120}, {17408, 5120}}) {
++        test_cases.emplace_back(new test_mul_mat(GGML_TYPE_IQ2_XS, GGML_TYPE_F32, m, 128, k, {1, 1}, {1, 1}));
++    }
++
+     // SWIGLU at a 27B-class FFN width, fused [gate|up] vs split operands
+     // note: same bytes either way, so a backend that indexes them differently shows it here
+     for (ggml_type type : {GGML_TYPE_F16, GGML_TYPE_F32, GGML_TYPE_BF16}) {

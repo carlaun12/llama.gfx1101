@@ -1,0 +1,1 @@
+MTP disabled: llama-bench default load_mtp=false; no draft/MTP option is passed.

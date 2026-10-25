@@ -1,0 +1,8 @@
+
+File: bench-hip-iq2xs-direct-signs-20261025T182634Z/build/F/ggml/src/ggml-hip/CMakeFiles/ggml-hip.dir/__/ggml-cuda/template-instances/mmq-instance-iq2_xs.cu.o
+Format: elf64-x86-64
+Arch: x86_64
+AddressSize: 64bit
+LoadName: <Not found>
+NoteSections [
+]

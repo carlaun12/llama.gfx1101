@@ -1,0 +1,197 @@
+[
+  {
+    "type": "IQ3_S",
+    "path": "fused",
+    "output_rows": 5120,
+    "calls": 2967,
+    "total_ns": 228923692,
+    "vgprs": [
+      64
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_XXS",
+    "path": "fused",
+    "output_rows": 17408,
+    "calls": 1419,
+    "total_ns": 221252684,
+    "vgprs": [
+      56
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_XXS",
+    "path": "plain",
+    "output_rows": 17408,
+    "calls": 2838,
+    "total_ns": 218954580,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_S",
+    "path": "plain",
+    "output_rows": 17408,
+    "calls": 1935,
+    "total_ns": 162741746,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_XXS",
+    "path": "fused",
+    "output_rows": 5120,
+    "calls": 2193,
+    "total_ns": 156444787,
+    "vgprs": [
+      56
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_XXS",
+    "path": "plain",
+    "output_rows": 10240,
+    "calls": 2709,
+    "total_ns": 125934431,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_S",
+    "path": "plain",
+    "output_rows": 10240,
+    "calls": 2193,
+    "total_ns": 110581685,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_XXS",
+    "path": "plain",
+    "output_rows": 6144,
+    "calls": 3096,
+    "total_ns": 98970419,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_S",
+    "path": "plain",
+    "output_rows": 5120,
+    "calls": 2967,
+    "total_ns": 94364063,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_S",
+    "path": "fused",
+    "output_rows": 17408,
+    "calls": 387,
+    "total_ns": 66428336,
+    "vgprs": [
+      64
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_S",
+    "path": "plain",
+    "output_rows": 6144,
+    "calls": 1677,
+    "total_ns": 59136708,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_XXS",
+    "path": "plain",
+    "output_rows": 12288,
+    "calls": 774,
+    "total_ns": 42377694,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_S",
+    "path": "plain",
+    "output_rows": 12288,
+    "calls": 516,
+    "total_ns": 30639217,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_XXS",
+    "path": "plain",
+    "output_rows": 5120,
+    "calls": 1032,
+    "total_ns": 30516274,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  },
+  {
+    "type": "IQ3_S",
+    "path": "plain",
+    "output_rows": 1024,
+    "calls": 645,
+    "total_ns": 5536588,
+    "vgprs": [
+      48
+    ],
+    "scratch": [
+      0
+    ]
+  }
+]

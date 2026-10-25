@@ -1,0 +1,12 @@
+Timestamp UTC: 2026-10-25T17:38:49Z
+
+Active source and library hashes:
+4c6ddd1e07ebbcc35c165bd16b5f62bb8551046fcf19a5e6b022f9ba03887d83  ggml/src/ggml-cuda/vecdotq.cuh
+a0b56310f88fa0f6fdbb6a4e3ba188617c2dbbe7f43b4a371094139754e264b8  build-hip-baseline/bin/libggml-hip.so.0.27.0
+39ed56ec48bb770fdd99fcfb048906adc1d9d48b60ed3b888c2e8c4c65fcda25  build-hip-baseline/bin/llama-bench
+
+Active executable HIP resolution (LD_LIBRARY_PATH unset):
+	libggml-hip.so.0 => /home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0 (0x00007f5c4a000000)
+
+Control library symlink target:
+/home/carlos/project/llama.gfx1101/build-hip-baseline/bin/libggml-hip.so.0.27.0

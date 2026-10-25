@@ -1,0 +1,8 @@
+{
+  "binary": "build-hip-baseline/bin/libggml-hip.so",
+  "sha256": "baa4631e5a4310653bab66231bfdc5786f3b2248d546fac831ecdfa7551bb30f",
+  "arch": "gfx1101",
+  "source_state": "E001 plus E002, E003/E004/E005 absent",
+  "disassembly": "llvm-objdump --offloading followed by -d --disassemble-symbols=<symbol> on mmvq code object",
+  "instruction_counts": "Static instructions across complete kernels including setup and branches; not dynamic instruction counts or cycle estimates."
+}

@@ -1,0 +1,12 @@
+IQ3_S two-accumulator experiment: C control vs D candidate
+20 runs; 10 adjacent pairs per depth; order balanced 5 C-D and 5 D-C.
+Metric: llama-bench avg_ts (tokens/s). Pair gain = 100 * (D/C - 1).
+CI: two-sided paired Student t interval over the 10 pair gains, df=9, t*=2.262157.
+depth=0: C mean=35.2859 t/s; D mean=35.3054 t/s; mean paired gain=+0.058% (95% CI -0.360% to +0.476%).
+  pair gains: -1.273%, +0.032%, +0.194%, +0.009%, -0.221%, +0.312%, +1.114%, +0.139%, +0.135%, +0.138%
+depth=4096: C mean=34.5413 t/s; D mean=34.6232 t/s; mean paired gain=+0.238% (95% CI +0.020% to +0.456%).
+  pair gains: +0.050%, +0.197%, +0.195%, +0.146%, +0.358%, -0.093%, +1.008%, +0.029%, +0.136%, +0.355%
+telemetry samples parsed: 276; busy means GPU use >=95%.
+telemetry C: 123/137 busy samples; power mean/max=189.9/204.0 W; SCLK mean/range=2337/2205-2435 MHz; junction range=50-78 C; memory range=57-84 C; samples >190 W=62.
+telemetry D: 125/139 busy samples; power mean/max=187.9/206.0 W; SCLK mean/range=2343/2229-2482 MHz; junction range=54-78 C; memory range=64-84 C; samples >190 W=51.
+run logs with error/failure markers: 0

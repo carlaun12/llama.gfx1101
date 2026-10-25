@@ -1,0 +1,14 @@
+ M ggml/src/ggml-cuda/vecdotq.cuh
+?? baseline-hip-20261025T012021Z-xZDy5L/
+?? bench-hip-cumulative-validation-20261025T144800Z/
+?? bench-hip-iq2s-direct-20261025T030406Z/
+?? bench-hip-iq2s-negation-20261025T023844Z/
+?? bench-hip-iq2xxs-packed-negation-compile-20261025T135012Z/
+?? bench-hip-iq3s-direct-20261025T020043Z/
+?? bench-hip-iq3s-two-accumulators-20261025T164820Z/
+?? bench-hip-iq3xxs-direct-20261025T125138Z/
+?? bench-hip-iq3xxs-negation-20261025T022124Z/
+?? bench-hip-signs-combined-20261025T025056Z/
+?? bench-hip-unpack-ksigns-perm-20261025T171525Z/
+?? profile-hip-20261025T013813Z-WeeCq4/
+?? profile-hip-C-20261025T163207Z/

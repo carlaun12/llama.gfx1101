@@ -1,0 +1,1 @@
+/opt/rocm/llvm/bin/llvm-mc -triple=amdgcn-amd-amdhsa -mcpu=gfx1101 -filetype=obj /home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/isa/E-mmq-instance-iq2_xs.cu.s -o /home/carlos/project/llama.gfx1101/bench-hip-unpack-ksigns-perm-20261025T171525Z/isa/object-notes/E-mmq-instance-iq2_xs.cu.amdgpu.o

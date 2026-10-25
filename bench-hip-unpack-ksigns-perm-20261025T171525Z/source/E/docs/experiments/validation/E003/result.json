@@ -1,0 +1,40 @@
+{
+  "experiment": "IQ3_XXS decode, gfx1101, two warps instead of one",
+  "decision": "rejected; restored one warp",
+  "reference_run": "baseline-hip-20261020T004601Z-LQyC4l",
+  "experiment_run": "baseline-hip-20261020T005547Z-KEflXU",
+  "tests": [
+    {
+      "prompt": 512,
+      "generation": 0,
+      "depth": 0,
+      "reference_tokens_s": 648.425136,
+      "experiment_tokens_s": 648.006975,
+      "change_percent": -0.06448870914836924
+    },
+    {
+      "prompt": 2048,
+      "generation": 0,
+      "depth": 0,
+      "reference_tokens_s": 638.938388,
+      "experiment_tokens_s": 639.05392,
+      "change_percent": 0.018081868638630816
+    },
+    {
+      "prompt": 0,
+      "generation": 128,
+      "depth": 0,
+      "reference_tokens_s": 31.882439,
+      "experiment_tokens_s": 30.96902,
+      "change_percent": -2.8649596098968444
+    },
+    {
+      "prompt": 0,
+      "generation": 128,
+      "depth": 4096,
+      "reference_tokens_s": 31.149671,
+      "experiment_tokens_s": 30.338985,
+      "change_percent": -2.6025507620931254
+    }
+  ]
+}

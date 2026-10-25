@@ -1,0 +1,415 @@
+[
+  {
+    "experiment": "initial",
+    "run": "baseline-hip-20261020T001041Z-a1WszM",
+    "power_limit_w": null,
+    "measurements": [
+      {
+        "test": "pp512",
+        "mean_tokens_s": 657.942359,
+        "stddev_tokens_s": 10.409769,
+        "samples_tokens_s": [
+          639.395,
+          663.314,
+          662.948,
+          663.066,
+          660.989
+        ],
+        "build_commit": "31288c9c6"
+      },
+      {
+        "test": "pp2048",
+        "mean_tokens_s": 647.670164,
+        "stddev_tokens_s": 0.863948,
+        "samples_tokens_s": [
+          647.12,
+          649.18,
+          647.514,
+          647.103,
+          647.433
+        ],
+        "build_commit": "31288c9c6"
+      },
+      {
+        "test": "tg128_d0",
+        "mean_tokens_s": 32.259624,
+        "stddev_tokens_s": 0.427139,
+        "samples_tokens_s": [
+          32.0028,
+          32.1019,
+          32.0413,
+          32.1339,
+          33.0182
+        ],
+        "build_commit": "31288c9c6"
+      },
+      {
+        "test": "tg128_d4096",
+        "mean_tokens_s": 30.634749,
+        "stddev_tokens_s": 0.17701,
+        "samples_tokens_s": [
+          30.938,
+          30.5336,
+          30.4963,
+          30.6341,
+          30.5717
+        ],
+        "build_commit": "31288c9c6"
+      }
+    ]
+  },
+  {
+    "experiment": "baseline_190w",
+    "run": "baseline-hip-20261020T001915Z-RdqXLH",
+    "power_limit_w": 190,
+    "measurements": [
+      {
+        "test": "pp512",
+        "mean_tokens_s": 635.627,
+        "stddev_tokens_s": 4.322769,
+        "samples_tokens_s": [
+          630.484,
+          641.205,
+          636.29,
+          632.237,
+          637.919
+        ],
+        "build_commit": "31288c9c6"
+      },
+      {
+        "test": "pp2048",
+        "mean_tokens_s": 628.405039,
+        "stddev_tokens_s": 1.069656,
+        "samples_tokens_s": [
+          627.004,
+          629.847,
+          628.959,
+          628.265,
+          627.95
+        ],
+        "build_commit": "31288c9c6"
+      },
+      {
+        "test": "tg128_d0",
+        "mean_tokens_s": 31.237094,
+        "stddev_tokens_s": 0.068829,
+        "samples_tokens_s": [
+          31.1694,
+          31.2827,
+          31.191,
+          31.3338,
+          31.2086
+        ],
+        "build_commit": "31288c9c6"
+      },
+      {
+        "test": "tg128_d4096",
+        "mean_tokens_s": 30.639407,
+        "stddev_tokens_s": 0.070738,
+        "samples_tokens_s": [
+          30.5837,
+          30.6173,
+          30.6895,
+          30.5709,
+          30.7355
+        ],
+        "build_commit": "31288c9c6"
+      }
+    ]
+  },
+  {
+    "experiment": "E001",
+    "run": "baseline-hip-20261020T003050Z-IuI2h6",
+    "power_limit_w": 190,
+    "measurements": [
+      {
+        "test": "pp512",
+        "mean_tokens_s": 645.755461,
+        "stddev_tokens_s": 5.785891,
+        "samples_tokens_s": [
+          635.437,
+          648.82,
+          648.742,
+          648.012,
+          647.767
+        ],
+        "build_commit": "31288c9c6"
+      },
+      {
+        "test": "pp2048",
+        "mean_tokens_s": 636.187711,
+        "stddev_tokens_s": 1.04909,
+        "samples_tokens_s": [
+          636.715,
+          637.436,
+          636.439,
+          635.649,
+          634.7
+        ],
+        "build_commit": "31288c9c6"
+      },
+      {
+        "test": "tg128_d0",
+        "mean_tokens_s": 31.698092,
+        "stddev_tokens_s": 0.037448,
+        "samples_tokens_s": [
+          31.6395,
+          31.744,
+          31.7024,
+          31.7055,
+          31.699
+        ],
+        "build_commit": "31288c9c6"
+      },
+      {
+        "test": "tg128_d4096",
+        "mean_tokens_s": 30.936326,
+        "stddev_tokens_s": 0.112,
+        "samples_tokens_s": [
+          30.7776,
+          31.0932,
+          30.9502,
+          30.9386,
+          30.922
+        ],
+        "build_commit": "31288c9c6"
+      }
+    ]
+  },
+  {
+    "experiment": "E002",
+    "run": "baseline-hip-20261020T004601Z-LQyC4l",
+    "power_limit_w": 190,
+    "measurements": [
+      {
+        "test": "pp512",
+        "mean_tokens_s": 648.425136,
+        "stddev_tokens_s": 6.000211,
+        "samples_tokens_s": [
+          637.759,
+          652.083,
+          651.247,
+          650.267,
+          650.77
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "pp2048",
+        "mean_tokens_s": 638.938388,
+        "stddev_tokens_s": 0.901845,
+        "samples_tokens_s": [
+          638.893,
+          640.186,
+          639.287,
+          638.596,
+          637.731
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "tg128_d0",
+        "mean_tokens_s": 31.882439,
+        "stddev_tokens_s": 0.024431,
+        "samples_tokens_s": [
+          31.8588,
+          31.914,
+          31.893,
+          31.8897,
+          31.8566
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "tg128_d4096",
+        "mean_tokens_s": 31.149671,
+        "stddev_tokens_s": 0.020788,
+        "samples_tokens_s": [
+          31.1202,
+          31.1778,
+          31.1552,
+          31.1515,
+          31.1436
+        ],
+        "build_commit": "c7411aa4c"
+      }
+    ]
+  },
+  {
+    "experiment": "E003",
+    "run": "baseline-hip-20261020T005547Z-KEflXU",
+    "power_limit_w": 190,
+    "measurements": [
+      {
+        "test": "pp512",
+        "mean_tokens_s": 648.006975,
+        "stddev_tokens_s": 5.659958,
+        "samples_tokens_s": [
+          637.93,
+          650.756,
+          651.164,
+          649.662,
+          650.524
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "pp2048",
+        "mean_tokens_s": 639.05392,
+        "stddev_tokens_s": 0.518691,
+        "samples_tokens_s": [
+          638.534,
+          639.791,
+          639.253,
+          639.107,
+          638.584
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "tg128_d0",
+        "mean_tokens_s": 30.96902,
+        "stddev_tokens_s": 0.019199,
+        "samples_tokens_s": [
+          30.9706,
+          30.9872,
+          30.9851,
+          30.9622,
+          30.9401
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "tg128_d4096",
+        "mean_tokens_s": 30.338985,
+        "stddev_tokens_s": 0.02209,
+        "samples_tokens_s": [
+          30.3314,
+          30.3716,
+          30.3484,
+          30.3304,
+          30.3131
+        ],
+        "build_commit": "c7411aa4c"
+      }
+    ]
+  },
+  {
+    "experiment": "E004",
+    "run": "baseline-hip-20261020T010605Z-ASw2Dn",
+    "power_limit_w": 190,
+    "measurements": [
+      {
+        "test": "pp512",
+        "mean_tokens_s": 647.330649,
+        "stddev_tokens_s": 8.179056,
+        "samples_tokens_s": [
+          632.741,
+          651.054,
+          651.152,
+          651.701,
+          650.006
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "pp2048",
+        "mean_tokens_s": 639.926809,
+        "stddev_tokens_s": 0.771474,
+        "samples_tokens_s": [
+          639.05,
+          640.96,
+          640.409,
+          639.84,
+          639.375
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "tg128_d0",
+        "mean_tokens_s": 31.829349,
+        "stddev_tokens_s": 0.027555,
+        "samples_tokens_s": [
+          31.8265,
+          31.8667,
+          31.8331,
+          31.8313,
+          31.7891
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "tg128_d4096",
+        "mean_tokens_s": 31.156772,
+        "stddev_tokens_s": 0.022351,
+        "samples_tokens_s": [
+          31.1327,
+          31.1908,
+          31.1634,
+          31.1549,
+          31.1421
+        ],
+        "build_commit": "c7411aa4c"
+      }
+    ]
+  },
+  {
+    "experiment": "E005",
+    "run": "baseline-hip-20261020T012102Z-vXuCZL",
+    "power_limit_w": 190,
+    "measurements": [
+      {
+        "test": "pp512",
+        "mean_tokens_s": 648.014032,
+        "stddev_tokens_s": 5.246898,
+        "samples_tokens_s": [
+          638.636,
+          650.529,
+          650.564,
+          650.302,
+          650.04
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "pp2048",
+        "mean_tokens_s": 639.141555,
+        "stddev_tokens_s": 1.10205,
+        "samples_tokens_s": [
+          638.578,
+          640.286,
+          640.053,
+          639.197,
+          637.594
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "tg128_d0",
+        "mean_tokens_s": 31.729446,
+        "stddev_tokens_s": 0.048279,
+        "samples_tokens_s": [
+          31.6797,
+          31.7825,
+          31.7701,
+          31.734,
+          31.6809
+        ],
+        "build_commit": "c7411aa4c"
+      },
+      {
+        "test": "tg128_d4096",
+        "mean_tokens_s": 31.047529,
+        "stddev_tokens_s": 0.037482,
+        "samples_tokens_s": [
+          30.9983,
+          31.0985,
+          31.0627,
+          31.0498,
+          31.0284
+        ],
+        "build_commit": "c7411aa4c"
+      }
+    ]
+  }
+]

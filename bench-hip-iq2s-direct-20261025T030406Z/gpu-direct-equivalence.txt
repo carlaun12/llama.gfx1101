@@ -1,0 +1,1 @@
+PASS: 1024 table entries x 256 sign bytes x 2 grid halves; exact masks and packed operands, no zero lanes

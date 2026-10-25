@@ -1,0 +1,405 @@
+[mmvq.cu]
+kernels C/E: 33/33
+type 16: C={'instructions': 5550, 'broadcast_mul': 52, 'broadcast_perm': 0, 'all_perm': 0, 'dot4': 328, 'popcount': 52, 'load_instructions': 311} E={'instructions': 5540, 'broadcast_mul': 0, 'broadcast_perm': 52, 'all_perm': 52, 'dot4': 328, 'popcount': 52, 'load_instructions': 311}
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi1ELb1ELb1ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=768 mul=8 perm=0 dot4=16 loads=33 vgpr=49 sgpr=46 vspill=None sspill=None
+    E ins=765 mul=0 perm=8 dot4=16 loads=33 vgpr=49 sgpr=46 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi1ELb0ELb1ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=309 mul=4 perm=0 dot4=8 loads=21 vgpr=36 sgpr=22 vspill=None sspill=None
+    E ins=309 mul=0 perm=4 dot4=8 loads=21 vgpr=36 sgpr=22 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi1ELb1ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=768 mul=8 perm=0 dot4=16 loads=33 vgpr=49 sgpr=46 vspill=None sspill=None
+    E ins=765 mul=0 perm=8 dot4=16 loads=33 vgpr=49 sgpr=46 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi1ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=309 mul=4 perm=0 dot4=8 loads=21 vgpr=36 sgpr=22 vspill=None sspill=None
+    E ins=309 mul=0 perm=4 dot4=8 loads=21 vgpr=36 sgpr=22 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi2ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=331 mul=4 perm=0 dot4=16 loads=20 vgpr=48 sgpr=28 vspill=None sspill=None
+    E ins=331 mul=0 perm=4 dot4=16 loads=20 vgpr=48 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi3ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=379 mul=4 perm=0 dot4=24 loads=23 vgpr=65 sgpr=30 vspill=None sspill=None
+    E ins=376 mul=0 perm=4 dot4=24 loads=23 vgpr=65 sgpr=30 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi4ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=415 mul=4 perm=0 dot4=32 loads=26 vgpr=76 sgpr=30 vspill=None sspill=None
+    E ins=414 mul=0 perm=4 dot4=32 loads=26 vgpr=76 sgpr=30 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi5ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=462 mul=4 perm=0 dot4=40 loads=29 vgpr=88 sgpr=28 vspill=None sspill=None
+    E ins=462 mul=0 perm=4 dot4=40 loads=29 vgpr=88 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi6ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=540 mul=4 perm=0 dot4=48 loads=32 vgpr=86 sgpr=28 vspill=None sspill=None
+    E ins=540 mul=0 perm=4 dot4=48 loads=32 vgpr=86 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi7ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=608 mul=4 perm=0 dot4=56 loads=35 vgpr=89 sgpr=28 vspill=None sspill=None
+    E ins=608 mul=0 perm=4 dot4=56 loads=35 vgpr=89 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type16ELi8ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=661 mul=4 perm=0 dot4=64 loads=38 vgpr=94 sgpr=28 vspill=None sspill=None
+    E ins=661 mul=0 perm=4 dot4=64 loads=38 vgpr=94 sgpr=28 vspill=None sspill=None
+type 17: C={'instructions': 6120, 'broadcast_mul': 52, 'broadcast_perm': 0, 'all_perm': 0, 'dot4': 328, 'popcount': 52, 'load_instructions': 324} E={'instructions': 6112, 'broadcast_mul': 0, 'broadcast_perm': 52, 'all_perm': 52, 'dot4': 328, 'popcount': 52, 'load_instructions': 324}
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi1ELb1ELb1ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=844 mul=8 perm=0 dot4=16 loads=35 vgpr=58 sgpr=46 vspill=None sspill=None
+    E ins=843 mul=0 perm=8 dot4=16 loads=35 vgpr=58 sgpr=46 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi1ELb0ELb1ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=341 mul=4 perm=0 dot4=8 loads=22 vgpr=43 sgpr=22 vspill=None sspill=None
+    E ins=342 mul=0 perm=4 dot4=8 loads=22 vgpr=43 sgpr=22 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi1ELb1ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=844 mul=8 perm=0 dot4=16 loads=35 vgpr=58 sgpr=46 vspill=None sspill=None
+    E ins=843 mul=0 perm=8 dot4=16 loads=35 vgpr=58 sgpr=46 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi1ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=341 mul=4 perm=0 dot4=8 loads=22 vgpr=43 sgpr=22 vspill=None sspill=None
+    E ins=342 mul=0 perm=4 dot4=8 loads=22 vgpr=43 sgpr=22 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi2ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=371 mul=4 perm=0 dot4=16 loads=21 vgpr=56 sgpr=28 vspill=None sspill=None
+    E ins=371 mul=0 perm=4 dot4=16 loads=21 vgpr=56 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi3ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=424 mul=4 perm=0 dot4=24 loads=24 vgpr=68 sgpr=28 vspill=None sspill=None
+    E ins=424 mul=0 perm=4 dot4=24 loads=24 vgpr=68 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi4ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=476 mul=4 perm=0 dot4=32 loads=27 vgpr=79 sgpr=30 vspill=None sspill=None
+    E ins=476 mul=0 perm=4 dot4=32 loads=27 vgpr=79 sgpr=30 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi5ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=524 mul=4 perm=0 dot4=40 loads=30 vgpr=88 sgpr=28 vspill=None sspill=None
+    E ins=523 mul=0 perm=4 dot4=40 loads=30 vgpr=88 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi6ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=591 mul=4 perm=0 dot4=48 loads=33 vgpr=92 sgpr=28 vspill=None sspill=None
+    E ins=591 mul=0 perm=4 dot4=48 loads=33 vgpr=92 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi7ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=656 mul=4 perm=0 dot4=56 loads=36 vgpr=91 sgpr=28 vspill=None sspill=None
+    E ins=651 mul=0 perm=4 dot4=56 loads=36 vgpr=91 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type17ELi8ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=708 mul=4 perm=0 dot4=64 loads=39 vgpr=94 sgpr=28 vspill=None sspill=None
+    E ins=706 mul=0 perm=4 dot4=64 loads=39 vgpr=94 sgpr=28 vspill=None sspill=None
+type 18: C={'instructions': 5919, 'broadcast_mul': 52, 'broadcast_perm': 0, 'all_perm': 0, 'dot4': 328, 'popcount': 52, 'load_instructions': 376} E={'instructions': 5916, 'broadcast_mul': 0, 'broadcast_perm': 52, 'all_perm': 52, 'dot4': 328, 'popcount': 52, 'load_instructions': 376}
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi1ELb1ELb1ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=816 mul=8 perm=0 dot4=16 loads=43 vgpr=50 sgpr=46 vspill=None sspill=None
+    E ins=816 mul=0 perm=8 dot4=16 loads=43 vgpr=50 sgpr=46 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi1ELb0ELb1ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=330 mul=4 perm=0 dot4=8 loads=26 vgpr=36 sgpr=22 vspill=None sspill=None
+    E ins=329 mul=0 perm=4 dot4=8 loads=26 vgpr=36 sgpr=22 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi1ELb1ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=816 mul=8 perm=0 dot4=16 loads=43 vgpr=50 sgpr=46 vspill=None sspill=None
+    E ins=816 mul=0 perm=8 dot4=16 loads=43 vgpr=50 sgpr=46 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi1ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=330 mul=4 perm=0 dot4=8 loads=26 vgpr=36 sgpr=22 vspill=None sspill=None
+    E ins=329 mul=0 perm=4 dot4=8 loads=26 vgpr=36 sgpr=22 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi2ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=362 mul=4 perm=0 dot4=16 loads=25 vgpr=55 sgpr=30 vspill=None sspill=None
+    E ins=362 mul=0 perm=4 dot4=16 loads=25 vgpr=55 sgpr=30 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi3ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=412 mul=4 perm=0 dot4=24 loads=28 vgpr=66 sgpr=30 vspill=None sspill=None
+    E ins=412 mul=0 perm=4 dot4=24 loads=28 vgpr=66 sgpr=30 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi4ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=462 mul=4 perm=0 dot4=32 loads=31 vgpr=78 sgpr=30 vspill=None sspill=None
+    E ins=462 mul=0 perm=4 dot4=32 loads=31 vgpr=78 sgpr=30 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi5ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=500 mul=4 perm=0 dot4=40 loads=34 vgpr=88 sgpr=28 vspill=None sspill=None
+    E ins=500 mul=0 perm=4 dot4=40 loads=34 vgpr=88 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi6ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=573 mul=4 perm=0 dot4=48 loads=37 vgpr=87 sgpr=28 vspill=None sspill=None
+    E ins=572 mul=0 perm=4 dot4=48 loads=37 vgpr=87 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi7ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=628 mul=4 perm=0 dot4=56 loads=40 vgpr=90 sgpr=28 vspill=None sspill=None
+    E ins=628 mul=0 perm=4 dot4=56 loads=40 vgpr=90 sgpr=28 vspill=None sspill=None
+  _ZL13mul_mat_vec_qIL9ggml_type18ELi8ELb0ELb0ELb0EEvPKvS2_PKi31ggml_cuda_mm_fusion_args_devicePfj15HIP_vector_typeIjLj3EEjjjS8_jjjS8_jjjj
+    C ins=690 mul=4 perm=0 dot4=64 loads=43 vgpr=97 sgpr=28 vspill=None sspill=None
+    E ins=690 mul=0 perm=4 dot4=64 loads=43 vgpr=97 sgpr=28 vspill=None sspill=None
+
+[mmq-instance-iq2_xxs.cu]
+kernels C/E: 32/32
+type 16: C={'instructions': 18128, 'broadcast_mul': 176, 'broadcast_perm': 0, 'all_perm': 0, 'dot4': 0, 'popcount': 176, 'load_instructions': 1561} E={'instructions': 18120, 'broadcast_mul': 0, 'broadcast_perm': 176, 'all_perm': 176, 'dot4': 0, 'popcount': 176, 'load_instructions': 1561}
+  _ZL9mul_mat_qIL9ggml_type16ELi8ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi16ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1271 mul=16 perm=0 dot4=0 loads=119 vgpr=205 sgpr=34 vspill=None sspill=None
+    E ins=1271 mul=0 perm=16 dot4=0 loads=119 vgpr=205 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi24ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi32ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1985 mul=16 perm=0 dot4=0 loads=184 vgpr=256 sgpr=34 vspill=None sspill=None
+    E ins=1983 mul=0 perm=16 dot4=0 loads=184 vgpr=256 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi40ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi48ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi56ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi64ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1765 mul=16 perm=0 dot4=0 loads=133 vgpr=190 sgpr=32 vspill=None sspill=None
+    E ins=1765 mul=0 perm=16 dot4=0 loads=133 vgpr=190 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi72ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi80ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi88ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi96ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=2167 mul=16 perm=0 dot4=0 loads=151 vgpr=202 sgpr=32 vspill=None sspill=None
+    E ins=2167 mul=0 perm=16 dot4=0 loads=151 vgpr=202 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi104ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi112ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi120ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi128ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=2613 mul=16 perm=0 dot4=0 loads=185 vgpr=236 sgpr=32 vspill=None sspill=None
+    E ins=2613 mul=0 perm=16 dot4=0 loads=185 vgpr=236 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi8ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi16ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1141 mul=16 perm=0 dot4=0 loads=114 vgpr=192 sgpr=32 vspill=None sspill=None
+    E ins=1141 mul=0 perm=16 dot4=0 loads=114 vgpr=192 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi24ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi32ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1703 mul=16 perm=0 dot4=0 loads=170 vgpr=256 sgpr=30 vspill=None sspill=None
+    E ins=1697 mul=0 perm=16 dot4=0 loads=170 vgpr=256 sgpr=30 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi40ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi48ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1128 mul=16 perm=0 dot4=0 loads=94 vgpr=172 sgpr=29 vspill=None sspill=None
+    E ins=1128 mul=0 perm=16 dot4=0 loads=94 vgpr=172 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi56ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi64ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1218 mul=16 perm=0 dot4=0 loads=107 vgpr=183 sgpr=29 vspill=None sspill=None
+    E ins=1218 mul=0 perm=16 dot4=0 loads=107 vgpr=183 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi72ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi80ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi88ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi96ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1400 mul=16 perm=0 dot4=0 loads=137 vgpr=209 sgpr=29 vspill=None sspill=None
+    E ins=1400 mul=0 perm=16 dot4=0 loads=137 vgpr=209 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi104ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi112ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi120ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type16ELi128ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1590 mul=16 perm=0 dot4=0 loads=167 vgpr=233 sgpr=31 vspill=None sspill=None
+    E ins=1590 mul=0 perm=16 dot4=0 loads=167 vgpr=233 sgpr=31 vspill=None sspill=None
+
+[mmq-instance-iq2_xs.cu]
+kernels C/E: 32/32
+type 17: C={'instructions': 18126, 'broadcast_mul': 176, 'broadcast_perm': 0, 'all_perm': 0, 'dot4': 0, 'popcount': 176, 'load_instructions': 1397} E={'instructions': 18128, 'broadcast_mul': 0, 'broadcast_perm': 176, 'all_perm': 176, 'dot4': 0, 'popcount': 176, 'load_instructions': 1397}
+  _ZL9mul_mat_qIL9ggml_type17ELi8ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi16ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1771 mul=16 perm=0 dot4=0 loads=161 vgpr=256 sgpr=34 vspill=None sspill=None
+    E ins=1771 mul=0 perm=16 dot4=0 loads=161 vgpr=256 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi24ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi32ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1396 mul=16 perm=0 dot4=0 loads=94 vgpr=171 sgpr=32 vspill=None sspill=None
+    E ins=1396 mul=0 perm=16 dot4=0 loads=94 vgpr=171 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi40ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi48ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi56ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi64ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1795 mul=16 perm=0 dot4=0 loads=127 vgpr=193 sgpr=32 vspill=None sspill=None
+    E ins=1795 mul=0 perm=16 dot4=0 loads=127 vgpr=193 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi72ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi80ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi88ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi96ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=2191 mul=16 perm=0 dot4=0 loads=141 vgpr=205 sgpr=32 vspill=None sspill=None
+    E ins=2191 mul=0 perm=16 dot4=0 loads=141 vgpr=205 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi104ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi112ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi120ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi128ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=2623 mul=16 perm=0 dot4=0 loads=171 vgpr=225 sgpr=32 vspill=None sspill=None
+    E ins=2623 mul=0 perm=16 dot4=0 loads=171 vgpr=225 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi8ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi16ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1640 mul=16 perm=0 dot4=0 loads=150 vgpr=256 sgpr=28 vspill=None sspill=None
+    E ins=1640 mul=0 perm=16 dot4=0 loads=150 vgpr=256 sgpr=28 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi24ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi32ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1115 mul=16 perm=0 dot4=0 loads=82 vgpr=169 sgpr=29 vspill=None sspill=None
+    E ins=1115 mul=0 perm=16 dot4=0 loads=82 vgpr=169 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi40ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi48ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1159 mul=16 perm=0 dot4=0 loads=90 vgpr=182 sgpr=29 vspill=None sspill=None
+    E ins=1159 mul=0 perm=16 dot4=0 loads=90 vgpr=182 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi56ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi64ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1244 mul=16 perm=0 dot4=0 loads=101 vgpr=193 sgpr=29 vspill=None sspill=None
+    E ins=1244 mul=0 perm=16 dot4=0 loads=101 vgpr=193 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi72ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi80ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi88ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi96ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1432 mul=16 perm=0 dot4=0 loads=127 vgpr=217 sgpr=29 vspill=None sspill=None
+    E ins=1434 mul=0 perm=16 dot4=0 loads=127 vgpr=217 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi104ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi112ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi120ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type17ELi128ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1613 mul=16 perm=0 dot4=0 loads=153 vgpr=243 sgpr=31 vspill=None sspill=None
+    E ins=1613 mul=0 perm=16 dot4=0 loads=153 vgpr=243 sgpr=31 vspill=None sspill=None
+
+[mmq-instance-iq3_xxs.cu]
+kernels C/E: 32/32
+type 18: C={'instructions': 19058, 'broadcast_mul': 176, 'broadcast_perm': 0, 'all_perm': 0, 'dot4': 0, 'popcount': 176, 'load_instructions': 1755} E={'instructions': 19058, 'broadcast_mul': 0, 'broadcast_perm': 176, 'all_perm': 176, 'dot4': 0, 'popcount': 176, 'load_instructions': 1755}
+  _ZL9mul_mat_qIL9ggml_type18ELi8ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi16ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1357 mul=16 perm=0 dot4=0 loads=139 vgpr=205 sgpr=34 vspill=None sspill=None
+    E ins=1357 mul=0 perm=16 dot4=0 loads=139 vgpr=205 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi24ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi32ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=2089 mul=16 perm=0 dot4=0 loads=205 vgpr=256 sgpr=34 vspill=None sspill=None
+    E ins=2089 mul=0 perm=16 dot4=0 loads=205 vgpr=256 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi40ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi48ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi56ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi64ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1844 mul=16 perm=0 dot4=0 loads=153 vgpr=188 sgpr=32 vspill=None sspill=None
+    E ins=1844 mul=0 perm=16 dot4=0 loads=153 vgpr=188 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi72ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi80ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi88ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi96ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=2253 mul=16 perm=0 dot4=0 loads=171 vgpr=200 sgpr=32 vspill=None sspill=None
+    E ins=2253 mul=0 perm=16 dot4=0 loads=171 vgpr=200 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi104ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi112ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi120ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi128ELb1EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=2697 mul=16 perm=0 dot4=0 loads=205 vgpr=237 sgpr=32 vspill=None sspill=None
+    E ins=2697 mul=0 perm=16 dot4=0 loads=205 vgpr=237 sgpr=32 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi8ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi16ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1231 mul=16 perm=0 dot4=0 loads=134 vgpr=192 sgpr=28 vspill=None sspill=None
+    E ins=1231 mul=0 perm=16 dot4=0 loads=134 vgpr=192 sgpr=28 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi24ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi32ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1748 mul=16 perm=0 dot4=0 loads=163 vgpr=256 sgpr=28 vspill=None sspill=None
+    E ins=1748 mul=0 perm=16 dot4=0 loads=163 vgpr=256 sgpr=28 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi40ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi48ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1208 mul=16 perm=0 dot4=0 loads=114 vgpr=168 sgpr=29 vspill=None sspill=None
+    E ins=1208 mul=0 perm=16 dot4=0 loads=114 vgpr=168 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi56ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi64ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1308 mul=16 perm=0 dot4=0 loads=127 vgpr=183 sgpr=29 vspill=None sspill=None
+    E ins=1308 mul=0 perm=16 dot4=0 loads=127 vgpr=183 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi72ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi80ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi88ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi96ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1495 mul=16 perm=0 dot4=0 loads=157 vgpr=208 sgpr=29 vspill=None sspill=None
+    E ins=1495 mul=0 perm=16 dot4=0 loads=157 vgpr=208 sgpr=29 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi104ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi112ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi120ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+    E ins=7 mul=0 perm=0 dot4=0 loads=0 vgpr=40 sgpr=34 vspill=None sspill=None
+  _ZL9mul_mat_qIL9ggml_type18ELi128ELb0EL9ggml_prec30EEvPKcPKiS5_S5_PfS6_PKf15HIP_vector_typeIjLj3EEiiiiiSA_SA_iiiSA_SA_iiiSA_
+    C ins=1681 mul=16 perm=0 dot4=0 loads=187 vgpr=234 sgpr=31 vspill=None sspill=None
+    E ins=1681 mul=0 perm=16 dot4=0 loads=187 vgpr=234 sgpr=31 vspill=None sspill=None
+
