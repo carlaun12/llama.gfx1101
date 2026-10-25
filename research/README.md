@@ -118,6 +118,12 @@ A pesquisa avançou de hipóteses gerais para **contratos de implementação esp
 
 **Nenhuma das duas linhas já foi portada.** Não há benchmark nem confirmação dos atributos do tokenizer final do GGUF. Não confundir ausência de staging ou subset menor com ganho líquido garantido.
 
+## Rodada 05 — duas prioridades, quatro missões
+
+O projeto agora registra tarefas na raiz em **[todo.md](../todo.md)**. A Rodada 05 está dividida em duas linhas P0, com dois agentes em cada uma: **compatibilidade BPE para o subset IQ4_XS do patch 0013** e **equivalência de arredondamento Q8_0 / contrato de FA verify W1..8**.
+
+**[Abrir prompts dos quatro agentes](RODADA-05-PLANO-AGENTES.md).** Estado: instruções prontas para encaminhamento; agentes não acionados automaticamente. O assistente atua somente na coordenação, revisão e documentação das entregas.
+
 ## Estado da pesquisa
 
 - **Em pesquisa:** doze propostas estão registradas, mas nenhum candidato foi executado em gfx1101.
