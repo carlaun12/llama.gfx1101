@@ -80,6 +80,16 @@ As quatro frentes de investigação foram executadas como análises de código e
 
 **Rodada documental de 25/10/2026:** a análise de [MMVQ para RCO IQ misto](mmvq-iq-mistos-rco.md) compara `apply_ksigns`, `ggml_cuda_mul_small`, domínios das tabelas `IQ2/IQ3` e o desvio de escopo entre `MUL_MAT` e `MUL_MAT_ID`.
 
+## Terceira rodada — revisão dos três relatórios recebidos
+
+Em 25/10/2026 foram recebidos **três** relatórios externos: GDN chunked FP32, MTP integrado e Flash Attention/análise arquitetural. O relatório do agente de **IQ3/IQ2** não está entre esses três anexos; ele permanece pendente nesta rodada.
+
+A revisão cruzada e as divergências de quantização, memória e aplicabilidade foram registradas em [REVISAO-AGENTES-2026-10-25.md](REVISAO-AGENTES-2026-10-25.md). Os achados aceitos foram sintetizados nos documentos [GDN](gdn-chunked-gfx1101.md), [MTP adaptativo](mtp-adaptativo.md), [MTP subset](mtp-vocabulario-reduzido.md), [Flash Attention](flash-attention-kv-nativo.md) e [MMB](mmb-gemm-quantizado.md).
+
+**Escopo mantido:** pesquisa remota somente. Não pedir ao usuário testes, medições, hashes, logs, builds, instrumentação nem GPU. Os capítulos de benchmark nos relatórios dos agentes foram tratados como notas históricas, **não tarefas do projeto**.
+
+
+
 ## Estado da pesquisa
 
 - **Em pesquisa:** nove propostas estão registradas, mas nenhum candidato foi executado em gfx1101.

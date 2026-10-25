@@ -85,6 +85,18 @@ Esses valores não incluem estados recorrentes GDN, overhead de buffers e eventu
 - [Proposta GDN chunked](gdn-chunked-gfx1101.md)
 - [Proposta MTP adaptativo](mtp-adaptativo.md)
 
+## Consolidação documental da rodada de agentes (25/10/2026)
+
+- **GDN FP32:** 48 heads de valor, 16 heads K e chunks de 64; scratch lógico calculado para o shape real: **16,25 MiB a 2K tokens** e **65 MiB a 8K**, uma sequência, `A_sc+KQ_sc`. A estimativa de 12,19 MiB do relatório era apenas exemplo com 32 value-heads.
+- **Memória recorrente e MTP:** matriz GDN mais conv1d totaliza aproximadamente **149,625 MiB por plano e sequência** em FP32. Quando o contrato exige `1+n_max` planos, `n_max=3` corresponde a 598,5 MiB teóricos e `n_max=7` a 1.197 MiB, antes de outras alocações.
+- **Head de saída:** `model.output` é `IQ4_XS` no inventário RCO selecionado, com matriz teórica de **644,1 MiB**; não usar estimativas de head **Q6_K** de outros checkpoints sem verificar `nextn.shared_head_head`.
+- **FA e KV:** Q8_0 hipotético custa **1,0625 GiB a 32K tokens** para as 16 camadas convencionais; a conversão total para F16 implica 2 GiB de dados F16. Tráfego lógico acumulado não é pico de memória temporária.
+- **Limite de evidência:** os relatórios dos agentes descrevem experiências/variantes diferentes. Somente arquitetura, código e fórmulas que correspondem ao GGUF exato foram incorporados como achados; speedups permanecem indeterminados.
+
+Detalhes em [REVISAO-AGENTES-2026-10-25.md](REVISAO-AGENTES-2026-10-25.md).
+
+
+
 ## Histórico
 
 - 2026-10-25: GGUF definido pelo usuário como alvo principal; pesquisa documental inicial. Sem benchmark de gfx1101.

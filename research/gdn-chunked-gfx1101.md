@@ -51,6 +51,22 @@ A origem introduz kernel chunked FP32 e uma implementação BF16/WMMA específic
 Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos posteriormente pelo usuário. Não inserir números hipotéticos nessa tabela.
 
 
+## Resultados da pesquisa — auditoria do agente GDN (25/10/2026)
+
+**Conclusões do relatório recebido, cotejadas com a [origem FP32](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/gated_delta_net_chunked.cu) e a [integração de dispatch](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/gated_delta_net.cu):**
+
+1. A implementação divide o trabalho entre `gdn_chunked_kkt_cuda` e `gdn_chunked_scan_cuda`, em chunks de 64, 256 threads por CTA, `VT=16` e `PACKED_CS=2080`; não se trata de kernel único. A associação com o kernel sequencial que gera snapshots é parte indispensável da proposta.
+2. É necessário propagar `n_rs_batch` por `llama_context_params`, cparams, alocação recorrente/híbrida, grafo GGML (`op_params[1]`) e dispatch. `K=n_rs_seq+1` e `n_rs_batch` **não são semanticamente intercambiáveis**. A origem define `D=max(K>16?K:16,n_rs_batch)` e mantém a cauda sequencial de comprimento D, se o prefixo é chunked.
+3. Para rollback completo de um batch menor que K, o estado **pré-batch** deve continuar alcançável, além dos snapshots da cauda. A fusão `GDN->CPY` existente no destino e os endereços sobrepostos dos buffers exigem uma revisão contratual.
+4. A origem usa `ggml_cuda_wide_scratch<float>`, inexistente no fork analisado; o destino oferece `ggml_cuda_pool_alloc<float>` como candidato de adaptação. A equivalência de lifetime e política de alocação não foi demonstrada. Não transportar toda a arena para resolver esta única dependência.
+5. **Correção de shape do relatório:** o exemplo de scratch com `H_v=32,H_k=16` é hipotético. Para **este modelo**: `H_v=48,H_k=16,S_v=128`. Fórmula `ceil(T/64)*(48+16)*2080*4` bytes/seq. `T=2048` -> **17.039.360 B = 16,25 MiB**; `T=8192` -> **65 MiB**. LDS teórica por CTA: KKT **17.152 B**, scan **30.080 B** para `S_v=128`. Nada disso informa recursos após codegen.
+6. O suporte multissequência só pode ser estendido após resolver por inspeção as diferenças de indexação com broadcast `sq3/rq3`; `n_seqs=1` e `kda=false` são restrições iniciais propostas, não fatos garantidos pelo hardware.
+7. **Viabilidade qualitativa:** alta relevância para prefill das 48 camadas recorrentes; ganho desconhecido em gfx1101, com custo adicional de scratch, launches e diferenças de ordem das operações FP32.
+
+**Verificação documental pendente:** conferir chamadas exatas de `ggml_gated_delta_net`, slots/copias de estado, `split_equal`, handlers `GGML_OP_GATED_DELTA_NET`, guardas de execução e compatibilidade da fusão. A discussão de testes e builds incluída pelo agente está fora do escopo da pesquisa.
+
+**Relatório de revisão cruzada:** [REVISAO-AGENTES-2026-10-25.md](REVISAO-AGENTES-2026-10-25.md).
+
 ## Descobertas e observações
 
 - A exclusão do caminho MMA HIP em gfx1101 é constatável no seletor atual.

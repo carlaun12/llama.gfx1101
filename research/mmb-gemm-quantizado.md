@@ -47,6 +47,16 @@ Objetivo inicial: um caminho de prefill denso Q4_K, sem introduzir `mmf32`, cach
 Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos posteriormente pelo usuário. Não inserir números hipotéticos nessa tabela.
 
 
+## Resultado da pesquisa — aplicabilidade ao RCO do usuário (25/10/2026)
+
+O relatório de análise arquitetural considera MMB como hipótese para prefill em RDNA3. Porém, os ganhos públicos mencionados para **Qwen3.8-27B Q4_K_M** com geometria 128x256 não se transferem automaticamente ao GGUF do usuário, de **9,7 GiB e alocação IQ mista**.
+
+O destino já possui MMQ em vários formatos IQ. A fonte compara tiles e aponta pressão de VGPR/spills com tipos complexos; o caminho racional **documental** é classificar operadores por tipo/shape do manifesto RCO e verificar quais especializações MMB da origem se aplicariam ao mesmo tipo, antes de recomendar 128x256 ou qualquer default.
+
+Não reivindicar ganhos medidos, código ISA em gfx1101, uma seleção de MMB já comprovada ou supor que o usuário esteja usando a quantização Q4_K_M.
+
+**Ver também:** [revisão cruzada](REVISAO-AGENTES-2026-10-25.md) e [proposta IQ mista](mmvq-iq-mistos-rco.md).
+
 ## Descobertas e observações
 
 - A auditoria identifica tiles 128x128 e 128x256 no caminho gfx11 e variações de LDS da ordem de dezenas de KiB por CTA.

@@ -47,6 +47,22 @@ A proposta é particionar o bloco 0005 em mudanças pequenas, começando por um 
 Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos posteriormente pelo usuário. Não inserir números hipotéticos nessa tabela.
 
 
+## Resultados da pesquisa — relatório Flash Attention (25/10/2026)
+
+**Diferença material em código:** no [`fattn.cu` do destino](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/fattn.cu) o cálculo de scratch define `need_f16_K=true` e `need_f16_V=true` para os caminhos `TILE` e `MMA_F16`; `VEC` condiciona staging ao tipo/fallback. A origem adiciona leitores KV nativos e despacho especializado para RDNA, mas **não basta trocar o alocador**: seletor, kernel e reserva devem concordar.
+
+**Geometria do alvo:** 16 camadas com atenção convencional, 24 query heads, 4 KV heads e `D=256`: razão GQA **6:1**. Teoricamente `16*4*256*2*(34/32)=34.816 bytes/token` para K e V Q8_0, e **65.536 bytes/token** em F16/BF16. Em 32.768 tokens: Q8_0 **1,0625 GiB** e F16 **2 GiB**.
+
+**Custo hipotético de staging por passagem de 32K:** ler Q8_0 (1,0625 GiB) + escrever F16 (2 GiB) + reler F16 (2 GiB) = **5,0625 GiB de tráfego lógico**, versus pelo menos **1,0625 GiB** de leitura Q8_0 nativa na mesma hipótese. Trata-se de soma de operações de leitura/escrita, não pico de scratch. Uma conversão de K+V F16 de **uma única camada** consome aproximadamente **128 MiB** em 32K, se executada integralmente e sem reuso adicional; alocações podem ser reutilizadas entre camadas.
+
+**Dispatcher:** o relatório sugere `VEC` em decode estreito Q8_0 e transição para `TILE` em verify largo. É uma leitura condicional do seletor, **não uma observação em gfx1101**. Também não afirmar que Q8_0 será escolhido pelo usuário; ele é uma configuração de KV hipotética independente da quantização dos pesos `RCO-IQ3_XXS`.
+
+**Correção de escopo:** o relatório compara pesos de variantes `IQ3_XXS` com **12,32 GB** em algumas tabelas; o arquivo definido para a pesquisa é o **RCO-IQ3_XXS de 9,7 GiB**. Não usar aquelas taxas ideais de streaming de pesos como valores do alvo. Evidências de Qwen3.5-9B em RX 7900 XTX (`gfx1100`) são **referências externas**, não estimativas percentuais válidas para `gfx1101`.
+
+**Pontos de leitura posteriores:** alocador e launcher FA Q8_0/BF16, seleção do kernel, guard de head-256 e contrato de K/V nativos no verify, sem coletar logs ou benchmarks.
+
+**Revisão cruzada:** [REVISAO-AGENTES-2026-10-25.md](REVISAO-AGENTES-2026-10-25.md).
+
 ## Descobertas e observações
 
 - O Qwen3.8-27B auditado utiliza atenção convencional em 16 das 64 camadas; as demais são recorrentes.

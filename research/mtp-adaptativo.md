@@ -53,6 +53,31 @@ O publicador aloca os **oito tensores Q6_K** no head MTP do `blk.64`. Ao contrá
 
 **Limite:** a diferença de warps é um fato de código, não demonstra divergência de logits ou uso obrigatório do caminho MMVQ em todas as fases do MTP. Nem toda operação `Q6_K` é decode e as larguras escolhidas pelo dispatcher precisam ser entendidas por leitura do grafo. Priorizar mapeamento de dispatch, contrato de estado e estimativas de custo, nunca testes locais.
 
+## Resultados da pesquisa — relatório MTP (25/10/2026)
+
+O alvo inclui **64 camadas principais** (`blk.0`–`blk.63`) e uma adicional **`blk.64`** de MTP. O [grafo `qwen35.cpp` do fork](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/src/models/qwen35.cpp) exige `n_layer_nextn==1`, reaplica a mesma cabeça MTP autoregressivamente e seleciona **`nextn.shared_head_head` quando disponível, senão `model.output`**. O draft possui contexto/cache próprios; o target retém o estado GDN para rollback.
+
+**Custo de estado teórico por plano e por sequência:** `48 camadas * 48 value-heads * 128 * 128 * 4 bytes = 144 MiB` em matriz GDN FP32, mais `48*(2*16*128+48*128)*(4-1)*4 = 5,625 MiB` em estado de conv1d, total **149,625 MiB por plano**. O [alocador recorrente](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/src/llama-memory-recurrent.cpp) dimensiona `n_rows=mem_size*(1+n_rs_seq)`, implicando, sob a hipótese `n_rs_seq=n_max`:
+
+| Profundidade máxima | Planos | Estado teórico |
+| --- | ---: | ---: |
+| Sem MTP (`n_max=0`) | 1 | 149,625 MiB |
+| `n_max=3` | 4 | 598,5 MiB |
+| `n_max=7` | 8 | 1.197 MiB |
+| `n_max=15` | 16 | 2.394 MiB |
+
+O controlador adaptativo ajusta os **passos efetivos**, mas não reduz automaticamente o número de planos reservado por `n_max`. Isto é resultado da análise de estruturas e fórmula, não observação de VRAM.
+
+**Modelo analítico de utilidade:** para profundidade `d`, `E[A_d]=1+sum_{j=1..d}P(j` primeiros tokens aceitos`)`; draft é vantajoso quando `(T_draft(d)+T_verify(d+1)+T_overhead)/E[A_d] < T_decode`. Sem distribuição de aceitação do GGUF escolhido e custos efetivos, não projetar speedup.
+
+**Correção crítica de atribuição:** o relatório compara variantes Q6_K de **outros GGUFs** e um cenário hipotético de `output.weight` Q6_K com 994,6 MiB. No **RCO-IQ3_XXS especificado**, `output.weight` é **IQ4_XS** e existem oito tensores Q6_K no bloco MTP; esses fatos não autorizam afirmar que o LM head selecionado pelo draft é Q6_K. A quantização real do head depende da presença de `nextn.shared_head_head` ou do fallback `model.output`, conforme o loader.
+
+**Análise de Q6_K:** no destino, `VDR_Q6_K_Q8_1_MMVQ=2`, a política `RDNA3_0` usa 2 warps para `W=1` e 1 para outras larguras; `get_mmvq_mmid_max_batch_rdna3()` é de `MUL_MAT_ID`, não do matvec denso. São diferenças de política, sem prova de ganho ou divergência de logits.
+
+**Próximo trabalho exclusivamente documental:** derivar a tabela de quais matrizes `blk.64` estão em Q6_K, qual LM head é escolhido e o custo dos estados e de cada proposta em função de `n_max`. Os números públicos do agente sobre R9700/32 GiB, outra quantização e versão anterior de Swift são **evidências externas**, não benchmarks do alvo.
+
+**Revisão cruzada:** [REVISAO-AGENTES-2026-10-25.md](REVISAO-AGENTES-2026-10-25.md).
+
 ## Descobertas e observações
 
 - O destino implementa MTP básico; não é necessário recriar `qwen35` ou o grafo de draft.
