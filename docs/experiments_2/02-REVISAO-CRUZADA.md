@@ -29,3 +29,8 @@
 ## Rodada 02
 
 [Revisão consolidada R02](04-RESULTADOS-R02.md): **IQ3_XXS** — candidato pontual; **IQ2_S** — não priorizar por desempenho; **IQ4_XS** — reuso entre colunas somente se MMVQ escolhido; **dispatch** — W1..8/MMVQ e W9..128/MMQ sob guards, W>=129 varia por tipo. Quatro resumos recebidos; relatórios completos não anexados. Sem testes.
+
+
+## Rodada 03 — revisão cruzada
+
+Quatro resumos recebidos: **IQ3_XXS** (port mínimo de sinais), **IQ2_XS/XXS** (`__mul24` isolado), **IQ4_XS** (reuso de preparação entre colunas W2–8 no mesmo thread) e **dispatch** (filtros MMVF/MMF/fusões antes de MMVQ). [Detalhamento](05-RESULTADOS-R03.md). Sem implementação e sem métricas novas da RX 7800 XT.

@@ -49,3 +49,8 @@ A investigação deve separar: **(a) concentração de tempo**, **(b) custo real
 ## Segunda rodada — resultados
 
 Os quatro resumos R02 foram recebidos e consolidados em [04-RESULTADOS-R02.md](04-RESULTADOS-R02.md). **IQ3_XXS** é o candidato pontual de transformação de sinais, sem speedup comprovado; **IQ2_S** é refatoração de manutenção; **IQ4_XS** apresenta hipótese de reuso no verify W2–8; o dispatch denso mantém MMVQ elegível para W1–8 nas condições dos agentes. Nenhum kernel foi modificado.
+
+
+## Terceira rodada — resultados dos quatro agentes
+
+[05-RESULTADOS-R03.md](05-RESULTADOS-R03.md) registra três candidatos técnicos distintos e a ressalva sobre dispatch anterior a MMVQ: **IQ3_XXS `apply_ksigns`**, **IQ2_XS/XXS `ggml_cuda_mul_small`**, **IQ4_XS reuso entre colunas W2–8**. As evidências são resumos dos agentes; equivalência matemática não é prova de speedup. Nenhum patch foi aplicado.
