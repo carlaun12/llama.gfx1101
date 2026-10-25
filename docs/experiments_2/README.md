@@ -38,4 +38,9 @@ A investigação deve separar: **(a) concentração de tempo**, **(b) custo real
 
 ## Estado
 
-**Abertura criada; quatro relatórios pendentes.** Nenhuma medição adicional ou modificação de kernel.
+**Quatro resumos de agentes recebidos e revisados**; os arquivos Markdown integrais mencionados não foram anexados. [Ver revisão consolidada](03-RESULTADOS-R01.md). Nenhuma medição adicional ou modificação de kernel.
+
+
+## Primeira rodada — resultados dos quatro agentes
+
+[03-RESULTADOS-R01.md](03-RESULTADOS-R01.md) consolida IQ3_S/IQ3_XXS, IQ2_S/XS/XXS, IQ4_XS e dispatch MMVQ/MMQ. A evidência mais específica de diferença de código na branch é o tratamento de sinais de **IQ3_XXS**; em **IQ3_S** e **IQ2_S**, expressões equivalentes já existem em linha. A porcentagem de tempo de U não transforma refatoração em ganho demonstrado.

@@ -1,14 +1,14 @@
 # Revisão cruzada — Experiments 2
 
-**Estado inicial:** aguardando relatórios dos quatro agentes. Os percentuais abaixo são somente transcrição da imagem fornecida pelo usuário.
+**Estado atualizado:** quatro resumos de agentes recebidos (2026-10-25); quatro documentos Markdown completos não foram anexados. [Revisão consolidada](03-RESULTADOS-R01.md). Os percentuais abaixo são somente transcrição da imagem fornecida pelo usuário.
 
 | Frente | Participação relatada dentro de MMVQ (perfil U) | Análise designada | Relatório |
 | --- | ---: | --- | --- |
-| IQ3_S | ~22,5% | Agente 1, com IQ3_XXS | Pendente |
-| IQ3_XXS | ~20,8% | Agente 1, com IQ3_S | Pendente |
-| IQ2_S | ~18,0% | Agente 2 | Pendente |
-| IQ4_XS | ~12,9% | Agente 3 | Pendente |
-| Política MMVQ e Amdahl | MMVQ ~82–84% de tempo de kernels | Agente 4 | Pendente |
+| IQ3_S | ~22,5% | Agente 1, com IQ3_XXS | Resumo recebido |
+| IQ3_XXS | ~20,8% | Agente 1, com IQ3_S | Resumo recebido |
+| IQ2_S | ~18,0% | Agente 2 | Resumo recebido |
+| IQ4_XS | ~12,9% | Agente 3 | Resumo recebido |
+| Política MMVQ e Amdahl | MMVQ ~82–84% de tempo de kernels | Agente 4 | Resumo recebido |
 
 ## Critérios de consolidação
 
@@ -17,3 +17,10 @@
 3. Registrar o commit exato de `experiment_2-1` analisado por cada agente, sem transferir automaticamente achados de `deep-research`.
 4. Evidências primárias de perfil ausentes permanecem ausentes; não inventar identificação de “U”.
 5. Ao receber relatórios, revisar divergências e registrar propostas por arquivo/função, com prioridade condicionada.
+
+
+## Resultado de coordenação
+
+**Hipótese priorizada por diferença de código:** sinais de `IQ3_XXS`. **Possível refatoração sem benefício ISA demonstrado:** helper de sinais em `IQ3_S` e `IQ2_S`. **Linha separada:** multiplicações pequenas de escala. **IQ4_XS:** head grande e operações já otimizadas no destino. O mapa W=1–8 MMVQ, W=9–128 MMQ, W>=129 dependente de tipo/guard permanece condicional. Nenhum valor da imagem pode ser convertido em benchmark de gfx1101.
+
+[Relatório cruzado](03-RESULTADOS-R01.md).
