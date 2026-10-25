@@ -91,6 +91,14 @@ A revisão cruzada e as divergências de quantização, memória e aplicabilidad
 
 
 
+## Quarta rodada — plano de investigação focalizado
+
+Foram definidas quatro missões documentais a partir da revisão dos quatro agentes. O trabalho **ainda depende da entrega dos relatórios**, sem processos autônomos iniciados nesta conversa.
+
+**[Abrir plano completo da quarta rodada](RODADA-04-PLANO.md)** — tarefas, repositórios/commits, perguntas decisórias, evidências requeridas e formato de entrega.
+
+Frentes: **MTP head real do RCO**; **dispatch MMQ para IQ misto**; **GDN chunked e rollback**; **Flash Attention/KV em verify MTP**. Nenhuma envolve execução, benchmark ou alteração de kernels.
+
 ## Estado da pesquisa
 
 - **Em pesquisa:** dez propostas estão registradas, mas nenhum candidato foi executado em gfx1101.
