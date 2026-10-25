@@ -98,6 +98,10 @@
 - [Origem RDNA Boosts](https://github.com/stew675/llama-cpp-rdna-boosts)
 - [MMVQ IQ do destino](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/mmvq.cu)
 
+## Atualização da revisão cruzada — resultados R04
+
+A quarta rodada focalizada recebeu os quatro resumos. A [consolidação separada](RODADA-04-RESULTADOS.md) verifica as implicações novas: head MTP provavelmente compartilhado em IQ4_XS (oito Q6_K internos), elegibilidade MMQ RDNA3 `IQ2_S/XS` até 128 colunas, guard GDN de `n_rs_batch`/tail sequencial e faixa Q8_0 VEC W1–2 versus TILE W3–8. As conclusões são leitura de fontes e contas condicionais, não benchmarking de gfx1101.
+
 ## Histórico
 
 - 2026-10-25: recebimento e revisão cruzada de três relatórios de agentes; corrigidas extrapolações de GGUF e divisões entre bytes lógicos e pico de memória.

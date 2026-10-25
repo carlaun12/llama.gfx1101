@@ -101,6 +101,24 @@ As duas superfícies compartilham a ideia e o cabeçalho do helper, **mas são f
 - [Destino: instrução AMD `sudot4`](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/common.cuh#L712-L719)
 - [Inventário público do RCO selecionado](https://huggingface.co/ajgazin/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-GGUF)
 
+## Rodada 04 — política RDNA3 por largura da multiplicação (25/10/2026)
+
+O resumo do Agente 2 foi confrontado com [`ggml_cuda_should_use_mmq` no destino](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/mmq.cu#L355-L471). O seletor exige tipo quantizado suportado, pelo menos **48 KiB de shared memory por bloco** e condições de arquitetura/shape. Para matrizes **densas** no ramo `amd_wmma_available(cc)` e `GGML_CUDA_CC_IS_RDNA3(cc)`, com `n_experts<64`, a regra específica é:
+
+| Tipo | 1–8 colunas (quando caminho pequeno usa MMVQ) | 9–128 colunas (quando MMQ elegível) | >128 colunas no `should_use_mmq` |
+| --- | --- | --- | --- |
+| `IQ3_S`, `IQ3_XXS` | MMVQ, sujeito ao seletor de multiplicação | MMQ | MMQ |
+| `IQ2_XXS` | MMVQ, sujeito ao seletor | MMQ | MMQ |
+| `IQ2_S`, `IQ2_XS` | MMVQ, sujeito ao seletor | MMQ | `false` -> candidato a fallback BLAS |
+
+**Importante:** `should_use_mmq` não é o dispatcher inteiro; o retorno indica **elegibilidade/preferência de MMQ** e não garante que todo tensor/shape vá executar MMQ. Não foi obtido trace de execução e não foi feita comparação com saída do modelo. Para `ne11>128`, em `IQ2_S/XS`, o caminho MMQ é recusado por essa regra sob essas condições, não uma prova de que toda configuração cai em BLAS.
+
+A origem [`mmq-load-tiles.cuh`](https://github.com/stew675/llama.cpp/blob/e8bd52069ca049cd5213366363451abbb5383865/ggml/src/ggml-cuda/mmq-load-tiles.cuh) substitui `__vcmpne4/__vsub4` por `apply_ksigns()` em cinco helpers; isso está **separado de `vecdotq.cuh`** e dos formatos efetivamente escolhidos por MMB, cuja origem pode interceptar parte da multiplicação antes de MMQ.
+
+A lista de cinco famílias IQ2/IQ3 do manifesto soma 314 tensores, mas não fornece perfil de custo ou comprovante de que 314 operações MMQ sejam feitas. Peso `output.weight` IQ4_XS é outro caminho e deve ser classificado pelo shape.
+
+Ver [consolidação R04](RODADA-04-RESULTADOS.md).
+
 ## Histórico
 
 - 2026-10-25: criada proposta documental própria para MMQ após auditoria do quarto agente; confirmação estática dos cinco helpers e correlação com MMVQ. Nenhuma alteração de kernel.

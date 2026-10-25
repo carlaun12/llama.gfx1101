@@ -121,6 +121,26 @@ Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos
 - [Origem: bloco FA e dependências](https://github.com/stew675/llama-cpp-rdna-boosts/blob/main/patches/README.md)
 - [Origem: regressões de largura de verify](https://github.com/stew675/llama-cpp-rdna-boosts/blob/main/benchmarks/2026-10-25-fa-band-width-purity.md)
 
+## Rodada 04 — fronteira W2/W3 e K/V nativo (25/10/2026)
+
+Verificado nos commits congelados: o [seletor do destino](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/fattn.cu#L634-L752), para `head-256`, máscara válida, KV alinhado, `GQA=24/4=6` e `W=Q->ne[1]` no regime decode/verify, tende a:
+
+| K/V | W=1–2 | W=3–8 | Scratch/conversão |
+| --- | --- | --- | --- |
+| `Q8_0` | `VEC` | `TILE` | `VEC` tem suporte direto ao tipo; `TILE` solicita F16 para K/V |
+| `BF16` | `TILE` | `TILE` | `TILE` solicita F16 para K/V |
+| `F16` | `TILE` | `TILE` | kernel usa entrada F16; não confundir `need_f16=true` com nova conversão se tipo já F16 |
+
+**Condições:** o mapeamento pressupõe predicados de máscara/layout do seletor, GQA apropriado e caminho AMD usual; não é trace nem descrição universal. No código original, a regra `VEC` para Q8_0 `Q->ne[1]<=2` está no ramo sem tensor cores, enquanto `MMA_F16` depende da arquitetura e batch efetivo. Em gfx1101, W<=8 não cruza o limiar WMMA típico do head-256, sob essas condições.
+
+Na [origem RDNA Boosts](https://github.com/stew675/llama.cpp/blob/e8bd52069ca049cd5213366363451abbb5383865/ggml/src/ggml-cuda/fattn.cu), o fallback `VEC` da faixa decode/verify foi removido para que W=1..8 use `TILE` de maneira uniforme; isso evita mudança de família de redução ao cruzar W=2/3. [`fattn-rdna.cuh`](https://github.com/stew675/llama.cpp/blob/e8bd52069ca049cd5213366363451abbb5383865/ggml/src/ggml-cuda/fattn-rdna.cuh) define seletores de leitura de Q8_0/BF16 nativos **condicionados a tipo, stride, suporte da arquitetura e política de ativação**. O tipo consumido pelo launcher é compartilhado com a regra de alocação `ggml_cuda_fattn_tile_type(K,V,cc)`, de modo que scratch e kernel façam escolhas consistentes.
+
+**Não generalizar:** a banda WMMA especial de verify descrita na origem é RDNA4-gated; não atribuir essa variante ao gfx1101. A origem observa regressões/pureza em outros GPUs; não prova divergência real nem speedup no modelo RCO nesta placa.
+
+**Orçamento teórico em 32K tokens:** Q8_0 K/V **1,0625 GiB**, F16 K/V **2 GiB** (16 camadas convencionais), staging de um nó/layer para F16 **128 MiB** se K e V completos forem materializados. Soma lógica de leitura Q8_0, escrita F16 e leitura F16 das 16 camadas: **5,0625 GiB** idealizados. Tráfego não equivale ao pico simultâneo do alocador.
+
+Ver [resultados R04](RODADA-04-RESULTADOS.md).
+
 ## Histórico
 
 - **2026-10-25:** proposta inicial registrada a partir de auditorias remotas dos quatro agentes. Nenhum código alterado e nenhum teste de GPU realizado.

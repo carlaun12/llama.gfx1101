@@ -131,6 +131,18 @@ Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos
 - [Origem: kernel chunked BF16 gfx11](https://github.com/stew675/llama.cpp/blob/e8bd52069ca049cd5213366363451abbb5383865/ggml/src/ggml-cuda/gated_delta_net_chunked_bf16_gfx11.cu)
 - [Origem: gate de logits de prefill](https://github.com/stew675/llama-cpp-rdna-boosts/blob/main/benchmarks/prefill-logit-methodology.md)
 
+## Rodada 04 — reconciliação de n_rs_batch e rollback (25/10/2026)
+
+O resumo do Agente 3 confirma o mapa de dependências estabelecido em [GDN do destino](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/gated_delta_net.cu) e na [implementação da origem](https://github.com/stew675/llama.cpp/blob/e8bd52069ca049cd5213366363451abbb5383865/ggml/src/ggml-cuda/gated_delta_net.cu): `n_rs_batch` é diferente da capacidade `K=n_rs_seq+1`; a origem calcula `D=max(K>16?K:16,n_rs_batch)` e mantém os últimos `D` tokens no caminho sequencial para produzir estados usados no rollback MTP. O kernel chunked não fornece por si todos os snapshots intermediários.
+
+**Dependências que permanecem na proposta:** `ggml.h` -> `ggml.c`/`op_params[1]` -> `delta-net-base.cpp` -> contexto/memória recorrente e híbrida -> launcher HIP; preservar estado pré-batch da matriz GDN **e** da convolução causal, fusão `GDN→CPY`, `split_equal`, alias controlado e ordem dos streams. Adaptar `ggml_cuda_wide_scratch` para o mecanismo disponível no fork requer demonstrar a vida útil dos buffers, não apenas compatibilidade da assinatura C++.
+
+**Cálculo para shape exato:** `H_v=48,H_k=16,CS=64,PACKED_CS=2080`, scratch por sequência `ceil(T/64)*(48+16)*2080*4` bytes; **16,25 MiB para T=2048** e **65 MiB para T=8192**. Esse custo lógico não é pico observado de VRAM. Não foi verificado o detalhamento por caso de `T<=D`, `T<K` e múltiplos seq_ids além do resumo; não elevar o alegado 'contrato completo' a prova fechada sem o documento integral.
+
+**Nota de acesso:** o Agente 3 disse não ter localizado `research/RODADA-04-PLANO.md`. A revisão verificou que o plano **existe** na branch `deep-research` ([link direto](RODADA-04-PLANO.md)); a limitação se refere ao acesso do agente, não à ausência do arquivo.
+
+Ver [resultados R04](RODADA-04-RESULTADOS.md).
+
 ## Histórico
 
 - **2026-10-25:** proposta inicial registrada a partir de auditorias remotas dos quatro agentes. Nenhum código alterado e nenhum teste de GPU realizado.

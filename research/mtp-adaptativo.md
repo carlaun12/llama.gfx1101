@@ -133,6 +133,18 @@ O controlador adaptativo ajusta os **passos efetivos**, mas não reduz automatic
 - [Origem: metodologia de pureza](https://github.com/stew675/llama-cpp-rdna-boosts/blob/main/GREEDY-PURITY.md)
 - [Origem: blocos](https://github.com/stew675/llama-cpp-rdna-boosts/blob/main/patches/README.md)
 
+## Rodada 04 — head compartilhado IQ4_XS e custo teórico do draft (25/10/2026)
+
+**Conclusão por cruzamento do resumo do Agente 1 com as fontes:** o [manifesto RCO do GGUF](https://huggingface.co/ajgazin/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-GGUF/blob/main/rco_types.tsv) registra os oito Q6_K **somente** em `blk.64.attn_q/k/v/attn_output/ffn_gate/ffn_up/ffn_down/nextn.eh_proj.weight`, ao passo que `output.weight` é **IQ4_XS**. A camada [`qwen35.cpp`](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/src/models/qwen35.cpp#L659-L664) usa `nextn.shared_head_head` se o tensor existir, senão `model.output`. **O manifesto não contém `blk.64.nextn.shared_head_head.weight`**; portanto, se corresponder ao GGUF publicado, o MTP reutiliza `output.weight` IQ4_XS. É uma dedução forte, **não verificação do índice binário**.
+
+Os **oito Q6_K são projeções internas da camada MTP**, não justificativa para projetar um LM head Q6_K de 994,6 MiB neste arquivo. O Agente 1 estimou **332,23 MiB de pesos e 0,849 GFLOP/token draft** para essas projeções; esta revisão não reconstituiu integralmente os shapes, portanto os valores continuam identificados como **estimativas do relatório recebido**, não medidas nem checagem de bytes de GGUF.
+
+Para LM head compartilhado `IQ4_XS`, `248.320×5.120` pesos, 136 bytes por bloco de 256, os **675.430.400 bytes / 644,14 MiB** e cerca de **2,543 GFLOP por multiplicação vetor-matriz** seguem da geometria; o último ignora desvios do número exato de operações e overhead. O draft aplica também Q/K/V, FFN, atenções e normalizações, portanto **não atribuir todo o seu custo ao head**.
+
+A profundidade adaptativa altera trabalho por rodada, mas os snapshots do target permanecem alocados conforme `n_max`; o custo teórico discutido em [revisão anterior](REVISAO-AGENTES-2026-10-25.md) continua condicional às regras de `n_rs_seq`. O relatório integral do Agente 1 **não veio anexado nesta mensagem**, apenas seu resumo.
+
+**Síntese:** [RODADA-04-RESULTADOS.md](RODADA-04-RESULTADOS.md). Sem testes, logs, implementação ou acesso ao GGUF local.
+
 ## Histórico
 
 - **2026-10-25:** proposta inicial registrada a partir de auditorias remotas dos quatro agentes. Nenhum código alterado e nenhum teste de GPU realizado.

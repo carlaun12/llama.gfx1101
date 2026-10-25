@@ -101,6 +101,16 @@ As tabelas Q6_K do relatório são válidas **somente para um head Q6_K**. A exi
 - [Destino: Qwen3.5](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/src/models/qwen35.cpp)
 - [Destino: speculative.cpp](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/common/speculative.cpp)
 
+## Rodada 04 — elegibilidade do patch 0013 sobre IQ4_XS (25/10/2026)
+
+O [manifesto do GGUF selecionado](https://huggingface.co/ajgazin/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-GGUF/blob/main/rco_types.tsv) indica `output.weight=IQ4_XS` e ausência de `nextn.shared_head_head.weight`; o [loader Qwen3.5](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/src/models/qwen35.cpp#L659-L664) reutiliza `model.output` na ausência do head dedicado. Esta é uma **inferência condicionada à fidelidade do manifesto ao binário**.
+
+O subset de 98.304 IDs corresponderia a `98.304×5.120×136/256 = 267.386.880 bytes = 255 MiB` de pesos `IQ4_XS` numa cópia materializada, **além dos 644,14 MiB do head completo** que o target continua utilizando. Índices, alinhamento, metadados e tokens especiais acrescentam custo; o subset não representa redução automática de VRAM. A economia potencial de leitura de pesos do draft é condicional à seleção desse caminho.
+
+Segundo o resumo do Agente 1, o patch `0013` ainda exige cabeça compartilhada, `n_outputs==1`, requisitos de tokenizer BPE e tratamento de IDs de controle. **Elegibilidade: condicional**, não implementação garantida neste fork ou nesse GGUF. Ausência de avaliação documental específica de aceitação para o subset escolhido. Não prometer ganhos de velocidade.
+
+Ver [revisão de resultados R04](RODADA-04-RESULTADOS.md).
+
 ## Histórico
 
 - **2026-10-25:** proposta inicial registrada a partir de auditorias remotas dos quatro agentes. Nenhum código alterado e nenhum teste de GPU realizado.

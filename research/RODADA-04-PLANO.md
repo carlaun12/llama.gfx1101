@@ -1,7 +1,7 @@
 # Quarta rodada de pesquisa — quatro investigações especializadas
 
 **Data:** 2026-10-25
-**Estado:** missões definidas, aguardando os relatórios dos quatro agentes; **não** representa agentes executando em segundo plano.
+**Estado:** quatro resumos de conclusões recebidos em 25/10/2026 e consolidados em [RODADA-04-RESULTADOS.md](RODADA-04-RESULTADOS.md); os quatro documentos integrais anunciados não estavam anexados. Nenhum agente está executando em segundo plano nesta conversa.
 **Branch de documentação:** `deep-research`.
 **GPU-alvo:** AMD Radeon RX 7800 XT (gfx1101, Navi 32, 16 GiB).
 **GGUF exato:** `Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf`.

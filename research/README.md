@@ -99,6 +99,14 @@ Foram definidas quatro missões documentais a partir da revisão dos quatro agen
 
 Frentes: **MTP head real do RCO**; **dispatch MMQ para IQ misto**; **GDN chunked e rollback**; **Flash Attention/KV em verify MTP**. Nenhuma envolve execução, benchmark ou alteração de kernels.
 
+## Rodada 04 — quatro relatórios resumidos consolidados (25/10/2026)
+
+Os quatro agentes devolveram **resumos** das missões [MTP](mtp-adaptativo.md), [MMQ](mmq-unpack-iq-rco.md), [GDN](gdn-chunked-gfx1101.md) e [Flash Attention](flash-attention-kv-nativo.md). A análise cruzada encontrou um resultado decisivo: o MTP do GGUF RCO provavelmente compartilha `model.output` **IQ4_XS**, em vez de usar um LM head Q6_K separado. Também delimitou a elegibilidade de MMQ acima de 128 colunas e a transição Q8_0 `VEC` -> `TILE` entre W2/W3.
+
+**[Resultados, graus de evidência e pendências da Rodada 04](RODADA-04-RESULTADOS.md)**.
+
+**Nota de proveniência:** foram coladas conclusões e descrições dos documentos, mas não os quatro arquivos `RELATORIO-R04-*.md` integrais. Não afirmar leitura de trechos ausentes. A auditoria independente da rodada consultou o manifesto RCO público e fontes dos dois repositórios; não envolveu execução nem benchmark.
+
 ## Estado da pesquisa
 
 - **Em pesquisa:** dez propostas estão registradas, mas nenhum candidato foi executado em gfx1101.

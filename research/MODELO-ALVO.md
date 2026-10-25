@@ -103,6 +103,12 @@ O quarto relatório de 25/10/2026 separou a alteração de `vecdotq.cuh` (MMVQ, 
 
 Priorizar uma investigação de `IQ3_S` por sua presença no modelo é justificável, **mas não como previsão de ser o maior gargalo**: o `output.weight` IQ4_XS de cerca de 644 MiB e o uso de MMQ/MMVQ por shape também importam. [MMVQ IQ](mmvq-iq-mistos-rco.md) e [MMQ tiles](mmq-unpack-iq-rco.md) são propostas separadas, com benefício indeterminado até que existam evidências públicas específicas.
 
+## Resultado decisivo da quarta rodada (25/10/2026)
+
+O [inventário RCO do GGUF](https://huggingface.co/ajgazin/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-GGUF/blob/main/rco_types.tsv) lista `output.weight` como `IQ4_XS` e os oito `Q6_K` exclusivamente em projeções internas `blk.64`, sem `nextn.shared_head_head.weight`. Como o grafo em `qwen35.cpp` cai em `model.output` na ausência desse tensor opcional, o LM head compartilhado **IQ4_XS é a hipótese tecnicamente mais forte**. A ausência no manifesto não substitui a leitura do índice binário do GGUF.
+
+O custo teórico do head compartilhado é `644,14 MiB`; o subset `IQ4_XS` de 98.304 IDs precisaria no mínimo de **255 MiB adicionais** se copiado, além de índices e overhead. O patch `0013` só é aplicável quando outras condições do tokenizer e grafo forem satisfeitas. A quarta rodada também confirmou por inspeção os casos condicionais de MMQ e a transição Flash Attention W2/W3; detalhes em [RODADA-04-RESULTADOS.md](RODADA-04-RESULTADOS.md).
+
 ## Histórico
 
 - 2026-10-25: GGUF definido pelo usuário como alvo principal; pesquisa documental inicial. Sem benchmark de gfx1101.
