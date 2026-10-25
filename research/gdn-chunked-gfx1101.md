@@ -8,6 +8,13 @@
 
 **Limite de evidência:** revisão remota de código e documentação em 25/10/2026. Os agentes não possuem acesso à máquina do usuário nem a GPU ou ambiente de execução na nuvem. Nenhuma medição na RX 7800 XT é presumida.
 
+## Ajuste ao modelo-alvo RCO-IQ3_XXS
+
+**Prioridade: alta para prefill depois de estabelecer o baseline.** A arquitetura publicada possui 48 camadas Gated DeltaNet e 16 atenção convencional. A quantização dos pesos não altera o custo recorrente intrínseco do GDN; a otimização FP32 segue relevante independentemente dos tipos IQ das matrizes. O GGUF contém `blk.64` MTP, o que reforça a obrigatoriedade de rollback, snapshot e `n_rs_batch`. Testar primeiro GDN FP32; BF16/WMMA é uma etapa experimental separada.
+
+**Não extrapolar:** nem o ganho de outro GGUF nem o KLD entre a quantização e BF16 predizem o ganho/erro de kernel desse GGUF.
+
+
 ## Sobre a proposta
 
 O `GGML_OP_GATED_DELTA_NET` e os kernels sequencial/MMA já existem no destino. Mas `select_gdn_mma_path()` restringe o caminho MMA HIP à classe RDNA3.5, deixando gfx1101 fora dele.

@@ -8,6 +8,11 @@
 
 **Limite de evidência:** revisão remota de código e documentação em 25/10/2026. Os agentes não possuem acesso à máquina do usuário nem a GPU ou ambiente de execução na nuvem. Nenhuma medição na RX 7800 XT é presumida.
 
+## Ajuste de prioridade para o GGUF RCO-IQ3_XXS
+
+**Prioridade do modelo escolhido: baixa, salvo profiling em contrário.** O layout publicado possui **19 tensores Q4_K** e **8 Q6_K**, em contraste com 97 IQ3_S, 83 IQ3_XXS e 72 IQ2_S. A campanha MMVQ para esse GGUF começa em [IQ misto RCO](mmvq-iq-mistos-rco.md); esta proposta Q4_K fica como experimento isolado para as matrizes desse formato. Não interpretar quantidade de tensores como porcentagem de tempo de execução.
+
+
 ## Sobre a proposta
 
 O destino já possui MMVQ, MMQ e tabelas de seleção RDNA3_0. O bloco 0007 da origem modifica produtos vetoriais quantizados, especialmente Q4_K e Q6_K, e políticas de VDR e waves.

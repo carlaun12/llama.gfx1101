@@ -8,6 +8,11 @@
 
 **Limite de evidência:** revisão remota de código e documentação em 25/10/2026. Os agentes não possuem acesso à máquina do usuário nem a GPU ou ambiente de execução na nuvem. Nenhuma medição na RX 7800 XT é presumida.
 
+## Ajuste ao modelo-alvo RCO-IQ3_XXS
+
+**Prioridade: baixa como port Q4_K isolado.** Este GGUF tem apenas 19 tensores Q4_K, enquanto combina várias famílias IQ de baixa precisão. Não assumir que a implementação MMB em BF16 para Q4_K cobre os operadores dominantes do prefill. Verificar primeiro o mapa de shapes e a distribuição de tempo de MMQ/GEMM, depois decidir se há especialização IQ viável com fallback.
+
+
 ## Sobre a proposta
 
 A origem implementa MMB para dequantizar pesos diretamente em BF16, organizar tiles na LDS e usar WMMA com acumulação FP32. O destino mantém MMQ/rocBLAS e não expõe a mesma família MMB segundo a auditoria estática.

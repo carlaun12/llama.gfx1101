@@ -8,6 +8,11 @@
 
 **Limite de evidência:** revisão remota de código e documentação em 25/10/2026. Os agentes não possuem acesso à máquina do usuário nem a GPU ou ambiente de execução na nuvem. Nenhuma medição na RX 7800 XT é presumida.
 
+## Ajuste ao modelo-alvo RCO-IQ3_XXS
+
+**Prioridade: contexto longo, após baseline e IQ/GDN.** A arquitetura oficial informa 16 camadas de atenção, 4 heads KV e head dimension 256. Em cache K/V F16, a conta teórica por sequência é **64 KiB por token**, ou aproximadamente 0,5 GiB a 8.192 tokens e 2 GiB a 32.768. Esse valor exclui recorrência GDN, MTP e buffers de runtime. A relevância da leitura KV nativa depende do tipo de KV configurado e da frequência do caminho MMA/TILE nesse modelo.
+
+
 ## Sobre a proposta
 
 O destino já implementa Flash Attention VEC, TILE e MMA, mas os relatórios identificaram oportunidades de evitar staging F16 em determinados formatos de K/V, adicionar leitura BF16 nativa e refinar a seleção de kernels RDNA3.

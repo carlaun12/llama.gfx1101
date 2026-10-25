@@ -8,6 +8,11 @@
 
 **Limite de evidência:** revisão remota de código e documentação em 25/10/2026. Os agentes não possuem acesso à máquina do usuário nem a GPU ou ambiente de execução na nuvem. Nenhuma medição na RX 7800 XT é presumida.
 
+## Ajuste ao modelo-alvo RCO-IQ3_XXS
+
+**Estado para o GGUF escolhido: fora do escopo.** O Qwen3.8-27B desta família é **denso, não MoE**. Não existem especialistas roteados para armazenar em cache. Manter o documento somente para eventual troca futura de modelo, sem gastar tempo dos agentes nesta linha agora.
+
+
 ## Sobre a proposta
 
 A origem inclui gerenciamento de especialistas residentes no host, cache em GPU, staging e sincronização. A oportunidade existe quando um modelo MoE pode rodar com parte dos pesos em RAM e acesso recorrente a um subconjunto de especialistas.

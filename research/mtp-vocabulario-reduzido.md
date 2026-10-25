@@ -8,6 +8,11 @@
 
 **Limite de evidência:** revisão remota de código e documentação em 25/10/2026. Os agentes não possuem acesso à máquina do usuário nem a GPU ou ambiente de execução na nuvem. Nenhuma medição na RX 7800 XT é presumida.
 
+## Ajuste ao modelo-alvo RCO-IQ3_XXS
+
+**Prioridade: dependente de medição do draft MTP e VRAM livre.** O GGUF tem 9,7 GiB e já integra a camada de MTP. O vocabulário do backbone é 248.320; a alocação RCO registra pesos Q6_K no head MTP. O custo real de criar um subset/head adicional precisa ser estimado a partir dos shapes e formatos, não de uma cópia F16 genérica. Repetir medição de aceitação e tokens confirmados/s, já que eliminar logits de candidatos pode reduzir a aceitação.
+
+
 ## Sobre a proposta
 
 A origem permite limitar os IDs considerados pelo LM head do draft MTP, mantendo tokens de controle e preservando o vocabulário completo do modelo principal na verificação.

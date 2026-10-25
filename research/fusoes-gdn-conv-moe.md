@@ -8,6 +8,11 @@
 
 **Limite de evidência:** revisão remota de código e documentação em 25/10/2026. Os agentes não possuem acesso à máquina do usuário nem a GPU ou ambiente de execução na nuvem. Nenhuma medição na RX 7800 XT é presumida.
 
+## Ajuste ao modelo-alvo RCO-IQ3_XXS
+
+**Prioridade: intermediária apenas para GDN, conv1d e normalização comprovadamente presentes.** O backbone é denso, com 48 camadas GDN; não possui camada roteada de especialistas MoE. Excluir propostas e matchers específicos de MoE da campanha principal. Focar custo de launch e cópias de estado nas 48 camadas recorrentes e comparar com as fusões que o fork já implementa.
+
+
 ## Sobre a proposta
 
 O destino já possui dispatcher e fusões para algumas cadeias de MoE, normalização e cópia de estado recorrente. A proposta é localizar subgrafos ainda não fundidos em Qwen3.8 e portar apenas uma fusão comprovadamente ausente, sem transportar o framework de slab e dispatcher completo.

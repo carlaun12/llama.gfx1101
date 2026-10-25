@@ -2,6 +2,33 @@
 
 Este diretório reúne propostas independentes para avaliar a integração seletiva de recursos de `stew675/llama-cpp-rdna-boosts` no `carlaun12/llama.gfx1101`, com foco em Qwen3.8 baseado na arquitetura Qwen3.5.
 
+## Modelo-alvo selecionado (25/10/2026)
+
+**`Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf`**, publicado por `ajgazin` no Hugging Face, foi definido pelo usuário como GGUF principal para a RX 7800 XT gfx1101.
+
+- **9,7 GiB de pesos GGUF**; head MTP embutido em `blk.64`. A VRAM de pico na GPU não foi medida.
+- **Quantização RCO mista:** 97 IQ3_S, 83 IQ3_XXS, 72 IQ2_S, 33 IQ4_XS, 32 IQ2_XS, 30 IQ2_XXS, apenas 19 Q4_K; quantidade de tensores não é peso por byte nem tempo de kernel.
+- **Arquitetura:** 48 camadas GDN + 16 full attention, head-256 e GQA com quatro heads KV; não é MoE.
+- A ordem abaixo se refere **a esse GGUF**, não ao ranking genérico inicial.
+
+### Sequência recomendada para este GGUF
+
+| Prioridade | Linha de trabalho | Critério de avanço |
+| --- | --- | --- |
+| 0 | Baseline de residência real na GPU; `none` contra `draft-mtp`; cobertura e pureza | Relatos do usuário, hashes e logs de execução |
+| 1 | [MMVQ IQ misto RCO](mmvq-iq-mistos-rco.md) | Identificar por peso/shape quais IQ dominam decode e o dispatch que executa |
+| 2 | [GDN chunked FP32](gdn-chunked-gfx1101.md) | Correção de prefill e rollback MTP; medir antes de BF16 |
+| 3 | [MTP adaptativo](mtp-adaptativo.md) e [head reduzido](mtp-vocabulario-reduzido.md) | Aceitação real e orçamento de VRAM do head embutido |
+| 4 | [Flash Attention e KV nativo](flash-attention-kv-nativo.md) | Relevância em contexto longo e preservação da pureza de verify |
+| 5 | [Fusões GDN/norm/conv](fusoes-gdn-conv-moe.md) | Subgrafo presente e ainda não fundido |
+| 6 | [MMVQ Q4_K VDR4](mmvq-q4k-q6k-vdr.md) e [MMB](mmb-gemm-quantizado.md) | Ganho comprovável sobre os poucos tensores compatíveis |
+| Fora do escopo | [Cache de especialistas MoE](cache-especialistas-moe.md) | Exige escolher outro GGUF MoE |
+
+**<a name="profile"></a>Perfil técnico e custos teóricos de KV:** [MODELO-ALVO.md](MODELO-ALVO.md). [Origem dos metadados e tipos](https://huggingface.co/ajgazin/Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-GGUF); [configuração oficial Qwen](https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/config.json).
+
+**Limites:** os agentes não têm acesso ao arquivo local, à máquina do usuário ou a uma GPU em nuvem. Estimativa arquitetural ou qualidade publicada não é benchmark de gfx1101. Os resultados de A/B devem comparar **o mesmo GGUF**; a ficha do publicador compara a quantização com BF16, uma pergunta diferente.
+
+
 ## Regras deste repositório de pesquisa
 
 1. **Uma proposta por arquivo `.md`**, com nome que identifique a otimização.
@@ -16,6 +43,7 @@ Este diretório reúne propostas independentes para avaliar a integração selet
 
 | Arquivo | Tema | Blocos da origem |
 | --- | --- | --- |
+| [mmvq-iq-mistos-rco.md](mmvq-iq-mistos-rco.md) | MMVQ, MMQ e vetores IQ do RCO | investigação do alvo |
 | [mmvq-q4k-q6k-vdr.md](mmvq-q4k-q6k-vdr.md) | MMVQ, VDR e decode quantizado | 0007 |
 | [gdn-chunked-gfx1101.md](gdn-chunked-gfx1101.md) | GDN chunked FP32 e BF16/WMMA | 0003 |
 | [flash-attention-kv-nativo.md](flash-attention-kv-nativo.md) | Flash Attention e cache KV nativo | 0004/0005 |
@@ -59,10 +87,10 @@ O teste de prefill da origem adotou limites de mean KLD <=0,005 e same-top-p >=9
 
 ## Estado da pesquisa
 
-- **Em pesquisa:** as oito propostas estão registradas, mas nenhum candidato foi executado em gfx1101.
+- **Em pesquisa:** nove propostas estão registradas, mas nenhum candidato foi executado em gfx1101.
 - **Referência do destino examinada:** `31288c9c66e59377f7788d920678a565bb89dd37`.
 - **Referência da origem:** `v15-3f03b1772-r137`.
 - **Data de abertura:** 2026-10-25.
 - O caminho Qwen4Exp/QSA foi mantido fora da fila inicial porque não corresponde ao escopo principal de Qwen3.8 com arquitetura Qwen3.5. Poderá receber um documento próprio se virar alvo concreto.
 
-As prioridades indicam ordem de investigação, não ranking comprovado de ganhos.
+As prioridades antigas em cada documento são históricas; a ordem vigente para o GGUF selecionado está no topo deste índice. Nenhum ranking se baseia em ganho já comprovado.

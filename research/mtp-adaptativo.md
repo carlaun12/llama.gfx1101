@@ -8,6 +8,11 @@
 
 **Limite de evidência:** revisão remota de código e documentação em 25/10/2026. Os agentes não possuem acesso à máquina do usuário nem a GPU ou ambiente de execução na nuvem. Nenhuma medição na RX 7800 XT é presumida.
 
+## Ajuste ao modelo-alvo RCO-IQ3_XXS
+
+**Prioridade: alta como baseline de geração, mas controlador adaptativo somente após pureza.** O publicador declara um head MTP embutido em `blk.64` com 15 tensores e `nextn_predict_layers=1`; não requer arquivo de draft à parte. O primeiro ensaio deve ser `--spec-type none` versus `--spec-type draft-mtp`, com **o mesmo** GGUF, antes de adaptar profundidade. O publicador **não mediu taxa de aceitação MTP** para essa variante. Um ganho de throughput não pode ser presumido a partir da simples existência do head.
+
+
 ## Sobre a proposta
 
 O destino já possui `draft-mtp` para a família Qwen3.5. A origem acrescenta controle dinâmico de profundidade e políticas relacionadas ao estado recorrente.
