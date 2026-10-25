@@ -53,7 +53,7 @@ O relatório MTP discute economias teóricas ao aplicar o patch `0013` a um LM h
 
 O [caminho de head do fork](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/src/models/qwen35.cpp) prefere `nextn.shared_head_head` se existir e, caso contrário, usa `model.output`. O patch de vocabulário reduzido discutido pelo agente depende do caminho de **head compartilhado** e de `n_outputs==1`. Não supor que será ativado para todo checkpoint com MTP.
 
-Se usar `model.output` IQ4_XS, cada bloco tem 136 bytes por 256 pesos, levando, para `248.320 x 5.120`, a **675.430.400 bytes = 644,1 MiB** aproximados de dados do head. Um subconjunto de 98.304 IDs exigiria cerca de **267,4 MiB** de pesos IQ4_XS em cópia própria, além do original, se o código realizar materialização completa. Isto é geometria de armazenamento, sem afirmar custos reais de tráfego, aceitação, amortização ou elegibilidade do patch.
+Se usar `model.output` IQ4_XS, cada bloco tem 136 bytes por 256 pesos, levando, para `248.320 x 5.120`, a **675.430.400 bytes = 644,1 MiB** aproximados de dados do head. Um subconjunto de 98.304 IDs exigiria cerca de **267.386.880 bytes = 255 MiB** de pesos IQ4_XS em cópia própria, além do original, se o código realizar materialização completa. Isto é geometria de armazenamento, sem afirmar custos reais de tráfego, aceitação, amortização ou elegibilidade do patch.
 
 As tabelas Q6_K do relatório são válidas **somente para um head Q6_K**. A existência de oito tensores Q6_K em `blk.64` não converte `model.output` para esse tipo e nem confirma o tipo de um eventual `nextn.shared_head_head`.
 
