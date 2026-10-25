@@ -108,6 +108,16 @@ O [`launch_fattn` da origem](https://github.com/stew675/llama.cpp/blob/e8bd52069
 - [Origem: launcher e prefill staging](https://github.com/stew675/llama.cpp/blob/e8bd52069ca049cd5213366363451abbb5383865/ggml/src/ggml-cuda/fattn-common.cuh#L1580-L1698)
 - [Destino: característica BF16 RDNA3](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/common.cuh#L339-L343)
 
+## Revisão dos agentes R05 — equivalência Q8_0 e contrato TILE (25/10/2026)
+
+**Agente 3:** apresentou uma prova **condicionada** de equivalência por elemento entre o staging `dequantize_block_q8_0_f16` e a rotina nativa `ggml_cuda_fattn_dequantize_q8_0_chunk`. Ambos usam escala FP16 e int8 com multiplicação FP16; o produto exato cabe em FP32, o que permite raciocinar sobre arredondamento único RNE. A conclusão exige semântica consistente de FP16, **sem FTZ/denormals divergentes**, e não cobre identidade de ISA, subfluxos especiais, ordem da redução, softmax nem logits do MTP. A prova completa foi anunciada, mas o arquivo `RELATORIO-R05-Q8-ROUNDING.md` não foi disponibilizado aqui.
+
+**Agente 4:** recomendou apenas a faixa **W1..8**, `TILE` com KV Q8_0/BF16 nativos no gfx1101, reaproveitando o prefill atual. Os componentes do contrato devem permanecer sincronizados: `selector`, predicados do tipo nativo, `fattn-tile.cu/.cuh`, `launch_fattn`, alocador `get_alloc_size` e fallback F16 por forma/tipo/layout. Não carregar banda WMMA RDNA4 nem arena de prefill longo para esse recorte.
+
+**Risco numérico BF16 independente:** nativo BF16 pode diferir do caminho que faz conversão BF16->F16 antes de KQ/PV; **não aplicar a prova do Q8_0 automaticamente a BF16**. A escolha de famílias distintas de FA pode igualmente reordenar reduções, mesmo se K/V individualmente coincidirem.
+
+**Estado:** proposta documental definida, sem implementação nem velocidade medida. Pendentes os limites da prova FP16, a semântica BF16 e revisão final de fallback/scratch. Detalhes em [RODADA-05-RESULTADOS.md](RODADA-05-RESULTADOS.md).
+
 ## Histórico
 
 - 2026-10-25: pesquisa aprofundada das condições nativas Q8_0 e BF16 e desenho documental de port W1..8, sem modificar código.

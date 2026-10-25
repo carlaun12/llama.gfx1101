@@ -99,6 +99,16 @@ A ausência de token importante do draft fora do cutoff, em textos multilíngues
 - [Destino: Qwen35 LM head](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/src/models/qwen35.cpp#L659-L664)
 - [Destino: SET_ROWS CUDA](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/set-rows.cu)
 
+## Revisão dos agentes R05 — BPE, subset e proteção de LoRA (25/10/2026)
+
+**Agente 1:** relatou três arquivos `tokenizer.json` públicos coincidentes pelo SHA-256 `0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3` e `merges.txt` com cerca de 247.587 linhas, superando 124.160 para metade de 248.320 IDs. Não há prova de que o `text_to_token` do GGUF recupere IDs únicos suficientes, nem de que as inversões respeitem `floor(n_first/100)`. Tokens `CONTROL|USER_DEFINED` dependem de atributos internos do GGUF, não apenas da flag `special` publicada pelo HF. **Evidência favorável de procedência; habilitação não confirmada.** O hash e a contagem foram relatados pelo agente, não recomputados nesta revisão.
+
+**Agente 2:** afirmou que o destino já dispõe dos operadores `ggml_fill` e `ggml_set_rows` no HIP. O port do patch 0013 deve se concentrar em construção/cache do subset, `ctx_type=MTP`, `n_outputs==1`, scatter e fallback; o head original IQ4_XS de 644,14 MiB continua presente, e as primeiras 98.304 linhas custam no mínimo 255 MiB de cópia extra.
+
+**Risco novo:** `build_lora_mm` pode resolver adaptações LoRA pelo **ponteiro do tensor de head original**. Usar `mtp_draft->head` como um novo tensor sem preservar a relação pode ignorar adaptações; **não foi demonstrado que isso acontece com a configuração do usuário**. Antes de declarar o patch compatível com LoRA, o Agente 2 deve classificar a política de lookup e um guard/fallback apropriado. Sem análise completa desse mecanismo, não recomendar ativação irrestrita do subset com LoRA.
+
+**Estado:** elegibilidade BPE não comprovada; compatibilidade de implementação em princípio; proteção de LoRA pendente. Detalhes e proveniência em [RODADA-05-RESULTADOS.md](RODADA-05-RESULTADOS.md). Não houve implementação, teste ou benchmark.
+
 ## Histórico
 
 - 2026-10-25: auditoria estática específica do patch 0013, seleção por merge-order BPE, cobertura de tokens especiais, cache por buffer, ativação `n_outputs==1` e trade-off do subset IQ4_XS. Nenhum kernel alterado.

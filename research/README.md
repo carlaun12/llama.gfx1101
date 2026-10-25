@@ -122,7 +122,13 @@ A pesquisa avançou de hipóteses gerais para **contratos de implementação esp
 
 O projeto agora registra tarefas na raiz em **[todo.md](../todo.md)**. A Rodada 05 está dividida em duas linhas P0, com dois agentes em cada uma: **compatibilidade BPE para o subset IQ4_XS do patch 0013** e **equivalência de arredondamento Q8_0 / contrato de FA verify W1..8**.
 
-**[Abrir prompts dos quatro agentes](RODADA-05-PLANO-AGENTES.md).** Estado: instruções prontas para encaminhamento; agentes não acionados automaticamente. O assistente atua somente na coordenação, revisão e documentação das entregas.
+**[Abrir prompts dos quatro agentes](RODADA-05-PLANO-AGENTES.md).** Estado histórico: quatro instruções encaminhadas; os quatro agentes devolveram resumos. O acompanhamento atualizado está em [RODADA-05-RESULTADOS.md](RODADA-05-RESULTADOS.md). O assistente atua somente na coordenação, revisão e documentação das entregas.
+
+## Rodada 05 — quatro resumos recebidos e revisão cruzada
+
+Os Agentes 1–4 apresentaram seus resultados de **compatibilidade BPE**, **integração IQ4_XS/patch 0013**, **equivalência por elemento Q8_0** e **contrato de FA verify W1..8**. As conclusões foram consolidadas em **[RODADA-05-RESULTADOS.md](RODADA-05-RESULTADOS.md)**, incluindo graus de evidência e pendências: ordenação de merges do GGUF, **risco LoRA na troca do tensor do head**, efeitos de FTZ/subnormais e diferenças numéricas de BF16 nativo.
+
+**[todo.md](../todo.md)** atualizado com quatro relatórios recebidos **em resumo** e as responsabilidades seguintes dos agentes. Os `RELATORIO-R05-*.md` completos anunciados não foram disponibilizados nesta conversa. O assistente mantém papel de coordenação e revisão; novos prompts de agentes são entregues diretamente no chat.
 
 ## Estado da pesquisa
 
