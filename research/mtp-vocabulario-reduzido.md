@@ -111,6 +111,10 @@ Segundo o resumo do Agente 1, o patch `0013` ainda exige cabeça compartilhada, 
 
 Ver [revisão de resultados R04](RODADA-04-RESULTADOS.md).
 
+## Aprofundamento do patch 0013 (25/10/2026)
+
+A pesquisa detalhada dos guards, políticas de tokenizer, seleção de IDs de controle, `n_keep` versus `n_sel`, cache de head e scatter de logits foi consolidada em **[mtp-subset-iq4xs-contrato.md](mtp-subset-iq4xs-contrato.md)**. O subset IQ4_XS de 98.304 linhas requer no mínimo 255 MiB de pesos **extras**, não reduz os 644,14 MiB do head completo, e pode acrescentar linhas com IDs de controle/user-defined. A condição de ordenação de merges BPE na origem ainda **não está verificada** para o índice GGUF deste modelo; não basta constatar `Qwen2Tokenizer` no JSON upstream.
+
 ## Histórico
 
 - **2026-10-25:** proposta inicial registrada a partir de auditorias remotas dos quatro agentes. Nenhum código alterado e nenhum teste de GPU realizado.

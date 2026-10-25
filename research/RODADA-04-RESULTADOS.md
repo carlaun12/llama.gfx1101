@@ -101,6 +101,15 @@ A 32.768 tokens, o KV convencional teórico das 16 camadas corresponde a 1,0625 
 
 Nenhuma tarefa inclui executar o modelo, criar scripts de teste ou pedir logs.
 
+## Aprofundamento posterior: duas propostas de recorte mínimo
+
+Após a consolidação R04, nova leitura das fontes congeladas `e8bd52069ca049cd5213366363451abbb5383865` e `31288c9c66e59377f7788d920678a565bb89dd37` detalhou **dois contratos de portabilidade**:
+
+1. **[MTP subset IQ4_XS](mtp-subset-iq4xs-contrato.md):** `mtp_draft_vocab_get` exige tokenizer BPE com ordenação de merges suficientemente monotônica, preserva IDs `CONTROL|USER_DEFINED` fora do cutoff, compartilha a cópia entre contextos equivalentes e só altera logits quando `mtp_draft`, head compartilhado e `n_outputs==1` coexistem. A validação do tokenizer específico do GGUF continua documentalmente aberta.
+2. **[FA TILE nativo](fa-verify-tile-kv-gfx1101.md):** selecionador TILE, instância de Q8_0/BF16, leitura nativa e scratch precisam usar um único predicado de tipo; `bf16_mma_hardware_available(cc)` é verdadeiro em RDNA3 pelo código analisado. Um port restrito ao verify W1..8 pode preservar o prefill antigo em vez de trazer inicialmente a arena da origem. Isso é desenho, não código provado em gfx1101.
+
+Os **dois documentos são propostas de integração futuras, não commits de implementação**.
+
 ## Histórico
 
 - 2026-10-25: recebimento de quatro resumos R04, cruzamento com `rco_types.tsv` e código fonte congelado; ganhos numéricos não atribuídos a gfx1101.

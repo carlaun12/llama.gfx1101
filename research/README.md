@@ -43,6 +43,8 @@ Este diretório reúne propostas independentes para avaliar a integração selet
 
 | Arquivo | Tema | Blocos da origem |
 | --- | --- | --- |
+| [mtp-subset-iq4xs-contrato.md](mtp-subset-iq4xs-contrato.md) | Contrato de patch 0013 e subset IQ4_XS do head compartilhado | origem 0013 / auditoria profunda |
+| [fa-verify-tile-kv-gfx1101.md](fa-verify-tile-kv-gfx1101.md) | Leitura TILE nativa Q8_0/BF16 na banda de verify W1..8 | origem 0004/0005 / auditoria profunda |
 | [mmq-unpack-iq-rco.md](mmq-unpack-iq-rco.md) | Unpack de sinais de IQ2/IQ3 nos tiles de MMQ/pre-fill | quarta auditoria, caminhos próprios do MMQ |
 | [mmvq-iq-mistos-rco.md](mmvq-iq-mistos-rco.md) | MMVQ, MMQ e vetores IQ do RCO | investigação do alvo |
 | [mmvq-q4k-q6k-vdr.md](mmvq-q4k-q6k-vdr.md) | MMVQ, VDR e decode quantizado | 0007 |
@@ -107,9 +109,18 @@ Os quatro agentes devolveram **resumos** das missões [MTP](mtp-adaptativo.md), 
 
 **Nota de proveniência:** foram coladas conclusões e descrições dos documentos, mas não os quatro arquivos `RELATORIO-R04-*.md` integrais. Não afirmar leitura de trechos ausentes. A auditoria independente da rodada consultou o manifesto RCO público e fontes dos dois repositórios; não envolveu execução nem benchmark.
 
+## Aprofundamento — subset IQ4_XS e FA nativo para verify (25/10/2026)
+
+A pesquisa avançou de hipóteses gerais para **contratos de implementação específicos**, ainda apenas documentais:
+
+- **[Patch 0013 no IQ4_XS](mtp-subset-iq4xs-contrato.md):** guard de ordenação de merges BPE (tolerância de 1% de inversões), adição de IDs de controle, cache por `n_keep/buffer_type`, ativação em contexto MTP com `n_outputs==1`, scatter de logits e custo adicional na VRAM.
+- **[FA TILE nativo no gfx1101](fa-verify-tile-kv-gfx1101.md):** guard Q8_0 de chunks/stride, condição BF16 de hardware RDNA3, cálculo de scratch igual ao tipo realmente consumido e recorte hipotético W1..8 que não precisa importar a arena de prefill longo.
+
+**Nenhuma das duas linhas já foi portada.** Não há benchmark nem confirmação dos atributos do tokenizer final do GGUF. Não confundir ausência de staging ou subset menor com ganho líquido garantido.
+
 ## Estado da pesquisa
 
-- **Em pesquisa:** dez propostas estão registradas, mas nenhum candidato foi executado em gfx1101.
+- **Em pesquisa:** doze propostas estão registradas, mas nenhum candidato foi executado em gfx1101.
 - **Referência do destino examinada:** `31288c9c66e59377f7788d920678a565bb89dd37`.
 - **Referência da origem:** `v15-3f03b1772-r137`.
 - **Data de abertura:** 2026-10-25.

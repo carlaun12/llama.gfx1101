@@ -141,6 +141,10 @@ Na [origem RDNA Boosts](https://github.com/stew675/llama.cpp/blob/e8bd52069ca049
 
 Ver [resultados R04](RODADA-04-RESULTADOS.md).
 
+## Aprofundamento do contrato TILE nativo (25/10/2026)
+
+A comparação completa de `selector + tile_type + launcher + scratch` consta em **[fa-verify-tile-kv-gfx1101.md](fa-verify-tile-kv-gfx1101.md)**. A origem possui leitura TILE direta para Q8_0 homogêneo com rows blocadas contíguas e `FAST_FP16_AVAILABLE`; em gfx1101 a condição `bf16_mma_hardware_available` permite instância BF16 homogênea de TILE sem conversão F16. Pares K/V mistos continuam necessitando fallback e scratch apropriado. A proposta de integração menor restringe alterações à faixa de verify W1..8, mantendo inicialmente a preparação atual de prefill >8, em vez de transportar indiscriminadamente a arena de scratch.
+
 ## Histórico
 
 - **2026-10-25:** proposta inicial registrada a partir de auditorias remotas dos quatro agentes. Nenhum código alterado e nenhum teste de GPU realizado.
