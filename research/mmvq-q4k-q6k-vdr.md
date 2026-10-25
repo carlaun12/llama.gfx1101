@@ -50,6 +50,25 @@ Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos
 - A observação de grid-stall padding em gfx1201 não prova benefício na RX 7800 XT.
 - A política de MMQ para Q6_K possui uma fronteira de batch que merece medição própria.
 
+
+### Segunda rodada - delta semântico confirmado (quatro frentes, 25/10/2026)
+
+**Auditoria de arquivos:** o destino `mmvq.cu` já expõe `get_vec_dot_q_cuda()`, `get_vdr_mmvq()`, a tabela `MMVQ_PARAMETERS_RDNA3_0` e `calc_nwarps()`. A origem passou a separar as políticas em `mmvq-vecdot.cuh` e `mmvq-rdna.cuh`, e possui `mul_mat_vec_q_ksplit()` especializado. O número de linhas dos arquivos não indica sozinho dependência mínima; o port deve seguir os símbolos realmente chamados.
+
+**Dot product Q4_K:** a origem define `VDR_Q4_K_Q8_1_MMVQ_RDNA3_0 = 4` e o kernel `vec_dot_q4_K_q8_1_vdr4_dense()`, que computa dois trechos de 16 elementos em cadeia de inteiros antes de aplicar escalas. A configuração genérica de Q4_K da própria origem ainda usa `VDR_Q4_K_Q8_1_MMVQ = 2`. Portanto, mudar somente a constante para 4 sem trazer a função correspondente e o dispatch seria incorreto.
+
+**Coerência host/device:** `get_vdr_mmvq_dense(type, table_id)` é usado no lado host para particionar K e no device para calcular grupos e índices. É obrigatório usar o mesmo VDR na especialização e na aritmética de K-split. A seleção da origem emprega a macro de arquitetura `RDNA3_0`; o primeiro port para RX 7800 XT deve usar guard estrito para o dispositivo efetivo e ter controle de desligamento que também mantenha correspondentes os seletores de host/device.
+
+**Warps e verify:** a política `mmvq_rdna_nwarps()` na origem seleciona 8 warps para alguns tipos RDNA3_0, incluindo Q6_K, quando `small_m` é falso e a largura cai na faixa MMVQ. Ela preserva a mesma configuração para `W=1..8`, pois mudar o número de warps pode mudar a ordem da acumulação de K-split. Esta é **outra proposta experimental**, não deve entrar no primeiro patch Q4_K VDR4.
+
+**Decisão inicial de implementação:** primeiro isolar `Q4_K` denso, sem MoE, sem mudar `nwarps` e sem aplicar `ggml_cuda_mul_small()` genericamente a outros tipos. Comparar a saída com a referência de operador e também com o próprio decode/verify; a origem avisa que a nova partição pode mudar o texto greedy em relação ao algoritmo anterior mesmo mantendo uniformidade entre larguras. Não afirmar preservação bit a bit sem teste.
+
+**Evidência de código:**
+- [Destino: get_vdr_mmvq e RDNA3_0](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/mmvq.cu)
+- [Origem: mmvq-vecdot.cuh](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/mmvq-vecdot.cuh)
+- [Origem: mmvq-rdna.cuh](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/mmvq-rdna.cuh)
+- [Origem: vec_dot_q4_K_q8_1_vdr4_dense](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/vecdotq.cuh)
+
 ## Riscos, correção e fallback
 
 - Reorganizar reduções FP32 pode alterar logits e decisões greedy/MTP, mesmo quando `MUL_MAT` passa.

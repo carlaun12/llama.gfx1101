@@ -52,6 +52,27 @@ Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos
 - A origem documenta regressão histórica de logits no BF16: KLD 0,032 em gfx1201 e 0,62 em gfx1100; o problema passou pelos testes de operadores da época.
 - Por isso, BF16 deve ser uma proposta experimental posterior ao FP32, nunca habilitada por pressuposição.
 
+
+### Segunda rodada - contrato preciso de GDN e rollback (25/10/2026)
+
+**Fallback confirmado:** em `gated-delta-net-mma.cu` do destino, `select_gdn_mma_path()` recusa a aceleração HIP quando o dispositivo não é `RDNA3_5` ou quando `n_tokens < 2048`; consequentemente, gfx1101 não atinge esse MMA. Em `gated_delta_net.cu` o operador lê somente o parâmetro `K` na posição 0. No construtor do grafo, `delta-net-base.cpp`, a chamada atual é `ggml_gated_delta_net(..., K)`.
+
+**Contrato adicional exigido:** a origem estende a chamada para `ggml_gated_delta_net(..., K, cparams.n_rs_batch)` e lê o segundo parâmetro do operador. O caminho com snapshots só deve pular a atualização token a token quando não há possibilidade de rollback para dentro do trecho processado pelo chunked. O limite definido na origem é `D = max(K > 16 ? K : 16, n_rs_batch)`.
+
+**Tail sequencial:** para uma única sequência, quando `n_tokens > D`, a origem processa o prefixo `n_tokens-D` com chunked e os últimos `D` tokens com o kernel sequencial. Isso grava planos de snapshot para o trecho onde pode ocorrer rollback, além de fixar o limiar de chunking para que execução sem especulação e MTP façam a mesma escolha. A origem também salva o estado anterior ao batch em um slot adicional quando `0 < n_seq_tokens < K`.
+
+**Fase A proposta:** adaptar `gated_delta_net_chunked.cu/.cuh`, o dispatch em `gated_delta_net.cu`, a assinatura do operador `ggml_gated_delta_net()`, a transmissão de `n_rs_batch` pelo grafo/contexto e as correções específicas de rollback. Não copiar o arquivo novo isoladamente. O kernel FP32 usa dois passos `kkt_solve` e `chunk_scan`, chunk temporal de 64, scratch com triangular superior empacotada e acumulação de estado sequencial por chunk.
+
+**Fase B, só experimental:** `gated_delta_net_chunked_bf16_gfx11.cu` usa rota WMMA específica gfx11, chunk 64 e estado 128x128. O código da origem registra 16 waves (512 threads) no scan, aproximadamente 61 KiB de LDS por CTA e observação explícita de que fitness de launch deve ser revalidada no **gfx1101**; não há medição local.
+
+**Atenção numérica:** o incidente histórico de GDN BF16 passou por testes unitários e texto aparentemente normal, mas falhou em KLD de prefill em outras GPUs. Exigir controle A/A estável antes de aplicar qualquer limiar de KLD.
+
+**Evidência de código:**
+- [Destino: gated_delta_net.cu](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/gated_delta_net.cu)
+- [Destino: delta-net-base.cpp](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/src/models/delta-net-base.cpp)
+- [Origem: gate de D, tail e fallback](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/gated_delta_net.cu)
+- [Origem: kernel FP32 e contratos de layout](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/gated_delta_net_chunked.cu)
+
 ## Riscos, correção e fallback
 
 - Violação de causalidade, estado recorrente desatualizado, aliasing de planos e rollback incorreto sob MTP.

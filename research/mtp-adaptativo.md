@@ -49,6 +49,21 @@ Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos
 - A otimização deve medir taxa de aceitação e throughput confirmado; throughput bruto de draft não basta.
 - O limite de profundidade exato requer inspeção do checkpoint e das flags disponíveis.
 
+
+### Segunda rodada - evidência arquitetural e escopo de controlador (25/10/2026)
+
+**Suporte confirmado no destino:** `common/speculative.cpp` registra `draft-mtp`, implementa a criação de contexto `LLAMA_CONTEXT_TYPE_MTP` e possui um driver MTP com estado por sequência. Esse é o ponto de partida; não portar novamente o suporte à arquitetura Qwen3.5.
+
+**Dependência de correção:** o uso de MTP exige que as larguras de verify não acionem caminhos divergentes de GDN/MMVQ/FA sem validação. O GDN da origem transmite `n_rs_batch` justamente para evitar que um verify batch seja atendido pelo chunked sem snapshots. O controlador adaptativo é posterior ao fechamento desse contrato.
+
+**Métrica primária:** tokens **confirmados** por segundo em relação a `--spec-type none` e MTP fixo, junto com aceitação, VRAM, latência e invariância numérica. Taxa de draft e número bruto de propostas não medem ganho de usuário.
+
+**Protocolo remoto:** registrar primeiro os pontos de controle do driver e flags de profundidade, depois desenhar um controlador com kill-switch. Não afirmar ganho na RX 7800 XT antes de execução com checkpoint real.
+
+**Evidências:**
+- [Destino: common/speculative.cpp](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/common/speculative.cpp)
+- [Origem: pureza do speculative decode](https://github.com/stew675/llama-cpp-rdna-boosts/blob/main/GREEDY-PURITY.md)
+
 ## Riscos, correção e fallback
 
 - Alterar texto final por divergência entre decode e verify, alocação excessiva de snapshots ou controller instável.

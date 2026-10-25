@@ -50,6 +50,22 @@ Preencher somente com logs, hashes, parâmetros e medições efetivos fornecidos
 - O histórico da origem revelou falso PASS de testes `W=1..8` com prefixo de 256 tokens: em certos caminhos o kernel relevante só é atingido com contexto usado >= 4096.
 - A máscara derivada altera interface de grafo/allocator, portanto não cabe no primeiro patch.
 
+
+### Segunda rodada - diferença de alocação e critérios de pureza (25/10/2026)
+
+**Diferença funcional verificada:** no destino, `ggml_cuda_flash_attn_ext_get_alloc_size()` marca `need_f16_K = need_f16_V = true` para os caminhos `BEST_FATTN_KERNEL_TILE` e `BEST_FATTN_KERNEL_MMA_F16`. A origem calcula o tipo efetivamente escolhido pelo TILE e, para MMA, consulta `ggml_cuda_fattn_kv_native_type()` individualmente para K e V. Portanto, portar somente o reader é perigoso: **launcher e estimativa de scratch precisam concordar** sobre quais tensores terão staging.
+
+**Experimento mínimo sugerido:** escolher uma configuração comprovadamente usada pela arquitetura alvo com K/V Q8_0, preservar todos os controles não elegíveis e revisar a função de alocação, o lançamento e a especialização de kernel juntos. A sequência BF16 TILE é um experimento separado. A máscara derivada não entra no primeiro corte porque altera interfaces de grafo/allocator.
+
+**Defeito histórico que deve orientar testes:** no registro de 25/10/2026, o caminho de FA band RDNA4 com um bloco de 64 colunas fazia W=5..8 usar outra partição de redução e alterava o texto greedy. O probe com prefixo real P=256 dava PASS porque não atingia a condição de KV utilizado >=4096. Com P=4096, o kernel defeituoso teve maxdiff de logits 0,199764 em KV Q8_0; a variante corrigida testada na origem teve maxdiff 0. A causa demonstrada é **RDNA4** e não deve ser atribuída a um defeito já existente de gfx1101.
+
+**Condição da verificação:** para qualquer caminho capaz de mudar a família de kernel entre decode e verify, instrumentar o dispatch e testar W=1..8 em prefixos P=256, P=4096 e profundidades maiores. Não aceitar um PASS se o ramo sob análise não foi executado.
+
+**Evidências:**
+- [Destino: cálculo de need_f16_K/V](https://github.com/carlaun12/llama.gfx1101/blob/31288c9c66e59377f7788d920678a565bb89dd37/ggml/src/ggml-cuda/fattn.cu)
+- [Origem: cálculo de scratch KV nativo](https://github.com/stew675/llama.cpp/blob/e8bd52069ca0/ggml/src/ggml-cuda/fattn.cu)
+- [Origem: diagnóstico de pureza W=5..8](https://github.com/stew675/llama-cpp-rdna-boosts/blob/main/benchmarks/2026-10-25-fa-band-width-purity.md)
+
 ## Riscos, correção e fallback
 
 - Leitura de linhas mascaradas, sinal de zero BF16, offsets de K/V, divergência entre decode W=1 e verify W=2..8.
