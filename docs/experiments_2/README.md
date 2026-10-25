@@ -44,3 +44,8 @@ A investigação deve separar: **(a) concentração de tempo**, **(b) custo real
 ## Primeira rodada — resultados dos quatro agentes
 
 [03-RESULTADOS-R01.md](03-RESULTADOS-R01.md) consolida IQ3_S/IQ3_XXS, IQ2_S/XS/XXS, IQ4_XS e dispatch MMVQ/MMQ. A evidência mais específica de diferença de código na branch é o tratamento de sinais de **IQ3_XXS**; em **IQ3_S** e **IQ2_S**, expressões equivalentes já existem em linha. A porcentagem de tempo de U não transforma refatoração em ganho demonstrado.
+
+
+## Segunda rodada — resultados
+
+Os quatro resumos R02 foram recebidos e consolidados em [04-RESULTADOS-R02.md](04-RESULTADOS-R02.md). **IQ3_XXS** é o candidato pontual de transformação de sinais, sem speedup comprovado; **IQ2_S** é refatoração de manutenção; **IQ4_XS** apresenta hipótese de reuso no verify W2–8; o dispatch denso mantém MMVQ elegível para W1–8 nas condições dos agentes. Nenhum kernel foi modificado.

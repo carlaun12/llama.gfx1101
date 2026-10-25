@@ -24,3 +24,8 @@
 **Hipótese priorizada por diferença de código:** sinais de `IQ3_XXS`. **Possível refatoração sem benefício ISA demonstrado:** helper de sinais em `IQ3_S` e `IQ2_S`. **Linha separada:** multiplicações pequenas de escala. **IQ4_XS:** head grande e operações já otimizadas no destino. O mapa W=1–8 MMVQ, W=9–128 MMQ, W>=129 dependente de tipo/guard permanece condicional. Nenhum valor da imagem pode ser convertido em benchmark de gfx1101.
 
 [Relatório cruzado](03-RESULTADOS-R01.md).
+
+
+## Rodada 02
+
+[Revisão consolidada R02](04-RESULTADOS-R02.md): **IQ3_XXS** — candidato pontual; **IQ2_S** — não priorizar por desempenho; **IQ4_XS** — reuso entre colunas somente se MMVQ escolhido; **dispatch** — W1..8/MMVQ e W9..128/MMQ sob guards, W>=129 varia por tipo. Quatro resumos recebidos; relatórios completos não anexados. Sem testes.
