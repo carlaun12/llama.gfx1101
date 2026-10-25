@@ -1,0 +1,41 @@
+# Experiments 2 — MMVQ em pesos IQ mistos
+
+**Base exclusiva:** `experiment_2-1` (`7a51c6c46f115a2309a33d611e19cab03745e2f3` na abertura, 2026-10-25).
+**Alvo de estudo:** Radeon RX 7800 XT 16 GiB, RDNA3 `gfx1101`; GGUF `Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-RCO-IQ3_XXS.gguf` (`ajgazin`).
+**Modo de trabalho:** quatro agentes investigam, o assistente coordena, revisa os relatórios e consolida a documentação. **Não portar kernels, executar testes, benchmarks, builds, scripts, GPU ou pedir logs/dumps locais.**
+
+## Pergunta central
+
+Uma imagem fornecida pelo usuário informa que, **no perfil de “U” e na janela analisada**, kernels MMVQ quantizados somaram **82–84% do tempo total dos kernels**, com participação dentro de MMVQ aproximadamente:
+
+| Tipo | Parcela do tempo de MMVQ no perfil de “U” |
+| --- | ---: |
+| `IQ3_S` | ~22,5% |
+| `IQ3_XXS` | ~20,8% |
+| `IQ2_S` | ~18,0% |
+| `IQ4_XS` | ~12,9% |
+| Demais grupos | ~25,8% |
+
+`IQ3_S+IQ3_XXS+IQ2_S=61,3%` de MMVQ; quando ponderados pelos **82–84%** de tempo total de kernels atribuídos a MMVQ, equivalem, em uma multiplicação indicativa de participações, a **~50,3–51,5%** do tempo agregado de kernels **daquela janela**. Essas porcentagens **não caracterizam o throughput completo do modelo**, tempo de host, transferências, tempo de usuário, saturação de GPU, perfil da RX 7800 XT nem limite físico de memória.
+
+**Proveniência:** transcrição da imagem enviada pelo usuário em 2026-10-25. O perfil é atribuído somente a “U”; captura, configuração, GPU, backend, modelo exato, número de tokens, profundidade de contexto e método de soma de tempos **não foram fornecidos**. Números devem ser tratados como **evidência do material recebido**, não medição validada ou perfil do GGUF-alvo. Não inventar metadados ausentes. Não solicitar execução de benchmark para preencher lacunas.
+
+A investigação deve separar: **(a) concentração de tempo**, **(b) custo real do desquant/unpack**, **(c) bandwidth e tráfego dos pesos**, **(d) latência/dependência das instruções**, **(e) escolha de `MUL_MAT` e `MMVQ` por tipo/shape**, e **(f) riscos de registos/occupancy/ISA**. A parcela grande de um tipo **não prova** que seu decode é compute-bound nem que uma otimização sintática gerará ganho proporcional.
+
+## Organização
+
+- [00-FONTE-E-HIPOTESES.md](00-FONTE-E-HIPOTESES.md) — transcrição, limites e hipóteses.
+- [01-RODADA-AGENTES.md](01-RODADA-AGENTES.md) — quatro frentes de investigação, cada uma com entrega própria.
+- [02-REVISAO-CRUZADA.md](02-REVISAO-CRUZADA.md) — quadro inicial de evidências e espaço para consolidar os resultados recebidos.
+
+## Fronteiras
+
+1. Pesquisar **o código desta branch**; não assumir que corresponde ao commit anterior de `deep-research` ou ao fork de origem `stew675`. Registrar diferenças **somente quando os agentes as documentarem**.
+2. A arquitetura GGUF usa tipos mistos. Não assumir que o sufixo `IQ3_XXS` descreve todos os pesos; `output.weight` IQ4_XS continua uma hipótese relevante de custo.
+3. Separar MMVQ de MMQ e operações `MUL_MAT_ID` MoE; o alvo é **denso**, sem MoE.
+4. Não pedir dados locais nem gerar código executável. Toda proposta deve oferecer fallback e verificação **documental**, sem declarar ganho empírico.
+5. Os prompts dos agentes devem ser enviados **diretamente no chat**; este arquivo documenta apenas escopo e resultados, não substitui os prompts.
+
+## Estado
+
+**Abertura criada; quatro relatórios pendentes.** Nenhuma medição adicional ou modificação de kernel.
