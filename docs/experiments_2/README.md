@@ -59,3 +59,8 @@ Os quatro resumos R02 foram recebidos e consolidados em [04-RESULTADOS-R02.md](0
 ## Quarta rodada — MMVQ multilinha/multicoluna
 
 [06-RESULTADOS-R04.md](06-RESULTADOS-R04.md) consolida quatro resumos de agentes. **RDNA3_0 mantém R=1 linha por CTA** nos tipos IQ prioritários. R=2 e R=4 são estruturalmente representáveis, mas **leituras de linhas inválidas no CTA de cauda** e custos de acumuladores/ocupação impedem recomendação de habilitação direta. Distinguir **R (linhas/CTA)** de **W (colunas/tokens)**. Mantido R=1; resultados de desempenho desconhecidos.
+
+
+## Reuso q8_1 entre operacoes — fechamento do tópico 1
+
+[08-REUSO-Q8-ENTRE-OPERACOES.md](08-REUSO-Q8-ENTRE-OPERACOES.md): quatro agentes identificaram compartilhamento possível entre multiplicações MMVQ distintas, mas **nenhuma duplicação efetiva confirmada no GGUF**. Priorizar Q/K/V separados e projeções da atenção linear; descontar fusão gate/up já existente. MMVQ/MMQ usam layouts incompatíveis; preferir fusão local e propriedade explícita, não cache global.
