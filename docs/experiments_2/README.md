@@ -54,3 +54,8 @@ Os quatro resumos R02 foram recebidos e consolidados em [04-RESULTADOS-R02.md](0
 ## Terceira rodada — resultados dos quatro agentes
 
 [05-RESULTADOS-R03.md](05-RESULTADOS-R03.md) registra três candidatos técnicos distintos e a ressalva sobre dispatch anterior a MMVQ: **IQ3_XXS `apply_ksigns`**, **IQ2_XS/XXS `ggml_cuda_mul_small`**, **IQ4_XS reuso entre colunas W2–8**. As evidências são resumos dos agentes; equivalência matemática não é prova de speedup. Nenhum patch foi aplicado.
+
+
+## Quarta rodada — MMVQ multilinha/multicoluna
+
+[06-RESULTADOS-R04.md](06-RESULTADOS-R04.md) consolida quatro resumos de agentes. **RDNA3_0 mantém R=1 linha por CTA** nos tipos IQ prioritários. R=2 e R=4 são estruturalmente representáveis, mas **leituras de linhas inválidas no CTA de cauda** e custos de acumuladores/ocupação impedem recomendação de habilitação direta. Distinguir **R (linhas/CTA)** de **W (colunas/tokens)**. Mantido R=1; resultados de desempenho desconhecidos.

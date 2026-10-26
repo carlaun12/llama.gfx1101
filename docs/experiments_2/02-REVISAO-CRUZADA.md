@@ -34,3 +34,8 @@
 ## Rodada 03 — revisão cruzada
 
 Quatro resumos recebidos: **IQ3_XXS** (port mínimo de sinais), **IQ2_XS/XXS** (`__mul24` isolado), **IQ4_XS** (reuso de preparação entre colunas W2–8 no mesmo thread) e **dispatch** (filtros MMVF/MMF/fusões antes de MMVQ). [Detalhamento](05-RESULTADOS-R03.md). Sem implementação e sem métricas novas da RX 7800 XT.
+
+
+## Rodada 04 — revisão cruzada
+
+Quatro resumos recebidos sobre **geometria**, **recursos**, **reuso** e **dispatch**. [06-RESULTADOS-R04.md](06-RESULTADOS-R04.md): R=1 permanece no RDNA3_0; R=2/4 estruturalmente possíveis mas sem garantia de acesso à cauda nem vantagem de desempenho demonstrada. Reuso de pesos entre colunas no R=1 é investigação independente mais delimitada. Sem implementações/testes.

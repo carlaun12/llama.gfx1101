@@ -53,3 +53,8 @@ Os prompts operacionais dos agentes devem ser disponibilizados **diretamente no 
 A imagem de ideias apresentada pelo usuário classificou as frentes como **não testadas**, **não adaptadas** ou **não medidas neste fluxo**. A fila acima **não implica validação empírica**. Os percentuais do perfil de “U” citados em [Experiments 2](experiments_2/README.md) não foram atribuídos comprovadamente à RX 7800 XT nem ao GGUF selecionado. A maior parcela de tempo de um kernel não prova que seu subtrecho seja acelerável.
 
 **Sem alteração de `master` ou kernels.** Somente `docs/TODO_RED.md` foi criado neste registro.
+
+
+## Atualização de prioridade após Experiments 2 — Rodada 04
+
+[Revisão R04](experiments_2/06-RESULTADOS-R04.md): o item **MMVQ quatro linhas por bloco/múltiplas colunas** continua uma oportunidade **condicional de alto impacto teórico**, mas **não está pronto para implementação** em RDNA3_0. Quatro agentes confirmaram o caminho atual **R=1 linha/CTA** nos formatos IQ prioritários; R=2/4 exigem tratamento rigoroso de leituras de cauda, coerência com o cálculo de grade, e avaliação estática de pressão de acumuladores/VGPR e redução do paralelismo. **Política atual: preservar R=1.** Ordem documental: (1) especificar segurança de cauda, (2) avaliar reuso de decodificação de pesos entre colunas em R=1, (3) apenas depois reabrir R=2 com W=1/2; R=4 permanece bloqueado. Os rankings anteriores indicam teto hipotético, não uma recomendação de aplicar o patch agora.
