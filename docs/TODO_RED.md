@@ -58,3 +58,8 @@ A imagem de ideias apresentada pelo usuário classificou as frentes como **não 
 ## Atualização de prioridade após Experiments 2 — Rodada 04
 
 [Revisão R04](experiments_2/06-RESULTADOS-R04.md): o item **MMVQ quatro linhas por bloco/múltiplas colunas** continua uma oportunidade **condicional de alto impacto teórico**, mas **não está pronto para implementação** em RDNA3_0. Quatro agentes confirmaram o caminho atual **R=1 linha/CTA** nos formatos IQ prioritários; R=2/4 exigem tratamento rigoroso de leituras de cauda, coerência com o cálculo de grade, e avaliação estática de pressão de acumuladores/VGPR e redução do paralelismo. **Política atual: preservar R=1.** Ordem documental: (1) especificar segurança de cauda, (2) avaliar reuso de decodificação de pesos entre colunas em R=1, (3) apenas depois reabrir R=2 com W=1/2; R=4 permanece bloqueado. Os rankings anteriores indicam teto hipotético, não uma recomendação de aplicar o patch agora.
+
+
+## Atualização: compartilhamento de q8_1 entre operacoes (tópico 1)
+
+[Revisão dos quatro agentes](experiments_2/08-REUSO-Q8-ENTRE-OPERACOES.md): a reutilização de um `q8_1` entre múltiplas multiplicações independentes é condicional. **Prioridade de investigação: Q/K/V separados (inclusive MTP blk.64), depois atenção linear.** Não contabilizar gate/up quando a fusão atual for elegível. Exigir prova de duplicação efetiva após fusão/dispatch, compatibilidade de layout, identidade de entrada, lifetime e sincronização. Recomendada fusão local, não cache global; não existe ganho medido.
